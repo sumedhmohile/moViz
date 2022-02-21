@@ -1,0 +1,5 @@
+1136406 | Tom Holland | 130.575 | 1996-06-01 | Acting | 2 | Surrey, England, UK
+1972974 | Isabel May | 92.66 | 2000-11-21 | Acting | 1 | Santa Monica, California, USA
+2710789 | Seung Ha | 84.603 | 2000-04-18 | Acting | 1 | South Korea
+1215399 | Taylor Sheridan | 82.963 | 1970-05-21 | Writing | 2 | Cranfills Gap, Texas, U.S.
+62593 | Katie Lohmann | 72.73 | 1980-01-29 | Acting | 1 | Scottsdale, Arizona, USA

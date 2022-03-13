@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-t(^jt!qaed1qf%6v0)$uozt!tjo&dkkhu9nzjd%*j+8creumv)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
@@ -77,14 +77,6 @@ WSGI_APPLICATION = 'MoViz.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'MoViz',
-        'USER': 'admin',
-        'PASSWORD': 'CS526Rutgers',
-        'HOST': 'database-1.cmra5f09g0at.us-east-2.rds.amazonaws.com',
-        'PORT': '3306',
-    }
 }
 
 

@@ -1,11 +1,17 @@
 import mysql.connector
+import json
 
 graph_map = {
     'testGraph' : 'select * from movies limit 10;',
     'testParamGraph' : 'select * from movies where title=\'%s\' and language=\'%s\';',
     'revenueByGenreAndYear' : 'select g.name as genre, YEAR(m.release_date) as year, sum(m.revenue) as revenue from movies m inner join genre_mapping gm on gm.movie_id=m.movie_id inner join genres g on g.genre_id=gm.genre_id where m.release_date is not null group by g.name, YEAR(m.release_date)',
-    'avgRevenueActorGenre' : 'select a.name as actor, g.name as genre, avg(m.revenue) as revenue  from (select * from actors order by popularity desc limit 1000) a inner join credits c on c.actor_id=a.actor_id inner join movies m on m.movie_id=c.movie_id inner join genre_mapping gm on gm.movie_id=m.movie_id inner join genres g on g.genre_id=gm.genre_id where revenue > 0 group by a.actor_id',
-    'popularityByGenreAndYear' : 'select g.name as genre, YEAR(m.release_date) as year, avg(m.popularity) as popularity from movies m inner join genre_mapping gm on gm.movie_id=m.movie_id inner join genres g on g.genre_id=gm.genre_id where m.release_date is not null group by g.name, YEAR(m.release_date);'
+    'avgRevenueActorGenre' : 'select a.name as name, g.name as genre, avg(m.revenue) as avg_revenue from (select * from actors order by popularity desc limit 100) a inner join credits c on c.actor_id=a.actor_id inner join movies m on m.movie_id=c.movie_id inner join genre_mapping gm on gm.movie_id=m.movie_id inner join genres g on g.genre_id=gm.genre_id group by gm.genre_id, a.actor_id;',
+    'popularityByGenreAndYear' : 'select g.name as genre, YEAR(m.release_date) as year, avg(m.popularity) as popularity from movies m inner join genre_mapping gm on gm.movie_id=m.movie_id inner join genres g on g.genre_id=gm.genre_id where m.release_date is not null group by g.name, YEAR(m.release_date);',
+    'durationVSrevenue' : 'select runtime, avg(revenue) as revenue from movies where revenue > 0 and runtime > 10 group by runtime;',
+    'countByGender' : 'select case when gender = 1 then \'Female\' when gender = 2 then \'Male\' else \'Other\' end as gender, count(*) as count from actors where gender > 0 group by gender;',
+    'countByPlace' : 'select place_of_birth as place, count(*) as count from actors group by place_of_birth;',
+    'budgetRevenueLanguagePopularity' : 'select language, avg(revenue) as revenue, avg(budget) as budget, avg(popularity) as popularity from movies where language regexp \'^[a-zA-Z]+\' and revenue > 0 and budget > 0 group by language;',
+    'budgetPopularityGenre' : 'select m.title, m.budget, m.rating, g.name from movies m inner join genre_mapping gm on m.movie_id=gm.movie_id inner join genres g on g.genre_id=gm.genre_id where m.budget > 0 and m.rating > 0;'
 }
 
 

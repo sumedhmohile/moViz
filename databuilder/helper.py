@@ -52,7 +52,7 @@ def get_movie_for_id(id, api_key):
 
 
     return Movie(movie_data['id'], movie_data['title'], movie_data['budget'], movie_data['genres'], movie_data['original_language'],
-                 movie_data['popularity'], movie_data['release_date'], movie_data['revenue'], movie_data['runtime'])
+                 movie_data['popularity'], movie_data['release_date'], movie_data['revenue'], movie_data['runtime'], movie_data['vote_average'])
 
 
 def get_all_genres(api_key):

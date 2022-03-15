@@ -1,5 +1,6 @@
 import helper
 import ast
+import json
 
 
 movie_input = "movies.txt"
@@ -11,6 +12,13 @@ genre_mapping_output = "genre_mapping_db.csv"
 actor_output = "actor_db.csv"
 movie_output = "movie_db.csv"
 credit_output = "credit_db.csv"
+
+config_file = open("config.json")
+config_data = json.load(config_file)
+
+print(config_data)
+
+api_key = config_data['api_key']
 
 with open(genre_output, 'w') as f:
     pass
@@ -24,7 +32,7 @@ with open(credit_output, 'w') as f:
     pass
 
 def add_genres():
-    data = helper.get_all_genres()
+    data = helper.get_all_genres(api_key)
 
     for genre in data:
         genre_id = genre[0]
@@ -53,12 +61,13 @@ def add_movies():
             language = movie[6].strip()
             genres = movie[7].strip()
             budget = movie[8].strip()
+            rating = movie[9].strip()
 
             print(movie)
 
             try:
                 with open(movie_output, 'a') as file:
-                    file.write("%s|%s|%s|%s|%s|%s|%s|%s\n" % (movie_id, title, budget, language, popularity, release_date, revenue, runtime))
+                    file.write("%s|%s|%s|%s|%s|%s|%s|%s|%s\n" % (movie_id, title, budget, language, popularity, release_date, revenue, runtime, rating))
 
                 genre_data = ast.literal_eval(genres)
 

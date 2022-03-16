@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,14 +78,24 @@ WSGI_APPLICATION = 'moViz.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+with open('../../../config.json', 'r') as config_file:
+    config = json.load(config_file)
+
+user = config['db_config']['user']
+password = config['db_config']['password']
+host = config['db_config']['host']
+database = config['db_config']['database']
+port = config['db_config']['port']
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'MoViz',
-        'USER': 'admin',
-        'PASSWORD': 'CS526Rutgers',
-        'HOST': 'database-1.cmra5f09g0at.us-east-2.rds.amazonaws.com',
-        'PORT': '3306',
+        'NAME': database,
+        'USER': user,
+        'PASSWORD': password,
+        'HOST': host,
+        'PORT': port,
     }
 }
 

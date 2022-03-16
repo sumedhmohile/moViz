@@ -1,4 +1,5 @@
 import mysql.connector
+import json
 
 graph_map = {
     'testGraph': 'select * from movies limit 10;',
@@ -13,15 +14,24 @@ graph_map = {
     'budgetPopularityGenre': 'select m.title, m.budget, m.rating, g.name from movies m inner join genre_mapping gm on m.movie_id=gm.movie_id inner join genres g on g.genre_id=gm.genre_id where m.budget > 0 and m.rating > 0;'
 }
 
+with open('../../../config.json', 'r') as config_file:
+    config = json.load(config_file)
+
+user = config['db_config']['user']
+password = config['db_config']['password']
+host = config['db_config']['host']
+database = config['db_config']['database']
+port = config['db_config']['port']
+
 
 def run_query(query):
     print("Attempting to run query: " + query)
     connection = mysql.connector.connect(
-        host="database-1.cmra5f09g0at.us-east-2.rds.amazonaws.com",
-        user="admin",
-        password="CS526Rutgers",
-        database="MoViz",
-        port="3306"
+        host=host,
+        user=user,
+        password=password,
+        database=database,
+        port=port
     )
 
     cursor = connection.cursor()

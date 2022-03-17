@@ -14,7 +14,7 @@ graph_map = {
     'budgetPopularityGenre': 'select m.title, m.budget, m.rating, g.name from movies m inner join genre_mapping gm on m.movie_id=gm.movie_id inner join genres g on g.genre_id=gm.genre_id where m.budget > 0 and m.rating > 0;'
 }
 
-with open('../../../config.json', 'r') as config_file:
+with open('../../config.json', 'r') as config_file:
     config = json.load(config_file)
 
 user = config['db_config']['user']

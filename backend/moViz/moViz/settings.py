@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import json
 
-with open('../../../config.json', 'r') as config_file:
+with open('../../config.json', 'r') as config_file:
     config = json.load(config_file)
 
 django_secret_key = config['django_secret_key']

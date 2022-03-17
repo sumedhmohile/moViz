@@ -13,21 +13,29 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import json
 
+with open('../../../config.json', 'r') as config_file:
+    config = json.load(config_file)
+
+django_secret_key = config['django_secret_key']
+user = config['db_config']['user']
+password = config['db_config']['password']
+host = config['db_config']['host']
+database = config['db_config']['database']
+port = config['db_config']['port']
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*z(*y32v-nfl5^z2p1cwse1z))!tcw&87^l9o*l+9au5p*#a=*'
+SECRET_KEY = django_secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -74,18 +82,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'moViz.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-with open('../../../config.json', 'r') as config_file:
-    config = json.load(config_file)
-
-user = config['db_config']['user']
-password = config['db_config']['password']
-host = config['db_config']['host']
-database = config['db_config']['database']
-port = config['db_config']['port']
 
 
 DATABASES = {
@@ -98,7 +96,6 @@ DATABASES = {
         'PORT': port,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -118,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -129,7 +125,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -142,5 +137,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000'
+    'http://localhost:3000'
 ]

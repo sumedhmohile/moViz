@@ -16,7 +16,8 @@ import json
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MoviesCountVsYearView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MoviesCountVsYearSerializer
-    queryset = MoviesDev.objects \
+    queryset = MoviesDev \
+        .objects \
         .exclude(release_date__isnull=True) \
         .values(year=ExtractYear('release_date')) \
         .annotate(count=Count('release_date')) \
@@ -26,7 +27,8 @@ class MoviesCountVsYearView(viewsets.ReadOnlyModelViewSet):
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieTotalRevenuesVsYearView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieRevenuesVsYearSerializer
-    queryset = MoviesDev.objects \
+    queryset = MoviesDev \
+        .objects \
         .exclude(release_date__isnull=True) \
         .values(year=ExtractYear('release_date')) \
         .annotate(revenue=Sum('revenue')) \
@@ -36,8 +38,10 @@ class MovieTotalRevenuesVsYearView(viewsets.ReadOnlyModelViewSet):
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieAvgRevenuesVsYearView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieRevenuesVsYearSerializer
-    queryset = MoviesDev.objects \
+    queryset = MoviesDev \
+        .objects \
         .exclude(release_date__isnull=True) \
+        .exclude(revenue=0) \
         .values(year=ExtractYear('release_date')) \
         .annotate(revenue=Avg('revenue')) \
         .order_by('-year')
@@ -46,7 +50,8 @@ class MovieAvgRevenuesVsYearView(viewsets.ReadOnlyModelViewSet):
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieTotalBudgetVsYearView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieBudgetVsYearSerializer
-    queryset = MoviesDev.objects \
+    queryset = MoviesDev \
+        .objects \
         .exclude(release_date__isnull=True) \
         .values(year=ExtractYear('release_date')) \
         .annotate(budget=Sum('budget')) \
@@ -56,8 +61,10 @@ class MovieTotalBudgetVsYearView(viewsets.ReadOnlyModelViewSet):
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieAvgBudgetVsYearView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieBudgetVsYearSerializer
-    queryset = MoviesDev.objects \
+    queryset = MoviesDev \
+        .objects \
         .exclude(release_date__isnull=True) \
+        .exclude(budget=0) \
         .values(year=ExtractYear('release_date')) \
         .annotate(budget=Avg('budget')) \
         .order_by('-year')
@@ -66,7 +73,8 @@ class MovieAvgBudgetVsYearView(viewsets.ReadOnlyModelViewSet):
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class ActorGenderCountView(viewsets.ReadOnlyModelViewSet):
     serializer_class = ActorGenderCountSerializer
-    queryset = People.objects \
+    queryset = People \
+        .objects \
         .filter(known_for_department='Acting') \
         .values('gender') \
         .annotate(count=Count('gender'))
@@ -81,7 +89,8 @@ class ActorGenderCountView(viewsets.ReadOnlyModelViewSet):
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class PopularPlacesOfBirthView(viewsets.ReadOnlyModelViewSet):
     serializer_class = PopularPlacesOfBirthSerializer
-    queryset = People.objects \
+    queryset = People \
+        .objects \
         .filter(known_for_department='Acting') \
         .values('place_of_birth') \
         .annotate(count=Count('place_of_birth')) \

@@ -7,13 +7,13 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from rest_framework import viewsets
 
-from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from api.utils import get_graph
 from django.http import HttpResponse
 import json
 
 
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MoviesCountVsYearView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MoviesCountVsYearSerializer
     queryset = MoviesDev.objects \
@@ -23,6 +23,7 @@ class MoviesCountVsYearView(viewsets.ReadOnlyModelViewSet):
         .order_by('-year')
 
 
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieTotalRevenuesVsYearView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieRevenuesVsYearSerializer
     queryset = MoviesDev.objects \
@@ -32,6 +33,7 @@ class MovieTotalRevenuesVsYearView(viewsets.ReadOnlyModelViewSet):
         .order_by('-year')
 
 
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieAvgRevenuesVsYearView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieRevenuesVsYearSerializer
     queryset = MoviesDev.objects \
@@ -41,6 +43,7 @@ class MovieAvgRevenuesVsYearView(viewsets.ReadOnlyModelViewSet):
         .order_by('-year')
 
 
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieTotalBudgetVsYearView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieBudgetVsYearSerializer
     queryset = MoviesDev.objects \
@@ -50,6 +53,7 @@ class MovieTotalBudgetVsYearView(viewsets.ReadOnlyModelViewSet):
         .order_by('-year')
 
 
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieAvgBudgetVsYearView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieBudgetVsYearSerializer
     queryset = MoviesDev.objects \
@@ -58,21 +62,14 @@ class MovieAvgBudgetVsYearView(viewsets.ReadOnlyModelViewSet):
         .annotate(budget=Avg('budget')) \
         .order_by('-year')
 
-    # @method_decorator(cache_page(60 * 60 * 24))
-    # def dispatch(self, *args, **kwargs):
-    #     return super(MovieAvgBudgetVsYearView, self).dispatch(*args, **kwargs)
 
-
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class ActorGenderCountView(viewsets.ReadOnlyModelViewSet):
     serializer_class = ActorGenderCountSerializer
     queryset = People.objects \
         .filter(known_for_department='Acting') \
         .values('gender') \
         .annotate(count=Count('gender'))
-
-    @method_decorator(cache_page(60 * 60 * 24))
-    def dispatch(self, *args, **kwargs):
-        return super(ActorGenderCountView, self).dispatch(*args, **kwargs)
 
 
 # class RevenueByGenreAndYearView(viewsets.ReadOnlyModelViewSet):
@@ -81,17 +78,14 @@ class ActorGenderCountView(viewsets.ReadOnlyModelViewSet):
 # print(queryset)
 # .annotate(revenue=Sum('revenue')).order_by()
 
-
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class PopularPlacesOfBirthView(viewsets.ReadOnlyModelViewSet):
     serializer_class = PopularPlacesOfBirthSerializer
     queryset = People.objects \
         .filter(known_for_department='Acting') \
         .values('place_of_birth') \
-        .annotate(count=Count('place_of_birth')).order_by('-count')
-
-    @method_decorator(cache_page(60 * 60 * 24))
-    def dispatch(self, *args, **kwargs):
-        return super(PopularPlacesOfBirthView, self).dispatch(*args, **kwargs)
+        .annotate(count=Count('place_of_birth')) \
+        .order_by('-count')
 
 
 def index(request):

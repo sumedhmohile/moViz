@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
-import Plotly from 'react-plotly.js';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
+// import Plotly from 'react-plotly.js';
+// import Highcharts from 'highcharts';
+// import HighchartsReact from 'highcharts-react-official';
 
 const URL = "http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/moviz/graph/";
 
@@ -99,7 +99,13 @@ function BudgetPopularityGenre() {
     return (
              <Plot
              data={plotData}
-             layout={ {width: 600, height: 750, title: 'Budget vs Popularity by Genre', yaxis: {title: 'Rating'}, xaxis: {title: 'Budget'} }}
+             layout={ {
+                width: window.innerWidth/1.4, 
+                height: window.innerHeight/1.2,
+                title: 'Budget vs Popularity by Genre', 
+                yaxis: {title: 'Rating'}, 
+                xaxis: {title: 'Budget'} 
+              }}
            />
 
     );

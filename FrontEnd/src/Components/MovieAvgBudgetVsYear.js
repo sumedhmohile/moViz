@@ -14,6 +14,7 @@ export const MovieAvgBudgetVsYear = () => {
             var y = []
 
             for(var i=0; i<data.length; i++){
+                if(parseInt(data[i].year) > 2022) continue;
                 x.push(data[i].year)
                 y.push(data[i].budget)
             }

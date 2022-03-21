@@ -18,7 +18,9 @@ export const AvgRevenueActorGenre = () => {
             var i = 0
 
             var actor = data[i].name 
-            combinedData.x = ['Adventure','Fantasy','Animation','Drama','Horror','Action','Comedy','History','Western','Thriller','Crime','Documentary','Science Fiction','Mystery','Music','Romance','Family','War','TV Movie']
+            combinedData.x = ['Adventure','Fantasy','Animation','Drama','Horror','Action','Comedy','History','Western','Thriller','Crime','Documentary','Science Fiction','Mystery','Music','Romance','Family','War',
+            // 'TV Movie'
+            ]
             combinedData.y = []
             combinedData.z = []
             

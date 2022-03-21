@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
-import Plotly from 'react-plotly.js';
+// import Plotly from 'react-plotly.js';
 
 const URL = "http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/moviz/graph/";
 
@@ -59,7 +59,13 @@ function DurationVsRevenueGraph() {
     return (
             <Plot
              data={plotData}
-             layout={ {width: 600, height: 750, title: 'Average Revenue vs Movie Runtime', yaxis: {title: 'Average Revenue'}, xaxis: {title: 'Runtime in Minutes'} }}
+             layout={ {
+              width: window.innerWidth/1.4, 
+              height: window.innerHeight/1.2,
+              title: 'Average Revenue vs Movie Runtime', 
+              yaxis: {title: 'Average Revenue'}, 
+              xaxis: {title: 'Runtime in Minutes'} 
+            }}
            />
 
     );

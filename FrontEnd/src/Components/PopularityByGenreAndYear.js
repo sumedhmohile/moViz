@@ -54,6 +54,7 @@ export const PopularityByGenreAndYear = () => {
                 element.y = y
                 combinedData.push(element)
             }
+            console.log(combinedData)
             setGraphData(combinedData)
             
       }).catch(err =>{

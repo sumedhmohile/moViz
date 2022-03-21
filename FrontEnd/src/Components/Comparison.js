@@ -228,11 +228,13 @@ function Comparison() {
     </div>
             <Plot
              data={data1}
-             layout={ {width: 1500, height: 750, title: 'Actor Correlation For Average Revenue by Genre', yaxis: {title: 'Average Revenue'}, xaxis: {title: 'Genres'} }}
+             layout={ {width: window.innerWidth/1.4, 
+             height: window.innerHeight/1.2, title: 'Actor Correlation For Average Revenue by Genre', yaxis: {title: 'Average Revenue'}, xaxis: {title: 'Genres'} }}
             />
             <Plot
              data={data2}
-             layout={ {width: 1500, height: 750, title: 'Actor Correlation For Average Budget by Genre', yaxis: {title: 'Average Budget'}, xaxis: {title: 'Genres'} }}
+             layout={ {width: window.innerWidth/1.4, 
+             height: window.innerHeight/1.2, title: 'Actor Correlation For Average Budget by Genre', yaxis: {title: 'Average Budget'}, xaxis: {title: 'Genres'} }}
             />
          </div>
 

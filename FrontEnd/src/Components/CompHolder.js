@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
-import Plot from 'react-plotly.js';
-import Plotly from 'react-plotly.js';
+// import Plot from 'react-plotly.js';
+// import Plotly from 'react-plotly.js';
 import Comparison from './Comparison';
 
 const URL = "http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/moviz/graph/";

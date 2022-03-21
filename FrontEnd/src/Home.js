@@ -19,6 +19,11 @@ import { MovieRevenueVsYear} from './Components/MovieRevenueVsYear'
 import { MovieAvgRevenueVsYear } from './Components/MovieAvgRevenueVsYear';
 import { MovieBudgetVsYear } from './Components/MovieBudgetVsYear';
 import { MovieAvgBudgetVsYear} from './Components/MovieAvgBudgetVsYear'
+import BudgetPopularityGenre from './Components/BudgetPopularityGenre';
+import CompHolder from './Components/CompHolder';
+import CountByGender from './Components/CountByGender';
+import DurationVsRevenueGraph from './Components/DurationVsRevenueGraph';
+import LanguageRevenueBudgetPopularity from './Components/LanguageRevenueBudgetPopularity';
 
 const drawerWidth = window.innerWidth/6;
 
@@ -34,8 +39,23 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export const Home = () => {
-  const basicGraphList = ['Movie Count by Year', 'Movie Total Revenue by Year', 'Movie Average Revenue by Year', 'Movie Total Budget by Year', 'Movie Average Budget by Year']
-  const graphList = ['Revenue of Genres vs Time', 'Popularity of Genres vs Time', 'Average Revenue of Actors by Genre']
+  const basicGraphList = ['Movie Count by Year', 
+  'Movie Total Revenue by Year', 
+  'Movie Average Revenue by Year', 
+  'Movie Total Budget by Year', 
+  'Movie Average Budget by Year',
+  'Gender Distribution Of People',
+  ]
+  
+  
+  const graphList = ['Revenue of Genres vs Time', 
+    'Popularity of Genres vs Time', 
+    'Average Revenue of Actors by Genre', 
+    'Budget vs Popularity by Genre', 
+    'Actor Correlation For Average Revenue by Genre',
+    'Average Revenue vs Movie Runtime',
+    'Impact of language on Popularity, Budget and Revenue',
+  ]
   const theme = useTheme()
 
   const [displayGraph, setDisplayGraph] = useState(0)
@@ -100,12 +120,18 @@ export const Home = () => {
         {displayGraph===0 && <RevenueGenreTime/>}
         {displayGraph===1 && <PopularityByGenreAndYear/>}
         {displayGraph===2 && <AvgRevenueActorGenre/>}
+        {displayGraph===3 && <BudgetPopularityGenre/>}
+        {displayGraph===4 && <CompHolder/>}
+        {displayGraph===5 && <DurationVsRevenueGraph/>}
+        {displayGraph===6 && <LanguageRevenueBudgetPopularity/>}
 
-        {displayGraph===3 && <MoviesCountVsYear/>}
-        {displayGraph===4 && <MovieRevenueVsYear/>}
-        {displayGraph===5 && <MovieAvgRevenueVsYear/>}
-        {displayGraph===6 && <MovieBudgetVsYear/>}
-        {displayGraph===7 && <MovieAvgBudgetVsYear/>}
+
+        {displayGraph===7 && <MoviesCountVsYear/>}
+        {displayGraph===8 && <MovieRevenueVsYear/>}
+        {displayGraph===9 && <MovieAvgRevenueVsYear/>}
+        {displayGraph===10 && <MovieBudgetVsYear/>}
+        {displayGraph===11 && <MovieAvgBudgetVsYear/>}
+        {displayGraph===12 && <CountByGender/>}
       </Box>
 
     </Box>

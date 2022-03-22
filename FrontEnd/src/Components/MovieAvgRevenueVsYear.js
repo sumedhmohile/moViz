@@ -40,6 +40,8 @@ export const MovieAvgRevenueVsYear = () => {
             width: window.innerWidth/1.2, 
             height: window.innerHeight/1.2,
             title: 'Movie Average Revenue By Year',
+            yaxis: {title: 'Average Revenue'}, 
+            xaxis: {title: 'Year'} 
           }}
           config={{
             scrollZoom: true,

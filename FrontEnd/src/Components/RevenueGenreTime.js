@@ -84,6 +84,8 @@ export const RevenueGenreTime = () => {
             width: window.innerWidth/1.3, 
             height: window.innerHeight/1.2,
             title: 'Genre Revenues over Time',
+            yaxis: {title: 'Revenue'}, 
+            xaxis: {title: 'Year'},
             xaxis: {
               range: [1910,2025],
               rangeselector: selectorOptions,

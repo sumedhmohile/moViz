@@ -39,6 +39,8 @@ export const MovieRevenueVsYear = () => {
             width: window.innerWidth/1.2, 
             height: window.innerHeight/1.2,
             title: 'Movie Total Revenue By Year',
+            yaxis: {title: 'Revenue'}, 
+            xaxis: {title: 'Year'} 
           }}
           config={{
             scrollZoom: true,

@@ -44,14 +44,14 @@ export const Home = () => {
   'Movie Average Revenue by Year', 
   'Movie Total Budget by Year', 
   'Movie Average Budget by Year',
-  'Gender Distribution Of People',
+  'Gender Distribution Of Actors',
   ]
   
   
   const graphList = ['Revenue of Genres vs Time', 
     'Popularity of Genres vs Time', 
     'Average Revenue of Actors by Genre', 
-    'Budget vs Popularity by Genre', 
+    'Budget vs Rating by Genre', 
     'Actor Correlation For Average Revenue by Genre',
     'Average Revenue vs Movie Runtime',
     'Impact of language on Popularity, Budget and Revenue',

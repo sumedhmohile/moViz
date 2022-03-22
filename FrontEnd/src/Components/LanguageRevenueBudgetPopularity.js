@@ -83,7 +83,7 @@ function LanguageRevenueBudgetPopularity() {
               height: window.innerHeight/1.2,
               title: 'Impact of language on Popularity, Budget and Revenue', 
               yaxis: {title: 'Revenue'}, 
-              xaxis: {title: 'Budget'} 
+              xaxis: {title: 'Budget', range:[0,110000000]} 
             }}
            />
 

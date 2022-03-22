@@ -39,6 +39,8 @@ export const MoviesCountVsYear = () => {
             width: window.innerWidth/1.2, 
             height: window.innerHeight/1.2,
             title: 'Movie Count by Year',
+            yaxis: {title: 'Movie Count'}, 
+            xaxis: {title: 'Year'} 
           }}
           config={{
             scrollZoom: true,

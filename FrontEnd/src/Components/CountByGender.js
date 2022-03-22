@@ -59,7 +59,7 @@ function CountByGender() {
              layout={ {
                width: window.innerWidth/1.4, 
                height: window.innerHeight/1.2,
-               title: 'Gender Distribution Of People'
+               title: 'Gender Distribution Of Actors',
               }}
            />
     );

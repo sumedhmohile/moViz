@@ -39,6 +39,8 @@ export const MovieBudgetVsYear = () => {
             width: window.innerWidth/1.2, 
             height: window.innerHeight/1.2,
             title: 'Movie Total Budget By Year',
+            yaxis: {title: 'Budget'}, 
+            xaxis: {title: 'Year'} 
           }}
           config={{
             scrollZoom: true,

@@ -102,7 +102,7 @@ function BudgetPopularityGenre() {
              layout={ {
                 width: window.innerWidth/1.4, 
                 height: window.innerHeight/1.2,
-                title: 'Budget vs Popularity by Genre', 
+                title: 'Budget vs Rating by Genre', 
                 yaxis: {title: 'Rating'}, 
                 xaxis: {title: 'Budget'} 
               }}

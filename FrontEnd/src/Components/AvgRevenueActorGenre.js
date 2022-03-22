@@ -70,6 +70,8 @@ export const AvgRevenueActorGenre = () => {
             width: window.innerWidth/1.5, 
             height: window.innerHeight/1.2,
             title: 'Average Revenue of Popular Actors by Genre',
+            yaxis: {title: 'Actor'}, 
+            xaxis: {title: 'Genre'} 
           }}
           config={{
             scrollZoom: true,

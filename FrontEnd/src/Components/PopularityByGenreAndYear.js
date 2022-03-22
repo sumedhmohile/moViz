@@ -69,6 +69,8 @@ export const PopularityByGenreAndYear = () => {
             width: window.innerWidth/1.3, 
             height: window.innerHeight/1.2,
             title: 'Popularity of Genres vs Time',
+            yaxis: {title: 'Year'}, 
+            xaxis: {title: 'Popularity'} ,
             xaxis: {
               range: [1910,2025],
               rangeslider: {},

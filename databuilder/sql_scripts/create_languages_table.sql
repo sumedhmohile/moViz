@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS languages
+(
+  iso_639_1 VARCHAR(255) NOT NULL,
+  english_name VARCHAR(255) NOT NULL,
+  name VARCHAR(255),
+  PRIMARY KEY (iso_639_1)
+);
+

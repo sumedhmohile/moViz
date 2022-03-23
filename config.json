@@ -1,0 +1,11 @@
+{
+    "api_key": "",
+    "django_secret_key": "",
+    "db_config": {
+        "user": "",
+        "password": "",
+        "host": "",
+        "database": "",
+        "port": ""
+    }
+}

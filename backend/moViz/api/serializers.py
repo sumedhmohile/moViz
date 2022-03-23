@@ -21,12 +21,12 @@ class ActorGenderCountSerializer(serializers.Serializer):
     count = serializers.IntegerField()
 
 
-class GenreVsRevenueVsTimeSerializer(serializers.Serializer):
-    genre = serializers.CharField(max_length=255)
-    year = serializers.IntegerField()
-    revenue = serializers.DecimalField(max_digits=10, decimal_places=0, allow_null=True)
-
-
 class PopularPlacesOfBirthSerializer(serializers.Serializer):
     place_of_birth = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
     count = serializers.IntegerField()
+
+
+class MovieTotalRevenuesVsGenreVsYearSerializer(serializers.Serializer):
+    genre__name = serializers.CharField(max_length=255)
+    year = serializers.IntegerField()
+    revenue = serializers.DecimalField(max_digits=10, decimal_places=0, allow_null=True)

@@ -1,6 +1,6 @@
 from .models import *
 from .serializers import *
-from django.db.models import Avg, Count, Min, Sum
+from django.db.models import Avg, Count, Min, Sum, F
 from django.db.models.functions import ExtractYear
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -80,12 +80,6 @@ class ActorGenderCountView(viewsets.ReadOnlyModelViewSet):
         .annotate(count=Count('gender'))
 
 
-# class RevenueByGenreAndYearView(viewsets.ReadOnlyModelViewSet):
-#     serializer_class = RevenuesSerializer
-#     queryset = Movies.objects.all()
-# print(queryset)
-# .annotate(revenue=Sum('revenue')).order_by()
-
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class PopularPlacesOfBirthView(viewsets.ReadOnlyModelViewSet):
     serializer_class = PopularPlacesOfBirthSerializer
@@ -95,6 +89,17 @@ class PopularPlacesOfBirthView(viewsets.ReadOnlyModelViewSet):
         .values('place_of_birth') \
         .annotate(count=Count('place_of_birth')) \
         .order_by('-count')
+
+
+# # @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+# class MovieTotalRevenuesVsGenreVsYearView(viewsets.ReadOnlyModelViewSet):
+#     serializer_class = MovieTotalRevenuesVsGenreVsYearSerializer
+#     queryset = GenreMappingDev \
+#         .objects \
+#         .values('genre__name', year=ExtractYear('movie__release_date')) \
+#         .annotate(revenue=Sum('movie__revenue'))
+#
+#     print(len(queryset))
 
 
 def index(request):

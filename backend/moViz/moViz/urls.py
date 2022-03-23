@@ -26,7 +26,7 @@ router.register(r'movieTotalBudgetVsYear', views.MovieTotalBudgetVsYearView, bas
 router.register(r'movieAvgBudgetVsYear', views.MovieAvgBudgetVsYearView, basename='movieAvgBudgetVsYear')
 router.register(r'popularPlacesOfBirth', views.PopularPlacesOfBirthView, basename='popularPlacesOfBirth')
 router.register(r'actorGenderCount', views.ActorGenderCountView, basename='actorGenderCount')
-# router.register(r'genreVsRevenueVsTime', views.genreVsRevenueVsTimeView, basename='genreVsRevenueVsTime')
+# router.register(r'movieTotalRevenuesVsGenreVsYear', views.MovieTotalRevenuesVsGenreVsYearView, basename='movieTotalRevenuesVsGenreVsYear')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

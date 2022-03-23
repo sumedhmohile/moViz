@@ -5,4 +5,5 @@ source ../venv/bin/activate
 ./get_countries.py
 ./get_languages.py
 ./get_movies.py -daily_update
+rm -rf /var/tmp/django_cache
 

@@ -1,5 +1,4 @@
 import json
-
 import mysql.connector
 
 graph_map = {

@@ -89,7 +89,7 @@ class MovieProductionCountries(models.Model):
 
 class Movies(models.Model):
     backdrop_path = models.CharField(max_length=255, blank=True, null=True)
-    budget = models.IntegerField()
+    budget = models.IntegerField(blank=True, null=True)
     homepage = models.CharField(max_length=255, blank=True, null=True)
     movie_id = models.IntegerField(primary_key=True)
     imdb_id = models.CharField(max_length=255, blank=True, null=True)
@@ -99,12 +99,12 @@ class Movies(models.Model):
     popularity = models.FloatField()
     poster_path = models.CharField(max_length=255, blank=True, null=True)
     release_date = models.DateField(blank=True, null=True)
-    revenue = models.IntegerField()
+    revenue = models.IntegerField(blank=True, null=True)
     runtime = models.IntegerField(blank=True, null=True)
     status = models.CharField(max_length=255)
     tagline = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255)
-    vote_average = models.FloatField()
+    vote_average = models.FloatField(blank=True, null=True)
     vote_count = models.IntegerField()
 
     class Meta:
@@ -118,8 +118,8 @@ class People(models.Model):
     deathday = models.DateField(blank=True, null=True)
     person_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255)
-    gender = models.IntegerField()
-    biography = models.TextField()
+    gender = models.IntegerField(blank=True, null=True)
+    biography = models.TextField(blank=True, null=True)
     popularity = models.FloatField()
     place_of_birth = models.CharField(max_length=255, blank=True, null=True)
     profile_path = models.CharField(max_length=255, blank=True, null=True)
@@ -132,9 +132,9 @@ class People(models.Model):
 
 
 class ProductionCompanies(models.Model):
-    description = models.CharField(max_length=255)
-    headquarters = models.CharField(max_length=255)
-    homepage = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, blank=True, null=True)
+    headquarters = models.CharField(max_length=255, blank=True, null=True)
+    homepage = models.CharField(max_length=255, blank=True, null=True)
     production_company_id = models.IntegerField(primary_key=True)
     logo_path = models.CharField(max_length=255, blank=True, null=True)
     name = models.CharField(max_length=255)

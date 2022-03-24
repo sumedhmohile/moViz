@@ -38,13 +38,28 @@ def get_movie(movie_id):
         return
 
     backdrop_path = movie_json['backdrop_path']
+
     budget = movie_json['budget']
+    if budget == 0:
+        budget = None
+
     homepage = movie_json['homepage']
+    if homepage == '':
+        homepage = None
+
     movie_id = movie_json['id']
+
     imdb_id = movie_json['imdb_id']
+    if imdb_id == '':
+        imdb_id = None
+
     original_language = movie_json['original_language']
     original_title = movie_json['original_title']
+
     overview = movie_json['overview']
+    if overview == '':
+        overview = None
+
     popularity = movie_json['popularity']
     poster_path = movie_json['poster_path']
 
@@ -57,11 +72,25 @@ def get_movie(movie_id):
         release_date = None
 
     revenue = movie_json['revenue']
+    if revenue == 0:
+        revenue = None
+
     runtime = movie_json['runtime']
+    if runtime == 0:
+        runtime = None
+
     status = movie_json['status']
+
     tagline = movie_json['tagline']
+    if tagline == '':
+        tagline = None
+
     title = movie_json['title']
+
     vote_average = movie_json['vote_average']
+    if vote_average == 0:
+        vote_average = None
+
     vote_count = movie_json['vote_count']
 
     cnx, cursor = databuilder_helper.connect_db(user, password, host, database, port)

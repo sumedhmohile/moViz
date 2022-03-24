@@ -41,7 +41,7 @@ function fetchGraphData(xSetter, ySetter, genreSetter, nameSetter) {
 //                    resultDict[dataArray[i].genre][xData].push()
 
                     xArray.push(dataArray[i].budget);
-                    yArray.push(dataArray[i].rating);
+                    yArray.push(dataArray[i].vote_average);
                     genreArray.push(colourDict[dataArray[i].name]);
                     nameArray.push(dataArray[i].title);
                 }

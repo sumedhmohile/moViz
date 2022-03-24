@@ -1,10 +1,10 @@
-CREATE TABLE IF NOT EXISTS movies_dev
+CREATE TABLE IF NOT EXISTS movies
 (
   -- adult not implemented
   backdrop_path VARCHAR(255),
   -- belongs_to_collection not implemented
   budget INT NOT NULL,
-  -- genres added in genre_mapping_dev table
+  -- genres added in movie_genres table
   homepage VARCHAR(255),
   movie_id INT NOT NULL,
   imdb_id VARCHAR(255),

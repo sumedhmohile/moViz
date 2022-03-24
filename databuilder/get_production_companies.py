@@ -27,8 +27,17 @@ def get_production_company(production_company_id):
         return
 
     description = production_company_json['description']
+    if description == '':
+        description = None
+
     headquarters = production_company_json['headquarters']
+    if headquarters == '':
+        headquarters = None
+
     homepage = production_company_json['homepage']
+    if homepage == '':
+        homepage = None
+
     logo_path = production_company_json['logo_path']
     name = production_company_json['name']
     origin_country = production_company_json['origin_country']

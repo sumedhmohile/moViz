@@ -16,13 +16,13 @@ databuilder_helper.configure_logging('get_movies.log')
 logging.info('Program started.')
 
 api_key, user, password, host, database, port = databuilder_helper.get_config()
-MOVIE_INSERT_QUERY = 'INSERT INTO movies_dev VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
-GENRE_MAPPING_INSERT_QUERY = 'INSERT INTO genre_mapping_dev VALUES (%s, %s)'
-PRODUCTION_COMPANY_MAPPING_INSERT_QUERY = 'INSERT INTO production_company_mapping VALUES (%s, %s)'
-PRODUCTION_COUNTRY_MAPPING_INSERT_QUERY = 'INSERT INTO production_country_mapping VALUES (%s, %s)'
-SPOKEN_LANGUAGE_MAPPING_INSERT_QUERY = 'INSERT INTO spoken_language_mapping VALUES (%s, %s)'
-CREDITS_INSERT_QUERY = 'INSERT INTO credits_dev VALUES (%s, %s)'
-MOVIE_DELETE_QUERY = 'DELETE FROM movies_dev WHERE movie_id=%s'
+MOVIE_INSERT_QUERY = 'INSERT INTO movies VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+MOVIE_GENRES_INSERT_QUERY = 'INSERT INTO movie_genres VALUES (%s, %s)'
+MOVIE_PRODUCTION_COMPANIES_INSERT_QUERY = 'INSERT INTO movie_production_companies VALUES (%s, %s)'
+MOVIE_PRODUCTION_COUNTRIES_INSERT_QUERY = 'INSERT INTO movie_production_countries VALUES (%s, %s)'
+MOVIE_LANGUAGES_INSERT_QUERY = 'INSERT INTO movie_languages VALUES (%s, %s)'
+CREDITS_INSERT_QUERY = 'INSERT INTO credits VALUES (%s, %s)'
+MOVIE_DELETE_QUERY = 'DELETE FROM movies WHERE movie_id=%s'
 
 
 def get_movie(movie_id):
@@ -75,27 +75,27 @@ def get_movie(movie_id):
         for genre in movie_json['genres']:
             genre_id = genre['id']
 
-            cursor.execute(GENRE_MAPPING_INSERT_QUERY, (genre_id, movie_id))
+            cursor.execute(MOVIE_GENRES_INSERT_QUERY, (genre_id, movie_id))
             # logging.info(f'Successfully executed INSERT operation for genre_id {genre_id}, movie_id {movie_id}!')
 
         for production_company in movie_json['production_companies']:
             production_company_id = production_company['id']
 
-            cursor.execute(PRODUCTION_COMPANY_MAPPING_INSERT_QUERY, (production_company_id, movie_id))
+            cursor.execute(MOVIE_PRODUCTION_COMPANIES_INSERT_QUERY, (production_company_id, movie_id))
             # logging.info(
             #     f'Successfully executed INSERT operation for production_company_id {production_company_id}, movie_id {movie_id}!')
 
         for production_country in movie_json['production_countries']:
             iso_3166_1 = production_country['iso_3166_1']
 
-            cursor.execute(PRODUCTION_COUNTRY_MAPPING_INSERT_QUERY, (iso_3166_1, movie_id))
+            cursor.execute(MOVIE_PRODUCTION_COUNTRIES_INSERT_QUERY, (iso_3166_1, movie_id))
             # logging.info(
             #     f'Successfully executed INSERT operation for iso_3166_1 {iso_3166_1}, movie_id {movie_id}!')
 
         for spoken_language in movie_json['spoken_languages']:
             iso_639_1 = spoken_language['iso_639_1']
 
-            cursor.execute(SPOKEN_LANGUAGE_MAPPING_INSERT_QUERY, (iso_639_1, movie_id))
+            cursor.execute(MOVIE_LANGUAGES_INSERT_QUERY, (iso_639_1, movie_id))
             # logging.info(f'Successfully executed INSERT operation for iso_639_1 {iso_639_1}, movie_id {movie_id}!')
 
         if 'credits' in movie_json:
@@ -165,12 +165,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     table_names = [
-        'movies_dev',
-        'genre_mapping_dev',
-        'production_company_mapping',
-        'production_country_mapping',
-        'spoken_language_mapping',
-        'credits_dev'
+        'movies',
+        'movie_genres',
+        'movie_production_companies',
+        'movie_production_countries',
+        'movie_languages',
+        'credits'
     ]
 
     databuilder_helper.create_tables_if_not_exist(table_names)

@@ -54,12 +54,23 @@ def get_person(person_id):
         deathday = None
 
     name = person_json['name']
+
     gender = person_json['gender']
+    if gender == 0:
+        gender = None
+
     biography = person_json['biography']
+    if biography == '':
+        biography = None
+
     popularity = person_json['popularity']
     place_of_birth = person_json['place_of_birth']
     profile_path = person_json['profile_path']
+
     imdb_id = person_json['imdb_id']
+    if imdb_id == '':
+        imdb_id = None
+
     homepage = person_json['homepage']
 
     cnx, cursor = databuilder_helper.connect_db(user, password, host, database, port)

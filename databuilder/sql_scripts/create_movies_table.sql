@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS movies
   -- adult not implemented
   backdrop_path VARCHAR(255),
   -- belongs_to_collection not implemented
-  budget INT NOT NULL,
+  budget INT,
   -- genres added in movie_genres table
   homepage VARCHAR(255),
   movie_id INT NOT NULL,
@@ -13,17 +13,17 @@ CREATE TABLE IF NOT EXISTS movies
   overview TEXT,
   popularity DOUBLE NOT NULL,
   poster_path VARCHAR(255),
-  -- production_companies added in production_companies_mapping table
-  -- production_countries added in production_countries_mapping table
+  -- production_companies added in movie_production_companies table
+  -- production_countries added in movie_production_countries table
   release_date DATE NOT NULL,
-  revenue INT NOT NULL,
+  revenue INT,
   runtime INT,
-  -- spoken_languages added in production_countries_mapping table
+  -- spoken_languages added in movie_languages table
   status VARCHAR(255) NOT NULL,
   tagline VARCHAR(255),
   title VARCHAR(255) NOT NULL,
   -- video not implemented
-  vote_average DOUBLE NOT NULL,
+  vote_average DOUBLE,
   vote_count INT NOT NULL,
   PRIMARY KEY (movie_id)
 );

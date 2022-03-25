@@ -31,71 +31,46 @@ graph_map = {
                                    ON g.genre_id=mg.genre_id
                                    WHERE m.release_date IS NOT NULL
                                    GROUP BY g.name, YEAR(m.release_date);''',
-    'durationVSrevenue': '''SELECT runtime, AVG(revenue) AS revenue
-                            FROM movies
-                            WHERE revenue>0 AND runtime>10
-                            GROUP BY runtime;''',
-    'countByGender': '''SELECT CASE WHEN gender=1 THEN \'Female\' WHEN gender=2 THEN \'Male\' ELSE \'Other\' END AS gender, COUNT(*) AS count
-                        FROM people
-                        WHERE gender>0
-                        GROUP BY gender;''',
-    'countByPlace': '''SELECT place_of_birth AS place, COUNT(*) AS COUNT
-                       FROM people
-                       WHERE place_of_birth IS NOT NULL 
-                       GROUP BY place_of_birth;''',
-    'budgetRevenueLanguagePopularity': '''SELECT english_name AS language, revenue, budget, popularity
-                                          FROM (SELECT original_language AS language, AVG(revenue) AS revenue, AVG(budget) AS budget, AVG(popularity) AS popularity FROM movies WHERE original_language regexp \'^[a-zA-Z]+\' AND revenue>0 and budget>0 GROUP BY original_language) m 
-                                          INNER JOIN languages l
-                                          ON m.language=l.iso_639_1;''',
-    'budgetPopularityGenre': '''SELECT m.title, m.budget, m.vote_average, g.name
-                                FROM movies m
-                                INNER JOIN movie_genres mg
-                                ON m.movie_id=mg.movie_id
-                                INNER JOIN genres g
-                                ON g.genre_id=mg.genre_id
-                                WHERE m.budget>0 AND m.vote_average>0;''',
-    'avgRevenueByGenreForActor': '''SELECT g.name AS genre, AVG(revenue) AS revenue
-                                    FROM people p
-                                    INNER JOIN credits c
-                                    ON p.person_id=c.person_id
-                                    INNER JOIN movies m
-                                    ON m.movie_id=c.movie_id
-                                    INNER JOIN movie_genres mg
-                                    ON mg.movie_id=m.movie_id
-                                    INNER JOIN genres g
-                                    ON g.genre_id=mg.genre_id
-                                    WHERE p.name=\'%s\'
-                                    GROUP BY g.name;''',
-    'avgRevenueByGenreForActors': '''SELECT g.name AS genre, AVG(revenue) AS revenue
-                                     FROM movies m
-                                     INNER JOIN movie_genres mg
-                                     ON mg.movie_id=m.movie_id
-                                     INNER JOIN genres g 
-                                     ON g.genre_id=mg.genre_id
-                                     INNER JOIN (SELECT a1.movie_id FROM (SELECT m.movie_id FROM movies m INNER JOIN credits c ON m.movie_id=c.movie_id INNER JOIN people p ON p.person_id=c.person_id WHERE p.name=\'%s\' ) a1 INNER JOIN (SELECT m.movie_id FROM movies m INNER JOIN credits c ON m.movie_id=c.movie_id INNER JOIN people p ON p.person_id=c.person_id WHERE a.name=\'%s\') a2 ON a1.movie_id=a2.movie_id) fm
-                                     ON fm.movie_id=m.movie_id
-                                     GROUP BY g.name;''',
-    'avgBudgetByGenreForActor': '''SELECT g.name AS genre, AVG(budget) AS budget
-                                   FROM people p
-                                   INNER JOIN credits c
-                                   ON p.person_id=c.person_id
-                                   INNER JOIN movies m
-                                   ON m.movie_id=c.movie_id
-                                   INNER JOIN movie_genres mg
-                                   ON mg.movie_id=m.movie_id
-                                   INNER JOIN genres g
-                                   ON g.genre_id=mg.genre_id
-                                   WHERE p.name=\'%s\'
-                                   GROUP BY g.name;''',
-    'avgBudgetByGenreForActors': '''SELECT g.name AS genre, AVG(budget) AS budget
-                                    FROM movies m
-                                    INNER JOIN movie_genres mg
-                                    ON mg.movie_id=m.movie_id
-                                    INNER JOIN genres g
-                                    ON g.genre_id=mg.genre_id
-                                    INNER JOIN (SELECT a1.movie_id FROM (SELECT m.movie_id FROM movies m INNER JOIN credits c ON m.movie_id=c.movie_id INNER JOIN people p ON p.person_id=c.person_id WHERE p.name=\'%s\') a1 INNER JOIN (SELECT m.movie_id FROM movies m INNER JOIN credits c ON m.movie_id=c.movie_id INNER JOIN people p ON p.person_id=c.person_id WHERE p.name=\'%s\') a2 ON a1.movie_id=a2.movie_id) fm 
-                                    ON fm.movie_id=m.movie_id
-                                    GROUP BY g.name;''',
+    'durationVSrevenue': '''select runtime, AVG(revenue) as revenue 
+                            from movies 
+                            where revenue > 0 and runtime > 10 
+                            group by runtime;''',
+    'countByGender': '''select case when gender = 1 then \'Female\' when gender = 2 then \'Male\' else \'Other\' end as gender, count(*) as count 
+                        from people where gender > 0
+                        group by gender;''',
+    'countByPlace': '''select place_of_birth as place, count(*) as count 
+                       from people where place_of_birth is not null 
+                       group by place_of_birth;''',
+    'budgetRevenueLanguagePopularity': '''select english_name as language, revenue, budget, popularity 
+                                          from (select original_language as language, avg(revenue) as revenue, avg(budget) as budget, avg(popularity) as popularity from movies where original_language regexp \'^[a-zA-Z]+\' and revenue > 0 and budget > 0 group by original_language) m 
+                                          inner join languages l on m.language=l.iso_639_1;''',
+    'budgetPopularityGenre': '''select m.title, m.budget, m.rating, g.name 
+                                from movies m 
+                                inner join movie_genres gm on m.movie_id=gm.movie_id 
+                                inner join genres g on g.genre_id=gm.genre_id 
+                                where m.budget > 0 and m.rating > 0;''',
+    'avgRevenueByGenreForActor': '''select g.name as genre, avg(revenue) as revenue 
+                                    from people a inner join credits c on a.person_id=c.person_id 
+                                    inner join movies m on m.movie_id=c.movie_id 
+                                    inner join movie_genres gm on gm.movie_id=m.movie_id 
+                                    inner join genres g on g.genre_id=gm.genre_id where a.name=\'%s\' group by g.name;''',
+    'avgRevenueByGenreForActors': '''select g.name as genre, avg(revenue) as revenue 
+                                     from movies m 
+                                     inner join movie_genres gm on gm.movie_id=m.movie_id 
+                                     inner join genres g on g.genre_id=gm.genre_id 
+                                     inner join ( select a1.movie_id from ( select m.movie_id from movies m inner join credits c on m.movie_id=c.movie_id inner join people a on a.person_id=c.person_id where a.name=\'%s\' ) a1 inner join (select m.movie_id from movies m inner join credits c on m.movie_id=c.movie_id inner join people a on a.person_id=c.person_id where a.name=\'%s\') a2 on a1.movie_id=a2.movie_id) fm on fm.movie_id=m.movie_id group by g.name;''',
+    'avgBudgetByGenreForActor': '''select g.name as genre, avg(budget) as budget 
+                                   from people a 
+                                   inner join credits c on a.person_id=c.person_id 
+                                   inner join movies m on m.movie_id=c.movie_id 
+                                   inner join movie_genres gm on gm.movie_id=m.movie_id 
+                                   inner join genres g on g.genre_id=gm.genre_id 
+                                   where a.name=\'%s\' group by g.name;''',
+    'avgBudgetByGenreForActors': '''select g.name as genre, avg(budget) as budget 
+                                    from movies m 
+                                    inner join movie_genres gm on gm.movie_id=m.movie_id 
+                                    inner join genres g on g.genre_id=gm.genre_id 
+                                    inner join ( select a1.movie_id from ( select m.movie_id from movies m inner join credits c on m.movie_id=c.movie_id inner join people a on a.person_id=c.person_id where a.name=\'%s\' ) a1 inner join (select m.movie_id from movies m inner join credits c on m.movie_id=c.movie_id inner join people a on a.person_id=c.person_id where a.name=\'%s\') a2 on a1.movie_id=a2.movie_id) fm on fm.movie_id=m.movie_id group by g.name;''',        #                             GROUP BY g.name;''',
 }
 
 with open('../../config.json', 'r') as config_file:

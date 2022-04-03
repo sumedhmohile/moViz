@@ -6,7 +6,7 @@ export const AvgRevenueActorGenre = () => {
     const [graphData,setGraphData] = useState([])
 
     useEffect(()=> {
-        axios.post('http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/moviz/graph/', 
+        axios.post('http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/moviz/graph/',
         { 
             graphID : "avgRevenueActorGenre"
         })

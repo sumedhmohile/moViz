@@ -57,8 +57,8 @@ export const Home = () => {
     "Average Revenue vs. Movie Runtime",
     "Impact of Language on Popularity, Budget and Revenue",
   ];
-  const theme = useTheme();
 
+  const theme = useTheme();
   const [displayGraph, setDisplayGraph] = useState(0);
 
   return (
@@ -94,7 +94,7 @@ export const Home = () => {
               }}
               key={text}
               sx={{
-                minHeight: window.innerHiehgt / 10,
+                minHeight: window.innerHeight / 10,
                 justifyContent: "initial",
                 px: window.innerWidth / 400,
               }}

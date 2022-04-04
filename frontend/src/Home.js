@@ -10,20 +10,20 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { RevenueGenreTime } from "./Components/RevenueGenreTime";
-import { AvgRevenueActorGenre } from "./Components/AvgRevenueActorGenre";
-import { PopularityByGenreAndYear } from "./Components/PopularityByGenreAndYear";
+import { RevenueGenreTime } from "./components/RevenueGenreTime";
+import { AvgRevenueActorGenre } from "./components/AvgRevenueActorGenre";
+import { PopularityByGenreAndYear } from "./components/PopularityByGenreAndYear";
 
-import { MovieCountVsYear } from "./Components/MovieCountVsYear";
-import { MovieTotalRevenueVsYear } from "./Components/MovieTotalRevenueVsYear";
-import { MovieAvgRevenueVsYear } from "./Components/MovieAvgRevenueVsYear";
-import { MovieTotalBudgetVsYear } from "./Components/MovieTotalBudgetVsYear";
-import { MovieAvgBudgetVsYear } from "./Components/MovieAvgBudgetVsYear";
-import BudgetPopularityGenre from "./Components/BudgetPopularityGenre";
-import CompHolder from "./Components/CompHolder";
-import ActorGenderCount from "./Components/ActorGenderCount";
-import DurationVsRevenueGraph from "./Components/DurationVsRevenueGraph";
-import LanguageRevenueBudgetPopularity from "./Components/LanguageRevenueBudgetPopularity";
+import { MovieCountVsYear } from "./components/MovieCountVsYear";
+import { MovieTotalRevenueVsYear } from "./components/MovieTotalRevenueVsYear";
+import { MovieAvgRevenueVsYear } from "./components/MovieAvgRevenueVsYear";
+import { MovieTotalBudgetVsYear } from "./components/MovieTotalBudgetVsYear";
+import { MovieAvgBudgetVsYear } from "./components/MovieAvgBudgetVsYear";
+import BudgetPopularityGenre from "./components/BudgetPopularityGenre";
+import CompHolder from "./components/CompHolder";
+import ActorGenderCount from "./components/ActorGenderCount";
+import DurationVsRevenueGraph from "./components/DurationVsRevenueGraph";
+import LanguageRevenueBudgetPopularity from "./components/LanguageRevenueBudgetPopularity";
 
 const drawerWidth = window.innerWidth / 6;
 

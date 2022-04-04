@@ -7,9 +7,7 @@ export const MovieTotalRevenueVsYear = () => {
 
   useEffect(() => {
     axios
-      .get(
-        "http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/api/movieTotalRevenuesVsYear/"
-      )
+      .get("/api/movieTotalRevenuesVsYear/")
       .then((res) => {
         const data = res.data;
         console.log(data);

@@ -7,7 +7,7 @@ export const MovieCountVsYear = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/movieCountVsYear/")
+      .get("/api/movieCountVsYear/")
       .then((res) => {
         const data = res.data;
         console.log(data);

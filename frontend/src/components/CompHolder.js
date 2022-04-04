@@ -2,8 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Comparison from "./Comparison";
 
-const URL =
-  "http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/moviz/graph/";
+const URL = "/moviz/graph/";
 
 function fetchGraphData(xSetter, ySetter) {
   const article = { graphID: "durationVSrevenue" };

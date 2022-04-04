@@ -5,8 +5,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
-const URL =
-  "http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/moviz/graph/";
+const URL = "/moviz/graph/";
 
 function fetchRevenueGraphData(
   actor1,
@@ -271,7 +270,7 @@ function Comparison() {
   return (
     <div>
       <div>
-        <Grid container spacing={30}>
+        <Grid container spacing={2}>
           <Grid item>
             <TextField
               size="small"

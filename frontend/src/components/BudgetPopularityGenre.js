@@ -2,8 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
 
-const URL =
-  "http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/moviz/graph/";
+const URL = "/moviz/graph/";
 
 function getRandomColor() {
   var letters = "0123456789ABCDEF";

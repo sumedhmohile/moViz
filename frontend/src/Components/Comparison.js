@@ -2,6 +2,9 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
 import Plotly from "react-plotly.js";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
 
 const URL =
   "http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/moviz/graph/";
@@ -269,40 +272,51 @@ function Comparison() {
   return (
     <div>
       <div>
-        <input
-          type="text"
-          placeholder="Actor1"
-          value={actor1Input}
-          onInput={(e) => setActor1Input(e.target.value)}
-        ></input>
-        <input
-          type="text"
-          placeholder="Actor2"
-          value={actor2Input}
-          onInput={(e) => setActor2Input(e.target.value)}
-        ></input>
-        <button
-          onClick={() =>
-            createGraphs(
-              actor1Input,
-              actor2Input,
-              actor1GenreSetter,
-              actor1RevenueSetter,
-              actor2GenreSetter,
-              actor2RevenueSetter,
-              combinedGenreSetter,
-              combinedRevenueSetter,
-              budgetactor1GenreSetter,
-              budgetactor1RevenueSetter,
-              budgetactor2GenreSetter,
-              budgetactor2RevenueSetter,
-              budgetcombinedGenreSetter,
-              budgetcombinedRevenueSetter
-            )
-          }
-        >
-          Submit
-        </button>
+        <Grid container spacing={30}>
+          <Grid item>
+            <TextField
+              size="small"
+              type="text"
+              placeholder="Actor Name"
+              value={actor1Input}
+              onInput={(e) => setActor1Input(e.target.value)}
+            ></TextField>
+          </Grid>
+          <Grid item>
+            <TextField
+              size="small"
+              type="text"
+              placeholder="Actor Name"
+              value={actor2Input}
+              onInput={(e) => setActor2Input(e.target.value)}
+            ></TextField>
+          </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              onClick={() =>
+                createGraphs(
+                  actor1Input,
+                  actor2Input,
+                  actor1GenreSetter,
+                  actor1RevenueSetter,
+                  actor2GenreSetter,
+                  actor2RevenueSetter,
+                  combinedGenreSetter,
+                  combinedRevenueSetter,
+                  budgetactor1GenreSetter,
+                  budgetactor1RevenueSetter,
+                  budgetactor2GenreSetter,
+                  budgetactor2RevenueSetter,
+                  budgetcombinedGenreSetter,
+                  budgetcombinedRevenueSetter
+                )
+              }
+            >
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
       </div>
       <Plot
         data={data1}

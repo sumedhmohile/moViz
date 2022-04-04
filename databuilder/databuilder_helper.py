@@ -15,7 +15,7 @@ LOOKUP = {
     'movie_ids':
         {
             'name': 'Movies',
-            'db_get_ids_query': 'SELECT movie_id FROM movies_dev'
+            'db_get_ids_query': 'SELECT movie_id FROM movies'
         },
     'person_ids':
         {

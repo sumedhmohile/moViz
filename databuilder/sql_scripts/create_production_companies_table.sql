@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS production_companies
 (
-  description VARCHAR(255) NOT NULL,
-  headquarters VARCHAR(255) NOT NULL,
-  homepage VARCHAR(255) NOT NULL,
+  description VARCHAR(255),
+  headquarters VARCHAR(255),
+  homepage VARCHAR(255),
   production_company_id INT NOT NULL,
   logo_path VARCHAR(255),
   name VARCHAR(255) NOT NULL,

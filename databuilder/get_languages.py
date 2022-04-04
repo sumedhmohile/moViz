@@ -25,7 +25,10 @@ def get_languages():
     for language in tqdm(language_json):
         iso_639_1 = language['iso_639_1']
         english_name = language['english_name']
+
         name = language['name']
+        if name == '':
+            name = None
 
         try:
             cursor.execute(LANGUAGE_INSERT_QUERY, (iso_639_1, english_name, name))

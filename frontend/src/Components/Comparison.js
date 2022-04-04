@@ -1,7 +1,6 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Plot from "react-plotly.js";
-import Plotly from "react-plotly.js";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -28,10 +27,10 @@ function fetchRevenueGraphData(
 
     var dataArray = response.data.data;
 
-    let genreArray = new Array();
-    let revenueArray = new Array();
+    let genreArray = [];
+    let revenueArray = [];
 
-    for (var i = 0; i < dataArray.length; ++i) {
+    for (let i = 0; i < dataArray.length; ++i) {
       genreArray.push(dataArray[i].genre);
       revenueArray.push(dataArray[i].revenue);
     }
@@ -49,10 +48,10 @@ function fetchRevenueGraphData(
 
     var dataArray = response.data.data;
 
-    let genreArray = new Array();
-    let revenueArray = new Array();
+    let genreArray = [];
+    let revenueArray = [];
 
-    for (var i = 0; i < dataArray.length; ++i) {
+    for (let i = 0; i < dataArray.length; ++i) {
       genreArray.push(dataArray[i].genre);
       revenueArray.push(dataArray[i].revenue);
     }
@@ -72,10 +71,10 @@ function fetchRevenueGraphData(
 
     var dataArray = response.data.data;
 
-    let genreArray = new Array();
-    let revenueArray = new Array();
+    let genreArray = [];
+    let revenueArray = [];
 
-    for (var i = 0; i < dataArray.length; ++i) {
+    for (let i = 0; i < dataArray.length; ++i) {
       genreArray.push(dataArray[i].genre);
       revenueArray.push(dataArray[i].revenue);
     }
@@ -104,10 +103,10 @@ function fetchBudgetGraphData(
 
     var dataArray = response.data.data;
 
-    let genreArray = new Array();
-    let revenueArray = new Array();
+    let genreArray = [];
+    let revenueArray = [];
 
-    for (var i = 0; i < dataArray.length; ++i) {
+    for (let i = 0; i < dataArray.length; ++i) {
       genreArray.push(dataArray[i].genre);
       revenueArray.push(dataArray[i].budget);
     }
@@ -125,10 +124,10 @@ function fetchBudgetGraphData(
 
     var dataArray = response.data.data;
 
-    let genreArray = new Array();
-    let revenueArray = new Array();
+    let genreArray = [];
+    let revenueArray = [];
 
-    for (var i = 0; i < dataArray.length; ++i) {
+    for (let i = 0; i < dataArray.length; ++i) {
       genreArray.push(dataArray[i].genre);
       revenueArray.push(dataArray[i].budget);
     }
@@ -148,10 +147,10 @@ function fetchBudgetGraphData(
 
     var dataArray = response.data.data;
 
-    let genreArray = new Array();
-    let revenueArray = new Array();
+    let genreArray = [];
+    let revenueArray = [];
 
-    for (var i = 0; i < dataArray.length; ++i) {
+    for (let i = 0; i < dataArray.length; ++i) {
       genreArray.push(dataArray[i].genre);
       revenueArray.push(dataArray[i].budget);
     }
@@ -323,7 +322,7 @@ function Comparison() {
         layout={{
           width: window.innerWidth / 1.4,
           height: window.innerHeight / 1.2,
-          title: "Actor Correlation For Average Revenue by Genre",
+          title: "Actor Correlation for Average Revenue by Genre",
           yaxis: { title: "Average Revenue" },
           xaxis: { title: "Genres" },
         }}
@@ -333,7 +332,7 @@ function Comparison() {
         layout={{
           width: window.innerWidth / 1.4,
           height: window.innerHeight / 1.2,
-          title: "Actor Correlation For Average Budget by Genre",
+          title: "Actor Correlation for Average Budget by Genre",
           yaxis: { title: "Average Budget" },
           xaxis: { title: "Genres" },
         }}

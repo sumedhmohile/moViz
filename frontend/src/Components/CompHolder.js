@@ -1,7 +1,5 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-// import Plot from 'react-plotly.js';
-// import Plotly from 'react-plotly.js';
 import Comparison from "./Comparison";
 
 const URL =
@@ -14,10 +12,10 @@ function fetchGraphData(xSetter, ySetter) {
 
     var dataArray = response.data.data;
 
-    let xArray = new Array();
-    let yArray = new Array();
+    let xArray = [];
+    let yArray = [];
 
-    for (var i = 0; i < dataArray.length; ++i) {
+    for (let i = 0; i < dataArray.length; ++i) {
       xArray.push(dataArray[i].runtime);
       yArray.push(dataArray[i].revenue);
     }
@@ -28,7 +26,6 @@ function fetchGraphData(xSetter, ySetter) {
 }
 
 function CompHolder() {
-  const [count2, setCount2] = useState(0);
   const [xDataGetter, xDataSetter] = useState(0);
   const [yDataGetter, yDataSetter] = useState(0);
 
@@ -45,7 +42,6 @@ function CompHolder() {
     fetchGraphData(xDataSetter, yDataSetter);
   }, []);
 
-  var plotData = [{ type: "bar", x: xDataGetter, y: yDataGetter }];
   return <Comparison></Comparison>;
 }
 

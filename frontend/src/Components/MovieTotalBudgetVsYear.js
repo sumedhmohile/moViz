@@ -2,7 +2,7 @@ import Plot from "react-plotly.js";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const MovieBudgetVsYear = () => {
+export const MovieTotalBudgetVsYear = () => {
   const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export const MovieBudgetVsYear = () => {
         var x = [];
         var y = [];
 
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
           x.push(data[i].year);
           y.push(data[i].budget);
         }
@@ -42,9 +42,9 @@ export const MovieBudgetVsYear = () => {
         },
         width: window.innerWidth / 1.2,
         height: window.innerHeight / 1.2,
-        title: "Movie Total Budget By Year",
-        yaxis: { title: "Budget" },
+        title: "Movie Total Budget vs. Year",
         xaxis: { title: "Year" },
+        yaxis: { title: "Budget" },
       }}
       config={{
         scrollZoom: true,

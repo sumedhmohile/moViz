@@ -65,7 +65,7 @@ export const RevenueGenreTime = () => {
             return 0;
           });
 
-          for (var j = 0; j < genreTemp.length; j++) {
+          for (let j = 0; j < genreTemp.length; j++) {
             x.push(genreTemp[j].year);
             y.push(genreTemp[j].revenue);
           }
@@ -91,13 +91,13 @@ export const RevenueGenreTime = () => {
         width: window.innerWidth / 1.3,
         height: window.innerHeight / 1.2,
         title: "Genre Revenues over Time",
-        yaxis: { title: "Revenue" },
-        xaxis: { title: "Year" },
         xaxis: {
+          title: "Year",
           range: [1910, 2025],
           rangeselector: selectorOptions,
           rangeslider: {},
         },
+        yaxis: { title: "Revenue" },
       }}
       config={{
         scrollZoom: true,

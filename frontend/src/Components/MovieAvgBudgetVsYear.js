@@ -16,7 +16,7 @@ export const MovieAvgBudgetVsYear = () => {
         var x = [];
         var y = [];
 
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
           if (parseInt(data[i].year) > 2022) continue;
           x.push(data[i].year);
           y.push(data[i].budget);
@@ -43,9 +43,9 @@ export const MovieAvgBudgetVsYear = () => {
         },
         width: window.innerWidth / 1.2,
         height: window.innerHeight / 1.2,
-        title: "Movie Average Budget By Year",
-        yaxis: { title: "Average Budget" },
+        title: "Movie Average Budget vs. Year",
         xaxis: { title: "Year" },
+        yaxis: { title: "Average Budget" },
       }}
       config={{
         scrollZoom: true,

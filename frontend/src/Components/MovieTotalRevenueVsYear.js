@@ -2,21 +2,23 @@ import Plot from "react-plotly.js";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const MoviesCountVsYear = () => {
+export const MovieTotalRevenueVsYear = () => {
   const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/movieCountVsYear/")
+      .get(
+        "http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/api/movieTotalRevenuesVsYear/"
+      )
       .then((res) => {
         const data = res.data;
         console.log(data);
         var x = [];
         var y = [];
 
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
           x.push(data[i].year);
-          y.push(data[i].count);
+          y.push(data[i].revenue);
         }
 
         var graph = {
@@ -40,9 +42,9 @@ export const MoviesCountVsYear = () => {
         },
         width: window.innerWidth / 1.2,
         height: window.innerHeight / 1.2,
-        title: "Movie Count by Year",
-        yaxis: { title: "Movie Count" },
+        title: "Movie Total Revenue vs. Year",
         xaxis: { title: "Year" },
+        yaxis: { title: "Revenue" },
       }}
       config={{
         scrollZoom: true,

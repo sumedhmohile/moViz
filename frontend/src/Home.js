@@ -14,14 +14,14 @@ import { RevenueGenreTime } from "./Components/RevenueGenreTime";
 import { AvgRevenueActorGenre } from "./Components/AvgRevenueActorGenre";
 import { PopularityByGenreAndYear } from "./Components/PopularityByGenreAndYear";
 
-import { MoviesCountVsYear } from "./Components/MoviesCountVsYear";
-import { MovieRevenueVsYear } from "./Components/MovieRevenueVsYear";
+import { MovieCountVsYear } from "./Components/MovieCountVsYear";
+import { MovieTotalRevenueVsYear } from "./Components/MovieTotalRevenueVsYear";
 import { MovieAvgRevenueVsYear } from "./Components/MovieAvgRevenueVsYear";
-import { MovieBudgetVsYear } from "./Components/MovieBudgetVsYear";
+import { MovieTotalBudgetVsYear } from "./Components/MovieTotalBudgetVsYear";
 import { MovieAvgBudgetVsYear } from "./Components/MovieAvgBudgetVsYear";
 import BudgetPopularityGenre from "./Components/BudgetPopularityGenre";
 import CompHolder from "./Components/CompHolder";
-import CountByGender from "./Components/CountByGender";
+import ActorGenderCount from "./Components/ActorGenderCount";
 import DurationVsRevenueGraph from "./Components/DurationVsRevenueGraph";
 import LanguageRevenueBudgetPopularity from "./Components/LanguageRevenueBudgetPopularity";
 
@@ -40,22 +40,22 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export const Home = () => {
   const basicGraphList = [
-    "Movie Count by Year",
-    "Movie Total Revenue by Year",
-    "Movie Average Revenue by Year",
-    "Movie Total Budget by Year",
-    "Movie Average Budget by Year",
-    "Gender Distribution Of Actors",
+    "Movie Count vs. Year",
+    "Movie Total Revenue vs. Year",
+    "Movie Average Revenue vs. Year",
+    "Movie Total Budget vs. Year",
+    "Movie Average Budget vs. Year",
+    "Actor Gender Distribution",
   ];
 
   const graphList = [
-    "Revenue of Genres vs Time",
-    "Popularity of Genres vs Time",
+    "Movie Genre vs. Revenue vs. Year",
+    "Genre Popularity vs. Year",
     "Average Revenue of Actors by Genre",
-    "Budget vs Rating by Genre",
-    "Actor Correlation For Average Revenue by Genre",
-    "Average Revenue vs Movie Runtime",
-    "Impact of language on Popularity, Budget and Revenue",
+    "Movie Budget vs. Rating by Genre",
+    "Actor Correlation for Average Revenue by Genre",
+    "Average Revenue vs. Movie Runtime",
+    "Impact of Language on Popularity, Budget and Revenue",
   ];
   const theme = useTheme();
 
@@ -143,12 +143,12 @@ export const Home = () => {
         {displayGraph === 5 && <DurationVsRevenueGraph />}
         {displayGraph === 6 && <LanguageRevenueBudgetPopularity />}
 
-        {displayGraph === 7 && <MoviesCountVsYear />}
-        {displayGraph === 8 && <MovieRevenueVsYear />}
+        {displayGraph === 7 && <MovieCountVsYear />}
+        {displayGraph === 8 && <MovieTotalRevenueVsYear />}
         {displayGraph === 9 && <MovieAvgRevenueVsYear />}
-        {displayGraph === 10 && <MovieBudgetVsYear />}
+        {displayGraph === 10 && <MovieTotalBudgetVsYear />}
         {displayGraph === 11 && <MovieAvgBudgetVsYear />}
-        {displayGraph === 12 && <CountByGender />}
+        {displayGraph === 12 && <ActorGenderCount />}
       </Box>
     </Box>
   );

@@ -1,9 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
-// import Plotly from 'react-plotly.js';
-// import Highcharts from 'highcharts';
-// import HighchartsReact from 'highcharts-react-official';
 
 const URL =
   "http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/moviz/graph/";
@@ -15,12 +12,12 @@ function fetchGraphData(xSetter, ySetter, languageSetter, popularitySetter) {
 
     var dataArray = response.data.data;
 
-    let xArray = new Array();
-    let yArray = new Array();
-    let languageArray = new Array();
-    let popularityArray = new Array();
+    let xArray = [];
+    let yArray = [];
+    let languageArray = [];
+    let popularityArray = [];
 
-    for (var i = 0; i < dataArray.length; ++i) {
+    for (let i = 0; i < dataArray.length; ++i) {
       xArray.push(dataArray[i].revenue);
       yArray.push(dataArray[i].budget);
       languageArray.push(dataArray[i].language);
@@ -85,9 +82,9 @@ function LanguageRevenueBudgetPopularity() {
       layout={{
         width: window.innerWidth / 1.4,
         height: window.innerHeight / 1.2,
-        title: "Impact of language on Popularity, Budget and Revenue",
-        yaxis: { title: "Revenue" },
+        title: "Impact of Language on Popularity, Budget and Revenue",
         xaxis: { title: "Budget", range: [0, 110000000] },
+        yaxis: { title: "Revenue" },
       }}
     />
   );

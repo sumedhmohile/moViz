@@ -45,7 +45,7 @@ export const PopularityByGenreAndYear = () => {
             return 0;
           });
 
-          for (var j = 0; j < genreTemp.length; j++) {
+          for (let j = 0; j < genreTemp.length; j++) {
             x.push(genreTemp[j].year);
             y.push(genreTemp[j].popularity);
           }
@@ -71,14 +71,14 @@ export const PopularityByGenreAndYear = () => {
       layout={{
         width: window.innerWidth / 1.3,
         height: window.innerHeight / 1.2,
-        title: "Popularity of Genres vs Time",
-        yaxis: { title: "Year" },
-        xaxis: { title: "Popularity" },
+        title: "Popularity of Genres vs. Time",
         xaxis: {
+          title: "Popularity",
           range: [1910, 2025],
           rangeslider: {},
         },
         yaxis: {
+          title: "Year",
           fixedrange: false,
         },
       }}

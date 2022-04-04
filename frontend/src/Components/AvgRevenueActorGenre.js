@@ -49,7 +49,7 @@ export const AvgRevenueActorGenre = () => {
           var actorGenre = {};
           var zValues = [];
 
-          for (var j = 0; j < combinedData.x.length; j++) {
+          for (let j = 0; j < combinedData.x.length; j++) {
             actorGenre[combinedData.x[j]] = "0";
           }
 
@@ -91,8 +91,8 @@ export const AvgRevenueActorGenre = () => {
         width: window.innerWidth / 1.5,
         height: window.innerHeight / 1.2,
         title: "Average Revenue of Popular Actors by Genre",
-        yaxis: { title: "Actor" },
         xaxis: { title: "Genre" },
+        yaxis: { title: "Actor" },
       }}
       config={{
         scrollZoom: true,

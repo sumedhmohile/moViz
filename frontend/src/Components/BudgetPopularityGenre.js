@@ -1,9 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
-// import Plotly from 'react-plotly.js';
-// import Highcharts from 'highcharts';
-// import HighchartsReact from 'highcharts-react-official';
 
 const URL =
   "http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/moviz/graph/";
@@ -11,7 +8,7 @@ const URL =
 function getRandomColor() {
   var letters = "0123456789ABCDEF";
   var color = "#";
-  for (var i = 0; i < 6; i++) {
+  for (let i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
@@ -24,19 +21,17 @@ function fetchGraphData(xSetter, ySetter, genreSetter, nameSetter) {
 
     var dataArray = response.data.data;
 
-    let xArray = new Array();
-    let yArray = new Array();
-    let genreArray = new Array();
-    let nameArray = new Array();
-    //                let colo
+    let xArray = [];
+    let yArray = [];
+    let genreArray = [];
+    let nameArray = [];
+    let colourDict = {};
 
-    let colourDict = new Object();
-
-    for (var i = 0; i < dataArray.length; ++i) {
+    for (let i = 0; i < dataArray.length; ++i) {
       colourDict[dataArray[i].name] = getRandomColor();
     }
 
-    for (var i = 0; i < dataArray.length; ++i) {
+    for (let i = 0; i < dataArray.length; ++i) {
       //                    resultDict[dataArray[i].genre][xData].push()
 
       xArray.push(dataArray[i].budget);
@@ -102,9 +97,9 @@ function BudgetPopularityGenre() {
       layout={{
         width: window.innerWidth / 1.4,
         height: window.innerHeight / 1.2,
-        title: "Budget vs Rating by Genre",
-        yaxis: { title: "Rating" },
+        title: "Movie Budget vs. Rating by Genre",
         xaxis: { title: "Budget" },
+        yaxis: { title: "Rating" },
       }}
     />
   );

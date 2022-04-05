@@ -22,7 +22,7 @@ import { MovieAvgBudgetVsYear } from "./components/MovieAvgBudgetVsYear";
 import { ActorGenderCount } from "./components/ActorGenderCount";
 import { PeopleGenderCount } from "./components/PeopleGenderCount";
 
-import BudgetPopularityGenre from "./components/BudgetPopularityGenre";
+import { BudgetRatingGenre } from "./components/BudgetRatingGenre";
 import CompHolder from "./components/CompHolder";
 import DurationVsRevenueGraph from "./components/DurationVsRevenueGraph";
 import LanguageRevenueBudgetPopularity from "./components/LanguageRevenueBudgetPopularity";
@@ -55,7 +55,7 @@ export const Home = () => {
     "Movie Genre vs. Revenue vs. Year",
     "Genre Popularity vs. Year",
     "Average Revenue of Actors by Genre",
-    "Movie Budget vs. Rating by Genre",
+    "Movie Budget vs. Rating vs. Genre",
     "Actor Correlation for Average Revenue by Genre",
     "Average Revenue vs. Movie Runtime",
     "Impact of Language on Popularity, Budget and Revenue",
@@ -141,7 +141,7 @@ export const Home = () => {
         {displayGraph === 0 && <RevenueGenreTime />}
         {displayGraph === 1 && <PopularityByGenreAndYear />}
         {displayGraph === 2 && <AvgRevenueActorGenre />}
-        {displayGraph === 3 && <BudgetPopularityGenre />}
+        {displayGraph === 3 && <BudgetRatingGenre />}
         {displayGraph === 4 && <CompHolder />}
         {displayGraph === 5 && <DurationVsRevenueGraph />}
         {displayGraph === 6 && <LanguageRevenueBudgetPopularity />}

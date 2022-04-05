@@ -47,7 +47,7 @@ graph_map = {
                                           FROM (SELECT original_language AS language, AVG(revenue) AS revenue, AVG(budget) AS budget, AVG(popularity) AS popularity FROM movies WHERE original_language regexp \'^[a-zA-Z]+\' AND revenue>0 and budget>0 GROUP BY original_language) m 
                                           INNER JOIN languages l
                                           ON m.language=l.iso_639_1;''',
-    'budgetPopularityGenre': '''SELECT m.title, m.budget, m.vote_average, g.name
+    'budgetRatingGenre': '''SELECT m.title, m.budget, m.vote_average, g.name
                                 FROM movies m
                                 INNER JOIN movie_genres mg
                                 ON m.movie_id=mg.movie_id

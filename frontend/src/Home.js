@@ -19,9 +19,9 @@ import { MovieTotalRevenueVsYear } from "./components/MovieTotalRevenueVsYear";
 import { MovieAvgRevenueVsYear } from "./components/MovieAvgRevenueVsYear";
 import { MovieTotalBudgetVsYear } from "./components/MovieTotalBudgetVsYear";
 import { MovieAvgBudgetVsYear } from "./components/MovieAvgBudgetVsYear";
+import { ActorGenderCount } from "./components/ActorGenderCount";
 import BudgetPopularityGenre from "./components/BudgetPopularityGenre";
 import CompHolder from "./components/CompHolder";
-import ActorGenderCount from "./components/ActorGenderCount";
 import DurationVsRevenueGraph from "./components/DurationVsRevenueGraph";
 import LanguageRevenueBudgetPopularity from "./components/LanguageRevenueBudgetPopularity";
 

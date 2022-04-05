@@ -155,9 +155,9 @@ def get_movie(movie_id):
 
 def update_movies():
     today = datetime.today()
-    today_str = today.strftime('%m_%d_%Y')
+    today_str = today.strftime('%Y-%m-%d')
     yesterday = today - timedelta(days=1)
-    yesterday_str = yesterday.strftime('%m_%d_%Y')
+    yesterday_str = yesterday.strftime('%Y-%m-%d')
     movies_url = f'https://api.themoviedb.org/3/movie/changes?api_key={api_key}&start_date={yesterday_str}&end_date={today_str}'
 
     logging.info('Updating records...')

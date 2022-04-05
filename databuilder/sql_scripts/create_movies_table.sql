@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS movies
   poster_path VARCHAR(255),
   -- production_companies added in movie_production_companies table
   -- production_countries added in movie_production_countries table
-  release_date DATE NOT NULL,
+  release_date DATE,
   revenue INT,
   runtime INT,
   -- spoken_languages added in movie_languages table

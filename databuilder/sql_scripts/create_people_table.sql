@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS people
   person_id INT NOT NULL,
   name VARCHAR(255) NOT NULL,
   -- also_known_as not implemented
-  gender INT,
+  gender VARCHAR(255),
   biography TEXT,
   popularity DOUBLE NOT NULL,
   place_of_birth VARCHAR(255),

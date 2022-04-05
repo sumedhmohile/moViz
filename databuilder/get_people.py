@@ -100,9 +100,9 @@ def get_person(person_id):
 
 def update_people():
     today = datetime.today()
-    today_str = today.strftime('%m_%d_%Y')
+    today_str = today.strftime('%Y-%m-%d')
     yesterday = today - timedelta(days=1)
-    yesterday_str = yesterday.strftime('%m_%d_%Y')
+    yesterday_str = yesterday.strftime('%Y-%m-%d')
     people_url = f'https://api.themoviedb.org/3/person/changes?api_key={api_key}&start_date={yesterday_str}&end_date={today_str}'
 
     logging.info('Updating records...')

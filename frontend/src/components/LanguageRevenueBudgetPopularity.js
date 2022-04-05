@@ -1,92 +1,43 @@
+import { useEffect, useState } from "react";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
 
-const URL = "/moviz/graph/";
-
-function fetchGraphData(xSetter, ySetter, languageSetter, popularitySetter) {
-  const article = { graphID: "budgetRevenueLanguagePopularity" };
-  axios.post(URL, article).then((response) => {
-    console.log(response.data);
-
-    var dataArray = response.data.data;
-
-    let xArray = [];
-    let yArray = [];
-    let languageArray = [];
-    let popularityArray = [];
-
-    for (let i = 0; i < dataArray.length; ++i) {
-      xArray.push(dataArray[i].revenue);
-      yArray.push(dataArray[i].budget);
-      languageArray.push(dataArray[i].language);
-      popularityArray.push(dataArray[i].popularity);
-    }
-
-    xSetter(xArray);
-    ySetter(yArray);
-    languageSetter(languageArray);
-    popularitySetter(popularityArray);
-  });
-}
-
-function LanguageRevenueBudgetPopularity() {
-  const [xDataGetter, xDataSetter] = useState(0);
-  const [yDataGetter, yDataSetter] = useState(0);
-  const [languageDataGetter, languageDataSetter] = useState(0);
-  const [popularityDataGetter, popularityDataSetter] = useState(0);
+export const LanguageRevenueBudgetPopularity = () => {
+  const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
-    console.log("xData changed!");
-  }, [xDataGetter]);
-
-  useEffect(() => {
-    console.log("yData changed!");
-  }, [yDataGetter]);
-
-  useEffect(() => {
-    console.log("languageData changed!");
-  }, [languageDataGetter]);
-
-  useEffect(() => {
-    console.log("popularityData changed!");
-  }, [popularityDataGetter]);
-
-  useEffect(() => {
-    console.log("I have been mounted");
-    fetchGraphData(
-      xDataSetter,
-      yDataSetter,
-      languageDataSetter,
-      popularityDataSetter
-    );
+    axios
+      .post("/moviz/graph/", { graphID: "budgetRevenueLanguagePopularity" })
+      .then((response) => {
+        setGraphData(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
-
-  var plotData = [
-    {
-      type: "scatter",
-      x: xDataGetter,
-      y: yDataGetter,
-      mode: "markers",
-      text: languageDataGetter,
-      marker: {
-        size: popularityDataGetter,
-      },
-    },
-  ];
 
   return (
     <Plot
-      data={plotData}
+      data={[
+        {
+          x: graphData.map((x) => x.budget),
+          y: graphData.map((x) => x.revenue),
+          mode: "markers",
+          type: "scatter",
+          text: graphData.map((x) => x.language),
+          marker: { size: graphData.map((x) => x.popularity) },
+        },
+      ]}
       layout={{
-        width: window.innerWidth / 1.4,
-        height: window.innerHeight / 1.2,
         title: "Impact of Language on Popularity, Budget and Revenue",
-        xaxis: { title: "Budget", range: [0, 110000000] },
+        xaxis: { title: "Budget" },
         yaxis: { title: "Revenue" },
+      }}
+      style={{ width: "100%", height: "100%" }}
+      config={{
+        scrollZoom: true,
+        responsive: true,
       }}
     />
   );
-}
-
-export default LanguageRevenueBudgetPopularity;
+};

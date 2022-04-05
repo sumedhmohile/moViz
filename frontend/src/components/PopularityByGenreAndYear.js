@@ -1,6 +1,6 @@
-import Plot from "react-plotly.js";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import Plot from "react-plotly.js";
 
 export const PopularityByGenreAndYear = () => {
   const [graphData, setGraphData] = useState([]);
@@ -13,7 +13,6 @@ export const PopularityByGenreAndYear = () => {
       .then((res) => {
         var combinedData = [];
         var data = res.data.data;
-        // console.log(data)
         var genre = data[0].genre;
         var i = 1;
 
@@ -66,8 +65,6 @@ export const PopularityByGenreAndYear = () => {
     <Plot
       data={graphData}
       layout={{
-        width: window.innerWidth / 1.3,
-        height: window.innerHeight / 1.2,
         title: "Popularity of Genres vs. Time",
         xaxis: {
           title: "Popularity",
@@ -79,8 +76,10 @@ export const PopularityByGenreAndYear = () => {
           fixedrange: false,
         },
       }}
+      style={{ width: "100%", height: "100%" }}
       config={{
         scrollZoom: true,
+        responsive: true,
       }}
     />
   );

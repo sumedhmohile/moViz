@@ -1,30 +1,29 @@
+import { useState, useEffect } from "react";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import Comparison from "./Comparison";
-
-const URL = "/moviz/graph/";
+import { Comparison } from "./Comparison";
 
 function fetchGraphData(xSetter, ySetter) {
-  const article = { graphID: "durationVSrevenue" };
-  axios.post(URL, article).then((response) => {
-    console.log(response.data);
+  axios
+    .post("/moviz/graph/", { graphID: "durationVSrevenue" })
+    .then((response) => {
+      console.log(response.data);
 
-    var dataArray = response.data.data;
+      var dataArray = response.data.data;
 
-    let xArray = [];
-    let yArray = [];
+      let xArray = [];
+      let yArray = [];
 
-    for (let i = 0; i < dataArray.length; ++i) {
-      xArray.push(dataArray[i].runtime);
-      yArray.push(dataArray[i].revenue);
-    }
+      for (let i = 0; i < dataArray.length; ++i) {
+        xArray.push(dataArray[i].runtime);
+        yArray.push(dataArray[i].revenue);
+      }
 
-    xSetter(xArray);
-    ySetter(yArray);
-  });
+      xSetter(xArray);
+      ySetter(yArray);
+    });
 }
 
-function CompHolder() {
+export const CompHolder = () => {
   const [xDataGetter, xDataSetter] = useState(0);
   const [yDataGetter, yDataSetter] = useState(0);
 
@@ -42,6 +41,4 @@ function CompHolder() {
   }, []);
 
   return <Comparison></Comparison>;
-}
-
-export default CompHolder;
+};

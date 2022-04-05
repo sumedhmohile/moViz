@@ -1,5 +1,5 @@
+import { useState, useEffect } from "react";
 import axios from "axios";
-import React, { useState } from "react";
 import Plot from "react-plotly.js";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -201,7 +201,7 @@ function createGraphs(
   //    fetchGraphData(xDataSetter, yDataSetter);
 }
 
-function Comparison() {
+export const Comparison = () => {
   const [actor1Input, setActor1Input] = useState("");
   const [actor2Input, setActor2Input] = useState("");
 
@@ -338,6 +338,4 @@ function Comparison() {
       />
     </div>
   );
-}
-
-export default Comparison;
+};

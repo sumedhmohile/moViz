@@ -23,9 +23,9 @@ import { ActorGenderCount } from "./components/ActorGenderCount";
 import { PeopleGenderCount } from "./components/PeopleGenderCount";
 
 import { BudgetRatingGenre } from "./components/BudgetRatingGenre";
-import CompHolder from "./components/CompHolder";
-import DurationVsRevenueGraph from "./components/DurationVsRevenueGraph";
-import LanguageRevenueBudgetPopularity from "./components/LanguageRevenueBudgetPopularity";
+import { CompHolder } from "./components/CompHolder";
+import { DurationVsRevenueGraph } from "./components/DurationVsRevenueGraph";
+import { LanguageRevenueBudgetPopularity } from "./components/LanguageRevenueBudgetPopularity";
 
 const drawerWidth = window.innerWidth / 6;
 

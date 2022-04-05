@@ -1,20 +1,18 @@
-import Plot from "react-plotly.js";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import Plot from "react-plotly.js";
 
 export const AvgRevenueActorGenre = () => {
   const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
     axios
-      .post("/moviz/graph/", {
-        graphID: "avgRevenueActorGenre",
-      })
-      .then((res) => {
+      .post("/moviz/graph/", { graphID: "avgRevenueActorGenre" })
+      .then((response) => {
         var combinedData = {};
 
-        var data = res.data.data;
-        console.log(res.data);
+        var data = response.data.data;
+        console.log(response.data);
         var i = 0;
 
         var actor = data[i].name;
@@ -82,17 +80,14 @@ export const AvgRevenueActorGenre = () => {
     <Plot
       data={[graphData]}
       layout={{
-        margin: {
-          l: 200,
-        },
-        width: window.innerWidth / 1.5,
-        height: window.innerHeight / 1.2,
         title: "Average Revenue of Popular Actors by Genre",
         xaxis: { title: "Genre" },
         yaxis: { title: "Actor" },
       }}
+      style={{ width: "100%", height: "100%" }}
       config={{
         scrollZoom: true,
+        responsive: true,
       }}
     />
   );

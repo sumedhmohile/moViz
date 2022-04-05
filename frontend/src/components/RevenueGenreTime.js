@@ -1,6 +1,6 @@
-import Plot from "react-plotly.js";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import Plot from "react-plotly.js";
 
 export const RevenueGenreTime = () => {
   const [graphData, setGraphData] = useState([]);
@@ -85,9 +85,7 @@ export const RevenueGenreTime = () => {
     <Plot
       data={graphData}
       layout={{
-        width: window.innerWidth / 1.3,
-        height: window.innerHeight / 1.2,
-        title: "Genre Revenues over Time",
+        title: "Movie Genre vs. Revenue vs. Year",
         xaxis: {
           title: "Year",
           range: [1910, 2025],
@@ -96,8 +94,10 @@ export const RevenueGenreTime = () => {
         },
         yaxis: { title: "Revenue" },
       }}
+      style={{ width: "100%", height: "100%" }}
       config={{
         scrollZoom: true,
+        responsive: true,
         // displayModeBar: false,
       }}
     />

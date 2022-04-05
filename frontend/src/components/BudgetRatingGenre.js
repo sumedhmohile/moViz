@@ -93,9 +93,7 @@ export const BudgetRatingGenre = () => {
     <Plot
       data={plotData}
       layout={{
-        // width: window.innerWidth / 1.4,
-        // height: window.innerHeight / 1.2,
-        title: "Movie Budget vs. Rating by Genre",
+        title: "Movie Budget vs. Rating vs. Genre",
         xaxis: { title: "Budget" },
         yaxis: { title: "Rating" },
       }}

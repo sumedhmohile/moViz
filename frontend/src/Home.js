@@ -20,6 +20,8 @@ import { MovieAvgRevenueVsYear } from "./components/MovieAvgRevenueVsYear";
 import { MovieTotalBudgetVsYear } from "./components/MovieTotalBudgetVsYear";
 import { MovieAvgBudgetVsYear } from "./components/MovieAvgBudgetVsYear";
 import { ActorGenderCount } from "./components/ActorGenderCount";
+import { PeopleGenderCount } from "./components/PeopleGenderCount";
+
 import BudgetPopularityGenre from "./components/BudgetPopularityGenre";
 import CompHolder from "./components/CompHolder";
 import DurationVsRevenueGraph from "./components/DurationVsRevenueGraph";
@@ -46,6 +48,7 @@ export const Home = () => {
     "Movie Total Budget vs. Year",
     "Movie Average Budget vs. Year",
     "Actor Gender Distribution",
+    "People Gender Distribution",
   ];
 
   const graphList = [
@@ -149,6 +152,7 @@ export const Home = () => {
         {displayGraph === 10 && <MovieTotalBudgetVsYear />}
         {displayGraph === 11 && <MovieAvgBudgetVsYear />}
         {displayGraph === 12 && <ActorGenderCount />}
+        {displayGraph === 13 && <PeopleGenderCount />}
       </Box>
     </Box>
   );

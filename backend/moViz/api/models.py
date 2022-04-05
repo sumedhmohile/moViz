@@ -118,7 +118,7 @@ class People(models.Model):
     deathday = models.DateField(blank=True, null=True)
     person_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255)
-    gender = models.IntegerField(blank=True, null=True)
+    gender = models.CharField(max_length=255, blank=True, null=True)
     biography = models.TextField(blank=True, null=True)
     popularity = models.FloatField()
     place_of_birth = models.CharField(max_length=255, blank=True, null=True)

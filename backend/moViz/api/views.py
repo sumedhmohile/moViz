@@ -109,6 +109,7 @@ class ActorGenderCountView(viewsets.ReadOnlyModelViewSet):
     serializer_class = ActorGenderCountSerializer
     queryset = People \
         .objects \
+        .exclude(gender__isnull=True) \
         .filter(known_for_department='Acting') \
         .values('gender') \
         .annotate(count=Count('gender'))

@@ -58,6 +58,12 @@ def get_person(person_id):
     gender = person_json['gender']
     if gender == 0:
         gender = None
+    elif gender == 1:
+        gender = 'Female'
+    elif gender == 2:
+        gender = 'Male'
+    elif gender == 3:
+        gender = 'Other'
 
     biography = person_json['biography']
     if biography == '':

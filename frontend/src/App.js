@@ -1,5 +1,5 @@
-import './App.css';
-import {Home} from './Home'
+import "./App.css";
+import { Home } from "./Home";
 
 function App() {
   /*
@@ -9,9 +9,7 @@ function App() {
   3. Actors vs Movies vs Revenue
   4. Actors vs genres, revenue
   */
-  return(
-    <Home/>
-  )
+  return <Home />;
 }
 
 export default App;

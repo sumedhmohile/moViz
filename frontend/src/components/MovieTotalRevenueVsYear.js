@@ -7,7 +7,7 @@ export const MovieTotalRevenueVsYear = () => {
 
   useEffect(() => {
     axios
-      .get("/api/movieTotalRevenuesVsYear/")
+      .get("/api/movieTotalRevenueVsYear/")
       .then((res) => {
         const data = res.data;
         console.log(data);

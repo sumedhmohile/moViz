@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Plot from "react-plotly.js";
 
-export const BudgetRatingGenre = () => {
+export const MovieGenreVsBudgetVsRating = () => {
   const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export const BudgetRatingGenre = () => {
     <Plot
       data={graphData}
       layout={{
-        title: "Movie Budget vs. Rating vs. Genre",
+        title: "Movie Genre vs. Budget vs. Rating",
         xaxis: { title: "Budget" },
         yaxis: { title: "Rating" },
       }}

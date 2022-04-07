@@ -11,8 +11,9 @@ import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { MovieGenreVsTotalRevenueVsYear } from "./components/MovieGenreVsTotalRevenueVsYear";
-import { AvgRevenueActorGenre } from "./components/AvgRevenueActorGenre";
 import { MovieGenreVsAvgPopularityVsYear } from "./components/MovieGenreVsAvgPopularityVsYear";
+import { AvgRevenueActorGenre } from "./components/AvgRevenueActorGenre";
+import { MovieGenreVsBudgetVsRating } from "./components/MovieGenreVsBudgetVsRating";
 
 import { MovieCountVsYear } from "./components/MovieCountVsYear";
 import { MovieTotalRevenueVsYear } from "./components/MovieTotalRevenueVsYear";
@@ -22,7 +23,6 @@ import { MovieAvgBudgetVsYear } from "./components/MovieAvgBudgetVsYear";
 import { ActorGenderCount } from "./components/ActorGenderCount";
 import { PeopleGenderCount } from "./components/PeopleGenderCount";
 
-import { MovieGenreVsBudgetVsRating } from "./components/MovieGenreVsBudgetVsRating";
 import { CompHolder } from "./components/CompHolder";
 import { MovieGenreVsAvgRevenueVsRuntimeGraph } from "./components/MovieGenreVsAvgRevenueVsRuntimeGraph";
 import { LanguageRevenueBudgetPopularity } from "./components/LanguageRevenueBudgetPopularity";

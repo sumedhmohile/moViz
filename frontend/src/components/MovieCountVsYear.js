@@ -29,6 +29,7 @@ export const MovieCountVsYear = () => {
         title: "Movie Count vs. Year",
         xaxis: {
           title: "Year",
+          tickformat: "d",
           rangeslider: {},
         },
         yaxis: { title: "Movie Count" },

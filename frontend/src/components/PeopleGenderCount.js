@@ -36,6 +36,7 @@ export const PeopleGenderCount = () => {
         title: "People Gender Distribution",
         xaxis: {
           title: "Count",
+          tickformat: "s",
           rangeslider: {},
         },
         yaxis: { title: "Known for Department" },

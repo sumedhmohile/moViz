@@ -36,6 +36,7 @@ export const MovieGenreVsTotalRevenueVsYear = () => {
         title: "Movie Genre vs. Total Revenue vs. Year",
         xaxis: {
           title: "Year",
+          tickformat: "d",
           rangeselector: {
             buttons: [
               {

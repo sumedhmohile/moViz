@@ -36,6 +36,7 @@ export const MovieGenreVsAvgPopularityVsYear = () => {
         title: "Movie Genre vs. Average Popularity vs. Year",
         xaxis: {
           title: "Year",
+          tickformat: "d",
           rangeslider: {},
         },
         yaxis: {

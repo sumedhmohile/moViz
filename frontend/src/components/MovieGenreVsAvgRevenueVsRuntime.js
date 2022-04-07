@@ -36,6 +36,7 @@ export const MovieGenreVsAvgRevenueVsRuntime = () => {
         title: "Movie Genre vs. Average Revenue vs. Runtime",
         xaxis: {
           title: "Runtime in Minutes",
+          tickformat: "d",
           rangeslider: {},
         },
         yaxis: { title: "Average Revenue" },

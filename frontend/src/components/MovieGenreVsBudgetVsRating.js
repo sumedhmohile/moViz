@@ -38,6 +38,7 @@ export const MovieGenreVsBudgetVsRating = () => {
         title: "Movie Genre vs. Budget vs. Rating",
         xaxis: {
           title: "Budget",
+          tickformat: "s",
           rangeslider: {},
         },
         yaxis: { title: "Rating" },

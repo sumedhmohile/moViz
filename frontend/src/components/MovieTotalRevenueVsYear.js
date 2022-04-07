@@ -29,6 +29,7 @@ export const MovieTotalRevenueVsYear = () => {
         title: "Movie Total Revenue vs. Year",
         xaxis: {
           title: "Year",
+          tickformat: "d",
           rangeslider: {},
         },
         yaxis: { title: "Revenue" },

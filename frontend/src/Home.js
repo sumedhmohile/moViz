@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { MovieVsGenreVsRevenueVsYear } from "./components/MovieVsGenreVsRevenueVsYear";
+import { MovieVsGenreVsTotalRevenueVsYear } from "./components/MovieVsGenreVsTotalRevenueVsYear";
 import { AvgRevenueActorGenre } from "./components/AvgRevenueActorGenre";
 import { MovieGenreVsAvgPopularityVsYear } from "./components/MovieGenreVsAvgPopularityVsYear";
 
@@ -52,7 +52,7 @@ export const Home = () => {
   ];
 
   const graphList = [
-    "Movie Genre vs. Revenue vs. Year",
+    "Movie Genre vs. Total Revenue vs. Year",
     "Movie Genre vs. Average Popularity vs. Year",
     "Average Revenue of Actors by Genre",
     "Movie Budget vs. Rating vs. Genre",
@@ -138,7 +138,7 @@ export const Home = () => {
         }}
       >
         <DrawerHeader />
-        {displayGraph === 0 && <MovieVsGenreVsRevenueVsYear />}
+        {displayGraph === 0 && <MovieVsGenreVsTotalRevenueVsYear />}
         {displayGraph === 1 && <MovieGenreVsAvgPopularityVsYear />}
         {displayGraph === 2 && <AvgRevenueActorGenre />}
         {displayGraph === 3 && <BudgetRatingGenre />}

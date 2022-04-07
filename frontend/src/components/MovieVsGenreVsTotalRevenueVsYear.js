@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Plot from "react-plotly.js";
 
-export const MovieVsGenreVsRevenueVsYear = () => {
+export const MovieVsGenreVsTotalRevenueVsYear = () => {
   const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export const MovieVsGenreVsRevenueVsYear = () => {
           data.push({
             x: genre_data.map((x) => x.year),
             y: genre_data.map((x) => x.revenue),
-            type: "scatter",
+            type: "bar",
             name: genre,
           });
         }
@@ -33,7 +33,7 @@ export const MovieVsGenreVsRevenueVsYear = () => {
     <Plot
       data={graphData}
       layout={{
-        title: "Movie Genre vs. Revenue vs. Year",
+        title: "Movie Genre vs. Total Revenue vs. Year",
         xaxis: {
           title: "Year",
           rangeselector: {
@@ -54,10 +54,12 @@ export const MovieVsGenreVsRevenueVsYear = () => {
                 step: "all",
               },
             ],
+            tickformat: "%Y",
           },
           rangeslider: {},
         },
         yaxis: { title: "Revenue" },
+        barmode: "stack",
       }}
       style={{ width: "100%", height: "100%" }}
       config={{

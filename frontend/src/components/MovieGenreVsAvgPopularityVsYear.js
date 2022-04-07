@@ -14,7 +14,6 @@ export const MovieGenreVsAvgPopularityVsYear = () => {
 
         for (let genre of Array.from(genres).sort()) {
           let genre_data = response.data.data.filter((x) => x.genre === genre);
-          console.log(genre_data);
           data.push({
             x: genre_data.map((x) => x.year),
             y: genre_data.map((x) => x.popularity),

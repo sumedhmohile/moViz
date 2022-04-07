@@ -25,6 +25,7 @@ import { MovieAvgRevenueVsYear } from "./components/MovieAvgRevenueVsYear";
 import { MovieTotalBudgetVsYear } from "./components/MovieTotalBudgetVsYear";
 import { MovieAvgBudgetVsYear } from "./components/MovieAvgBudgetVsYear";
 import { MovieAvgRuntimeVsYear } from "./components/MovieAvgRuntimeVsYear";
+import { PeopleDepartmentCount } from "./components/PeopleDepartmentCount";
 import { PeopleGenderCount } from "./components/PeopleGenderCount";
 
 const drawerWidth = window.innerWidth / 6;
@@ -49,6 +50,7 @@ export const Home = () => {
     "Movie Total Budget vs. Year",
     "Movie Average Budget vs. Year",
     "Movie Average Runtime vs. Year",
+    "People Department Count",
     "People Gender Distribution",
   ];
 
@@ -154,7 +156,8 @@ export const Home = () => {
         {displayGraph === 11 && <MovieTotalBudgetVsYear />}
         {displayGraph === 12 && <MovieAvgBudgetVsYear />}
         {displayGraph === 13 && <MovieAvgRuntimeVsYear />}
-        {displayGraph === 14 && <PeopleGenderCount />}
+        {displayGraph === 14 && <PeopleDepartmentCount />}
+        {displayGraph === 15 && <PeopleGenderCount />}
       </Box>
     </Box>
   );

@@ -16,15 +16,15 @@ import { AvgRevenueActorGenre } from "./components/AvgRevenueActorGenre";
 import { MovieGenreVsBudgetVsRating } from "./components/MovieGenreVsBudgetVsRating";
 import { CompHolder } from "./components/CompHolder";
 import { MovieGenreVsAvgRevenueVsRuntime } from "./components/MovieGenreVsAvgRevenueVsRuntime";
+import { LanguageRevenueBudgetPopularity } from "./components/LanguageRevenueBudgetPopularity";
 
 import { MovieCountVsYear } from "./components/MovieCountVsYear";
 import { MovieTotalRevenueVsYear } from "./components/MovieTotalRevenueVsYear";
 import { MovieAvgRevenueVsYear } from "./components/MovieAvgRevenueVsYear";
 import { MovieTotalBudgetVsYear } from "./components/MovieTotalBudgetVsYear";
 import { MovieAvgBudgetVsYear } from "./components/MovieAvgBudgetVsYear";
+import { MovieAvgRuntimeVsYear } from "./components/MovieAvgRuntimeVsYear";
 import { PeopleGenderCount } from "./components/PeopleGenderCount";
-
-import { LanguageRevenueBudgetPopularity } from "./components/LanguageRevenueBudgetPopularity";
 
 const drawerWidth = window.innerWidth / 6;
 
@@ -46,6 +46,7 @@ export const Home = () => {
     "Movie Average Revenue vs. Year",
     "Movie Total Budget vs. Year",
     "Movie Average Budget vs. Year",
+    "Movie Average Runtime vs. Year",
     "People Gender Distribution",
   ];
 
@@ -149,7 +150,8 @@ export const Home = () => {
         {displayGraph === 9 && <MovieAvgRevenueVsYear />}
         {displayGraph === 10 && <MovieTotalBudgetVsYear />}
         {displayGraph === 11 && <MovieAvgBudgetVsYear />}
-        {displayGraph === 12 && <PeopleGenderCount />}
+        {displayGraph === 12 && <MovieAvgRuntimeVsYear />}
+        {displayGraph === 13 && <PeopleGenderCount />}
       </Box>
     </Box>
   );

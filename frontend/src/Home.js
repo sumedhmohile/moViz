@@ -22,7 +22,6 @@ import { MovieTotalRevenueVsYear } from "./components/MovieTotalRevenueVsYear";
 import { MovieAvgRevenueVsYear } from "./components/MovieAvgRevenueVsYear";
 import { MovieTotalBudgetVsYear } from "./components/MovieTotalBudgetVsYear";
 import { MovieAvgBudgetVsYear } from "./components/MovieAvgBudgetVsYear";
-import { ActorGenderCount } from "./components/ActorGenderCount";
 import { PeopleGenderCount } from "./components/PeopleGenderCount";
 
 import { LanguageRevenueBudgetPopularity } from "./components/LanguageRevenueBudgetPopularity";
@@ -47,7 +46,6 @@ export const Home = () => {
     "Movie Average Revenue vs. Year",
     "Movie Total Budget vs. Year",
     "Movie Average Budget vs. Year",
-    "Actor Gender Distribution",
     "People Gender Distribution",
   ];
 
@@ -151,8 +149,7 @@ export const Home = () => {
         {displayGraph === 9 && <MovieAvgRevenueVsYear />}
         {displayGraph === 10 && <MovieTotalBudgetVsYear />}
         {displayGraph === 11 && <MovieAvgBudgetVsYear />}
-        {displayGraph === 12 && <ActorGenderCount />}
-        {displayGraph === 13 && <PeopleGenderCount />}
+        {displayGraph === 12 && <PeopleGenderCount />}
       </Box>
     </Box>
   );

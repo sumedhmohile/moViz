@@ -43,7 +43,10 @@ export const MovieGenreVsBudgetVsRating = () => {
         yaxis: { title: "Rating" },
       }}
       style={{ width: "100%", height: "100%" }}
-      config={{ responsive: true }}
+      config={{
+        // scrollZoom: true, // Plot responsiveness takes a toll when this is enabled
+        responsive: true,
+      }}
     />
   );
 };

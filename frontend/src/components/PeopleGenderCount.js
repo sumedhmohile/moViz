@@ -69,6 +69,7 @@ export const PeopleGenderCount = () => {
       }}
       style={{ width: "100%", height: "100%" }}
       config={{
+        scrollZoom: true,
         responsive: true,
       }}
     />

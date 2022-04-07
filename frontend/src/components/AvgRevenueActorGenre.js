@@ -9,6 +9,14 @@ export const AvgRevenueActorGenre = () => {
     axios
       .post("/moviz/graph/", { graphID: "avgRevenueActorGenre" })
       .then((response) => {
+        // let genres = new Set(response.data.data.map((x) => x.name));
+        // let data = [];
+
+        // for (let genre of Array.from(genres).sort()) {
+        //   let genre_data = response.data.data.filter((x) => x.name === genre);
+
+        // }
+
         var combinedData = {};
 
         var data = response.data.data;
@@ -68,7 +76,8 @@ export const AvgRevenueActorGenre = () => {
         }
         console.log(combinedData);
         combinedData.type = "heatmap";
-        combinedData.colorscale = "YlOrRd";
+        combinedData.colorscale = "Blues";
+        combinedData.reversescale = true;
         setGraphData(combinedData);
       })
       .catch((err) => {
@@ -85,10 +94,7 @@ export const AvgRevenueActorGenre = () => {
         yaxis: { title: "Actor" },
       }}
       style={{ width: "100%", height: "100%" }}
-      config={{
-        scrollZoom: true,
-        responsive: true,
-      }}
+      config={{ responsive: true }}
     />
   );
 };

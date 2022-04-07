@@ -104,16 +104,6 @@ class MovieTopTenMostPopularView(viewsets.ReadOnlyModelViewSet):
 #
 #     print(len(queryset))
 
-@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class ActorGenderCountView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = ActorGenderCountSerializer
-    queryset = People \
-        .objects \
-        .exclude(gender__isnull=True) \
-        .filter(known_for_department='Acting') \
-        .values('gender') \
-        .annotate(count=Count('gender'))
-
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class PeopleGenderCountView(viewsets.ReadOnlyModelViewSet):

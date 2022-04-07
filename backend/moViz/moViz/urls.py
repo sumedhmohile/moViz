@@ -27,7 +27,6 @@ router.register(r'movieTotalBudgetVsYear', views.MovieTotalBudgetVsYearView, bas
 router.register(r'movieAvgBudgetVsYear', views.MovieAvgBudgetVsYearView, basename='movieAvgBudgetVsYear')
 router.register(r'movieAvgRuntimeVsYear', views.MovieAvgRuntimeVsYearView, basename='movieAvgRuntimeVsYear')
 router.register(r'movieTopTenMostPopular', views.MovieTopTenMostPopularView, basename='movieTopTenMostPopular')
-router.register(r'actorGenderCount', views.ActorGenderCountView, basename='actorGenderCount')
 router.register(r'peopleGenderCount', views.PeopleGenderCountView, basename='peopleGenderCount')
 router.register(r'peopleDepartmentCount', views.PeopleDepartmentCountView, basename='peopleDepartmentCount')
 router.register(r'peoplePopularPlacesOfBirth', views.PeoplePopularPlacesOfBirthView,

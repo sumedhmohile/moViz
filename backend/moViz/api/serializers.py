@@ -32,11 +32,6 @@ class MovieTotalRevenuesVsGenreVsYearSerializer(serializers.Serializer):
     revenue = serializers.DecimalField(max_digits=10, decimal_places=0, allow_null=True)
 
 
-class ActorGenderCountSerializer(serializers.Serializer):
-    gender = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
-    count = serializers.IntegerField()
-
-
 class PeopleGenderCountSerializer(serializers.Serializer):
     known_for_department = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
     gender = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)

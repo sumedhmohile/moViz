@@ -19,6 +19,7 @@ from api import views
 from rest_framework import routers
 
 router = routers.DefaultRouter()
+router.register(r'movieTotalRevenueVsGenreVsYear', views.MovieTotalRevenueVsGenreVsYearView, basename='movieTotalRevenueVsGenreVsYear')
 router.register(r'movieCountVsYear', views.MovieCountVsYearView, basename='movieCountVsYear')
 router.register(r'movieTotalRevenueVsYear', views.MovieTotalRevenueVsYearView, basename='movieTotalRevenueVsYear')
 router.register(r'movieAvgRevenueVsYear', views.MovieAvgRevenueVsYearView, basename='movieAvgRevenueVsYear')
@@ -32,7 +33,6 @@ router.register(r'peopleDepartmentCount', views.PeopleDepartmentCountView, basen
 router.register(r'peoplePopularPlacesOfBirth', views.PeoplePopularPlacesOfBirthView,
                 basename='peoplePopularPlacesOfBirth')
 router.register(r'peopleTopTenMostPopular', views.PeopleTopTenMostPopularView, basename='peopleTopTenMostPopular')
-# router.register(r'movieTotalRevenuesVsGenreVsYear', views.MovieTotalRevenuesVsGenreVsYearView, basename='movieTotalRevenuesVsGenreVsYear')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

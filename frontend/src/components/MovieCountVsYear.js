@@ -27,7 +27,10 @@ export const MovieCountVsYear = () => {
       ]}
       layout={{
         title: "Movie Count vs. Year",
-        xaxis: { title: "Year" },
+        xaxis: {
+          title: "Year",
+          rangeslider: {},
+        },
         yaxis: { title: "Movie Count" },
       }}
       style={{ width: "100%", height: "100%" }}

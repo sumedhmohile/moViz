@@ -30,7 +30,10 @@ export const LanguageRevenueBudgetPopularity = () => {
       ]}
       layout={{
         title: "Impact of Language on Popularity, Budget and Revenue",
-        xaxis: { title: "Budget" },
+        xaxis: {
+          title: "Budget",
+          rangeslider: {},
+        },
         yaxis: { title: "Revenue" },
       }}
       style={{ width: "100%", height: "100%" }}

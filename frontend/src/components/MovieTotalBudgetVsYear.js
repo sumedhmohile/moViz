@@ -27,7 +27,10 @@ export const MovieTotalBudgetVsYear = () => {
       ]}
       layout={{
         title: "Movie Total Budget vs. Year",
-        xaxis: { title: "Year" },
+        xaxis: {
+          title: "Year",
+          rangeslider: {},
+        },
         yaxis: { title: "Budget" },
       }}
       style={{ width: "100%", height: "100%" }}

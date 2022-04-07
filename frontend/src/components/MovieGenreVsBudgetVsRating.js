@@ -36,7 +36,10 @@ export const MovieGenreVsBudgetVsRating = () => {
       data={graphData}
       layout={{
         title: "Movie Genre vs. Budget vs. Rating",
-        xaxis: { title: "Budget" },
+        xaxis: {
+          title: "Budget",
+          rangeslider: {},
+        },
         yaxis: { title: "Rating" },
       }}
       style={{ width: "100%", height: "100%" }}

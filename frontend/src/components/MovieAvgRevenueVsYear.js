@@ -27,7 +27,10 @@ export const MovieAvgRevenueVsYear = () => {
       ]}
       layout={{
         title: "Movie Average Revenue vs. Year",
-        xaxis: { title: "Year" },
+        xaxis: {
+          title: "Year",
+          rangeslider: {},
+        },
         yaxis: { title: "Average Revenue" },
       }}
       style={{ width: "100%", height: "100%" }}

@@ -61,6 +61,11 @@ export const PeopleGenderCount = () => {
       ]}
       layout={{
         title: "People Gender Distribution",
+        xaxis: {
+          title: "Count",
+          rangeslider: {},
+        },
+        yaxis: { title: "Known for Department" },
       }}
       style={{ width: "100%", height: "100%" }}
       config={{

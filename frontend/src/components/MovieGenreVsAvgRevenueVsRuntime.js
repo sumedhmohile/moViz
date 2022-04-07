@@ -34,7 +34,10 @@ export const MovieGenreVsAvgRevenueVsRuntime = () => {
       data={graphData}
       layout={{
         title: "Movie Genre vs. Average Revenue vs. Runtime",
-        xaxis: { title: "Runtime in Minutes" },
+        xaxis: {
+          title: "Runtime in Minutes",
+          rangeslider: {},
+        },
         yaxis: { title: "Average Revenue" },
       }}
       style={{ width: "100%", height: "100%" }}

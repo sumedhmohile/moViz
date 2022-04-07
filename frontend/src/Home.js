@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { MovieVsGenreVsTotalRevenueVsYear } from "./components/MovieVsGenreVsTotalRevenueVsYear";
+import { MovieGenreVsTotalRevenueVsYear } from "./components/MovieGenreVsTotalRevenueVsYear";
 import { AvgRevenueActorGenre } from "./components/AvgRevenueActorGenre";
 import { MovieGenreVsAvgPopularityVsYear } from "./components/MovieGenreVsAvgPopularityVsYear";
 
@@ -22,7 +22,7 @@ import { MovieAvgBudgetVsYear } from "./components/MovieAvgBudgetVsYear";
 import { ActorGenderCount } from "./components/ActorGenderCount";
 import { PeopleGenderCount } from "./components/PeopleGenderCount";
 
-import { BudgetRatingGenre } from "./components/BudgetRatingGenre";
+import { MovieGenreVsBudgetVsRating } from "./components/MovieGenreVsBudgetVsRating";
 import { CompHolder } from "./components/CompHolder";
 import { MovieGenreVsAvgRevenueVsRuntimeGraph } from "./components/MovieGenreVsAvgRevenueVsRuntimeGraph";
 import { LanguageRevenueBudgetPopularity } from "./components/LanguageRevenueBudgetPopularity";
@@ -55,7 +55,7 @@ export const Home = () => {
     "Movie Genre vs. Total Revenue vs. Year",
     "Movie Genre vs. Average Popularity vs. Year",
     "Average Revenue of Actors by Genre",
-    "Movie Budget vs. Rating vs. Genre",
+    "Movie Genre vs. Budget vs. Rating",
     "Actor Correlation for Average Revenue by Genre",
     "Movie Genre vs. Average Revenue vs. Runtime",
     "Impact of Language on Popularity, Budget and Revenue",
@@ -138,10 +138,10 @@ export const Home = () => {
         }}
       >
         <DrawerHeader />
-        {displayGraph === 0 && <MovieVsGenreVsTotalRevenueVsYear />}
+        {displayGraph === 0 && <MovieGenreVsTotalRevenueVsYear />}
         {displayGraph === 1 && <MovieGenreVsAvgPopularityVsYear />}
         {displayGraph === 2 && <AvgRevenueActorGenre />}
-        {displayGraph === 3 && <BudgetRatingGenre />}
+        {displayGraph === 3 && <MovieGenreVsBudgetVsRating />}
         {displayGraph === 4 && <CompHolder />}
         {displayGraph === 5 && <MovieGenreVsAvgRevenueVsRuntimeGraph />}
         {displayGraph === 6 && <LanguageRevenueBudgetPopularity />}

@@ -9,7 +9,20 @@ export const PeopleGenderCount = () => {
     axios
       .get("/api/peopleGenderCount/")
       .then((response) => {
-        setGraphData(response.data);
+        let genders = new Set(response.data.map((x) => x.gender));
+        let data = [];
+
+        for (let gender of genders) {
+          let gender_data = response.data.filter((x) => x.gender === gender);
+          data.push({
+            type: "bar",
+            x: gender_data.map((x) => x.count).reverse(),
+            y: gender_data.map((x) => x.known_for_department).reverse(),
+            name: gender,
+            orientation: "h",
+          });
+        }
+        setGraphData(data);
       })
       .catch((error) => {
         console.log(error);
@@ -18,47 +31,7 @@ export const PeopleGenderCount = () => {
 
   return (
     <Plot
-      data={[
-        {
-          type: "bar",
-          x: graphData
-            .filter((obj) => obj.gender === "Male")
-            .map((x) => x.count)
-            .reverse(),
-          y: graphData
-            .filter((obj) => obj.gender === "Male")
-            .map((x) => x.known_for_department)
-            .reverse(),
-          name: "Male",
-          orientation: "h",
-        },
-        {
-          type: "bar",
-          x: graphData
-            .filter((obj) => obj.gender === "Female")
-            .map((x) => x.count)
-            .reverse(),
-          y: graphData
-            .filter((obj) => obj.gender === "Female")
-            .map((x) => x.known_for_department)
-            .reverse(),
-          name: "Female",
-          orientation: "h",
-        },
-        {
-          type: "bar",
-          x: graphData
-            .filter((obj) => obj.gender === "Other")
-            .map((x) => x.count)
-            .reverse(),
-          y: graphData
-            .filter((obj) => obj.gender === "Other")
-            .map((x) => x.known_for_department)
-            .reverse(),
-          name: "Other",
-          orientation: "h",
-        },
-      ]}
+      data={graphData}
       layout={{
         title: "People Gender Distribution",
         xaxis: {

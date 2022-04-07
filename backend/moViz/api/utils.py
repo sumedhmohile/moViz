@@ -56,12 +56,12 @@ graph_map = {
                                           INNER JOIN languages l
                                           ON m.language=l.iso_639_1;''',
     'budgetRatingGenre': '''SELECT m.title, m.budget, m.vote_average, g.name
-                                FROM movies m
-                                INNER JOIN movie_genres mg
-                                ON m.movie_id=mg.movie_id
-                                INNER JOIN genres g
-                                ON g.genre_id=mg.genre_id
-                                WHERE m.budget>0 AND m.vote_average>0;''',
+                            FROM movies m
+                            INNER JOIN movie_genres mg
+                            ON m.movie_id=mg.movie_id
+                            INNER JOIN genres g
+                            ON mg.genre_id=g.genre_id
+                            WHERE m.budget IS NOT NULL AND m.vote_average IS NOT NULL;''',
     'avgRevenueByGenreForActor': '''SELECT g.name AS genre, AVG(revenue) AS revenue
                                     FROM people p
                                     INNER JOIN credits c

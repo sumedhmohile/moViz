@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import logging
 
 import requests
@@ -15,3 +17,6 @@ for key in apis_json():
     requests.get(apis_json[key])
 
 logging.info('Program terminated.')
+
+if __name__ == "__main__":
+    pass

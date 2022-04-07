@@ -18,6 +18,7 @@ import { CompHolder } from "./components/CompHolder";
 import { MovieGenreVsAvgRevenueVsRuntime } from "./components/MovieGenreVsAvgRevenueVsRuntime";
 import { LanguageRevenueBudgetPopularity } from "./components/LanguageRevenueBudgetPopularity";
 
+import { MovieTopTenMostPopular } from "./components/MovieTopTenMostPopular";
 import { MovieCountVsYear } from "./components/MovieCountVsYear";
 import { MovieTotalRevenueVsYear } from "./components/MovieTotalRevenueVsYear";
 import { MovieAvgRevenueVsYear } from "./components/MovieAvgRevenueVsYear";
@@ -41,6 +42,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export const Home = () => {
   const basicGraphList = [
+    "Movie Top Ten Most Popular",
     "Movie Count vs. Year",
     "Movie Total Revenue vs. Year",
     "Movie Average Revenue vs. Year",
@@ -145,13 +147,14 @@ export const Home = () => {
         {displayGraph === 5 && <MovieGenreVsAvgRevenueVsRuntime />}
         {displayGraph === 6 && <LanguageRevenueBudgetPopularity />}
 
-        {displayGraph === 7 && <MovieCountVsYear />}
-        {displayGraph === 8 && <MovieTotalRevenueVsYear />}
-        {displayGraph === 9 && <MovieAvgRevenueVsYear />}
-        {displayGraph === 10 && <MovieTotalBudgetVsYear />}
-        {displayGraph === 11 && <MovieAvgBudgetVsYear />}
-        {displayGraph === 12 && <MovieAvgRuntimeVsYear />}
-        {displayGraph === 13 && <PeopleGenderCount />}
+        {displayGraph === 7 && <MovieTopTenMostPopular />}
+        {displayGraph === 8 && <MovieCountVsYear />}
+        {displayGraph === 9 && <MovieTotalRevenueVsYear />}
+        {displayGraph === 10 && <MovieAvgRevenueVsYear />}
+        {displayGraph === 11 && <MovieTotalBudgetVsYear />}
+        {displayGraph === 12 && <MovieAvgBudgetVsYear />}
+        {displayGraph === 13 && <MovieAvgRuntimeVsYear />}
+        {displayGraph === 14 && <PeopleGenderCount />}
       </Box>
     </Box>
   );

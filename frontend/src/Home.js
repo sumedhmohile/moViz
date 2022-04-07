@@ -24,7 +24,7 @@ import { PeopleGenderCount } from "./components/PeopleGenderCount";
 
 import { BudgetRatingGenre } from "./components/BudgetRatingGenre";
 import { CompHolder } from "./components/CompHolder";
-import { DurationVsRevenueGraph } from "./components/DurationVsRevenueGraph";
+import { MovieGenreVsAvgRevenueVsRuntimeGraph } from "./components/MovieGenreVsAvgRevenueVsRuntimeGraph";
 import { LanguageRevenueBudgetPopularity } from "./components/LanguageRevenueBudgetPopularity";
 
 const drawerWidth = window.innerWidth / 6;
@@ -57,7 +57,7 @@ export const Home = () => {
     "Average Revenue of Actors by Genre",
     "Movie Budget vs. Rating vs. Genre",
     "Actor Correlation for Average Revenue by Genre",
-    "Average Revenue vs. Movie Runtime",
+    "Movie Genre vs. Average Revenue vs. Runtime",
     "Impact of Language on Popularity, Budget and Revenue",
   ];
 
@@ -143,7 +143,7 @@ export const Home = () => {
         {displayGraph === 2 && <AvgRevenueActorGenre />}
         {displayGraph === 3 && <BudgetRatingGenre />}
         {displayGraph === 4 && <CompHolder />}
-        {displayGraph === 5 && <DurationVsRevenueGraph />}
+        {displayGraph === 5 && <MovieGenreVsAvgRevenueVsRuntimeGraph />}
         {displayGraph === 6 && <LanguageRevenueBudgetPopularity />}
 
         {displayGraph === 7 && <MovieCountVsYear />}

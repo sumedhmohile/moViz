@@ -2,14 +2,27 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Plot from "react-plotly.js";
 
-export const DurationVsRevenueGraph = () => {
+export const MovieGenreVsAvgRevenueVsRuntimeGraph = () => {
   const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
     axios
       .post("/moviz/graph/", { graphID: "durationVSrevenue" })
       .then((response) => {
-        setGraphData(response.data.data);
+        let genres = new Set(response.data.data.map((x) => x.genre));
+        let data = [];
+
+        for (let genre of Array.from(genres).sort()) {
+          let genre_data = response.data.data.filter((x) => x.genre === genre);
+          data.push({
+            type: "bar",
+            x: genre_data.map((x) => x.runtime),
+            y: genre_data.map((x) => x.revenue),
+            name: genre,
+          });
+        }
+
+        setGraphData(data);
       })
       .catch((error) => {
         console.log(error);
@@ -18,15 +31,9 @@ export const DurationVsRevenueGraph = () => {
 
   return (
     <Plot
-      data={[
-        {
-          x: graphData.map((x) => x.runtime),
-          y: graphData.map((x) => x.revenue),
-          type: "bar",
-        },
-      ]}
+      data={graphData}
       layout={{
-        title: "Average Revenue vs. Movie Runtime",
+        title: "Movie Genre vs. Average Revenue vs. Runtime",
         xaxis: { title: "Runtime in Minutes" },
         yaxis: { title: "Average Revenue" },
       }}

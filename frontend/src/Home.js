@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { RevenueGenreTime } from "./components/RevenueGenreTime";
+import { MovieVsGenreVsRevenueVsYear } from "./components/MovieVsGenreVsRevenueVsYear";
 import { AvgRevenueActorGenre } from "./components/AvgRevenueActorGenre";
 import { MovieGenreVsAvgPopularityVsYear } from "./components/MovieGenreVsAvgPopularityVsYear";
 
@@ -138,7 +138,7 @@ export const Home = () => {
         }}
       >
         <DrawerHeader />
-        {displayGraph === 0 && <RevenueGenreTime />}
+        {displayGraph === 0 && <MovieVsGenreVsRevenueVsYear />}
         {displayGraph === 1 && <MovieGenreVsAvgPopularityVsYear />}
         {displayGraph === 2 && <AvgRevenueActorGenre />}
         {displayGraph === 3 && <BudgetRatingGenre />}

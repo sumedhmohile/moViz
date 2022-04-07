@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Plot from "react-plotly.js";
 
-export const MovieGenreAvgPopularityVsYear = () => {
+export const MovieGenreVsAvgPopularityVsYear = () => {
   const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export const MovieGenreAvgPopularityVsYear = () => {
     <Plot
       data={graphData}
       layout={{
-        title: "Movie Genre Average Popularity vs. Year",
+        title: "Movie Genre vs. Average Popularity vs. Year",
         xaxis: {
           title: "Year",
           rangeslider: {},

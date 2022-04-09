@@ -102,6 +102,7 @@ def get_ids_fe(ids, date):
         while True:
             try:
                 urllib.request.urlretrieve(fe_url, f'{ids}_{date}.json.gz')
+
                 break
 
             except urllib.error.HTTPError as e:

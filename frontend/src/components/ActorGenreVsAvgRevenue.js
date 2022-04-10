@@ -51,8 +51,8 @@ export const ActorGenreVsAvgRevenue = () => {
 
         setGraphData([dataDict]);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
 

@@ -10,8 +10,8 @@ export const PeopleGenderCount = () => {
       .get("/api/peopleGenderCount/")
       .then((response) => {
         let genders = new Set(response.data.map((x) => x.gender));
-        let data = [];
 
+        let data = [];
         for (let gender of genders) {
           let gender_data = response.data.filter((x) => x.gender === gender);
           data.push({

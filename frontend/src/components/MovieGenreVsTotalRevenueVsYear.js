@@ -24,8 +24,8 @@ export const MovieGenreVsTotalRevenueVsYear = () => {
 
         setGraphData(data);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
 

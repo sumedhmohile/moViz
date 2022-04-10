@@ -10,8 +10,8 @@ export const MovieGenreVsAvgRevenueVsRuntime = () => {
       .post("/moviz/graph/", { graphID: "durationVSrevenue" })
       .then((response) => {
         let genres = new Set(response.data.data.map((x) => x.genre));
-        let data = [];
 
+        let data = [];
         for (let genre of Array.from(genres).sort()) {
           let genre_data = response.data.data.filter((x) => x.genre === genre);
           data.push({

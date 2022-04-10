@@ -49,5 +49,6 @@ class PeoplePopularPlacesOfBirthSerializer(serializers.Serializer):
 
 
 class PeopleTopTenMostPopularSerializer(serializers.Serializer):
+    person_id = serializers.IntegerField()
     name = serializers.CharField(max_length=255)
     popularity = serializers.FloatField()

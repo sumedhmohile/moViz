@@ -15,9 +15,9 @@ export const PeopleGenderCount = () => {
         for (let gender of genders) {
           let gender_data = response.data.filter((x) => x.gender === gender);
           data.push({
-            type: "bar",
             x: gender_data.map((x) => x.count).reverse(),
             y: gender_data.map((x) => x.known_for_department).reverse(),
+            type: "bar",
             name: gender,
             orientation: "h",
           });

@@ -15,9 +15,9 @@ export const MovieGenreVsAvgRevenueVsRuntime = () => {
         for (let genre of Array.from(genres).sort()) {
           let genre_data = response.data.data.filter((x) => x.genre === genre);
           data.push({
-            type: "bar",
             x: genre_data.map((x) => x.runtime),
             y: genre_data.map((x) => x.revenue),
+            type: "bar",
             name: genre,
           });
         }

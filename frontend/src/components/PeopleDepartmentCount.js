@@ -20,9 +20,9 @@ export const PeopleDepartmentCount = () => {
     <Plot
       data={[
         {
-          type: "bar",
           x: graphData.map((x) => x.count).reverse(),
           y: graphData.map((x) => x.known_for_department).reverse(),
+          type: "bar",
           orientation: "h",
         },
       ]}

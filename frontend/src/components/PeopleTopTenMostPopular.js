@@ -20,9 +20,9 @@ export const PeopleTopTenMostPopular = () => {
     <Plot
       data={[
         {
-          type: "bar",
           x: graphData.map((x) => x.popularity).reverse(),
           y: graphData.map((x) => x.name).reverse(),
+          type: "bar",
           orientation: "h",
         },
       ]}

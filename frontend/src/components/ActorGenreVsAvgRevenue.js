@@ -3,47 +3,35 @@ import axios from "axios";
 import Plot from "react-plotly.js";
 
 export const ActorGenreVsAvgRevenue = () => {
+  const [genreData, setGenreData] = useState([]);
   const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
     axios
-      .post("/moviz/graph/", { graphID: "avgRevenueActorGenre" })
+      .get("/api/genres")
+      .then((response) => {
+        setGenreData(response.data);
+
+        return axios.post("/moviz/graph/", { graphID: "avgRevenueActorGenre" });
+      })
       .then((response) => {
         let dataDict = {};
-        let genres = [
-          "Action",
-          "Adventure",
-          "Animation",
-          "Comedy",
-          "Crime",
-          "Documentary",
-          "Drama",
-          "Family",
-          "Fantasy",
-          "History",
-          "Horror",
-          "Music",
-          "Mystery",
-          "Romance",
-          "Science Fiction",
-          "TV Movie",
-          "Thriller",
-          "War",
-          "Western",
-        ];
-        let names = Array.from(new Set(response.data.data.map((x) => x.name)));
 
+        let names = Array.from(new Set(response.data.data.map((x) => x.name)));
+        let genres = genreData.map((x) => x.name);
         dataDict.x = genres;
         dataDict.y = names;
 
-        dataDict.z = Array.from(Array(10), () => new Array(19).fill("0"));
-        for (let record of response.data.data) {
-          if (record.avg_revenue !== "None") {
-            dataDict.z[names.indexOf(record.name)][
-              genres.indexOf(record.genre)
-            ] = record.avg_revenue;
-          }
-        }
+        dataDict.z = Array.from(Array(names.length), () =>
+          new Array(genres.length).fill("0")
+        );
+        response.data.data
+          .filter((x) => x.avg_revenue !== "None")
+          .map(
+            (x) =>
+              (dataDict.z[names.indexOf(x.name)][genres.indexOf(x.genre)] =
+                x.avg_revenue)
+          );
 
         dataDict.type = "heatmap";
         dataDict.colorscale = "Blues";
@@ -54,7 +42,7 @@ export const ActorGenreVsAvgRevenue = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [genreData]);
 
   return (
     <Plot

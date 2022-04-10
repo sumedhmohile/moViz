@@ -9,76 +9,47 @@ export const AvgRevenueActorGenre = () => {
     axios
       .post("/moviz/graph/", { graphID: "avgRevenueActorGenre" })
       .then((response) => {
-        // let genres = new Set(response.data.data.map((x) => x.name));
-        // let data = [];
-
-        // for (let genre of Array.from(genres).sort()) {
-        //   let genre_data = response.data.data.filter((x) => x.name === genre);
-
-        // }
-
-        var combinedData = {};
-
-        var data = response.data.data;
-        console.log(response.data);
-        var i = 0;
-
-        var actor = data[i].name;
-        combinedData.x = [
-          "Adventure",
-          "Fantasy",
-          "Animation",
-          "Drama",
-          "Horror",
+        let dataDict = {};
+        let genres = [
           "Action",
+          "Adventure",
+          "Animation",
           "Comedy",
-          "History",
-          "Western",
-          "Thriller",
           "Crime",
           "Documentary",
-          "Science Fiction",
-          "Mystery",
-          "Music",
-          "Romance",
+          "Drama",
           "Family",
+          "Fantasy",
+          "History",
+          "Horror",
+          "Music",
+          "Mystery",
+          "Romance",
+          "Science Fiction",
+          "TV Movie",
+          "Thriller",
           "War",
-          // 'TV Movie'
+          "Western",
         ];
-        combinedData.y = [];
-        combinedData.z = [];
+        let names = Array.from(new Set(response.data.data.map((x) => x.name)));
 
-        while (data[i]) {
-          var actorGenre = {};
-          var zValues = [];
+        dataDict.x = genres;
+        dataDict.y = names;
 
-          for (let j = 0; j < combinedData.x.length; j++) {
-            actorGenre[combinedData.x[j]] = "0";
-          }
-
-          while (data[i] && data[i].name === actor) {
-            // if(parseInt(data[i].avg_revenue)==0){
-            //   actorGenre[data[i].genre] = 0
-            // }else
-            actorGenre[data[i].genre] = data[i].avg_revenue;
-            i++;
-          }
-
-          Object.keys(actorGenre).map(function (key) {
-            zValues.push(actorGenre[key]);
-          });
-          combinedData.y.unshift(actor);
-          combinedData.z.unshift(zValues);
-
-          if (data[i] !== undefined) {
-            actor = data[i].name;
+        dataDict.z = Array.from(Array(10), () => new Array(19).fill("0"));
+        for (let record of response.data.data) {
+          if (record.avg_revenue !== "None") {
+            dataDict.z[names.indexOf(record.name)][
+              genres.indexOf(record.genre)
+            ] = record.avg_revenue;
           }
         }
-        console.log(combinedData);
-        combinedData.type = "heatmap";
-        combinedData.colorscale = "Blues";
-        combinedData.reversescale = true;
-        setGraphData(combinedData);
+
+        dataDict.type = "heatmap";
+        dataDict.colorscale = "Blues";
+        dataDict.reversescale = true;
+
+        setGraphData([dataDict]);
       })
       .catch((err) => {
         console.log(err);
@@ -87,7 +58,7 @@ export const AvgRevenueActorGenre = () => {
 
   return (
     <Plot
-      data={[graphData]}
+      data={graphData}
       layout={{
         title: "Average Revenue of Popular Actors by Genre",
         xaxis: { title: "Genre" },

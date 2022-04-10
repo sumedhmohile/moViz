@@ -19,19 +19,21 @@ from api import views
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'movieTotalRevenueVsGenreVsYear', views.MovieTotalRevenueVsGenreVsYearView, basename='movieTotalRevenueVsGenreVsYear')
+router.register(r'genres', views.GenresView, basename='genres')
+router.register(r'movieTopTenMostPopular', views.MovieTopTenMostPopularView, basename='movieTopTenMostPopular')
+router.register(r'movieTotalRevenueVsGenreVsYear', views.MovieTotalRevenueVsGenreVsYearView,
+                basename='movieTotalRevenueVsGenreVsYear')
 router.register(r'movieCountVsYear', views.MovieCountVsYearView, basename='movieCountVsYear')
 router.register(r'movieTotalRevenueVsYear', views.MovieTotalRevenueVsYearView, basename='movieTotalRevenueVsYear')
 router.register(r'movieAvgRevenueVsYear', views.MovieAvgRevenueVsYearView, basename='movieAvgRevenueVsYear')
 router.register(r'movieTotalBudgetVsYear', views.MovieTotalBudgetVsYearView, basename='movieTotalBudgetVsYear')
 router.register(r'movieAvgBudgetVsYear', views.MovieAvgBudgetVsYearView, basename='movieAvgBudgetVsYear')
 router.register(r'movieAvgRuntimeVsYear', views.MovieAvgRuntimeVsYearView, basename='movieAvgRuntimeVsYear')
-router.register(r'movieTopTenMostPopular', views.MovieTopTenMostPopularView, basename='movieTopTenMostPopular')
+router.register(r'peopleTopTenMostPopular', views.PeopleTopTenMostPopularView, basename='peopleTopTenMostPopular')
 router.register(r'peopleGenderCount', views.PeopleGenderCountView, basename='peopleGenderCount')
 router.register(r'peopleDepartmentCount', views.PeopleDepartmentCountView, basename='peopleDepartmentCount')
 router.register(r'peoplePopularPlacesOfBirth', views.PeoplePopularPlacesOfBirthView,
                 basename='peoplePopularPlacesOfBirth')
-router.register(r'peopleTopTenMostPopular', views.PeopleTopTenMostPopularView, basename='peopleTopTenMostPopular')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -14,6 +14,42 @@ import json
 
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+class GenresView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = GenresSerializer
+    queryset = Genres \
+        .objects \
+        .all() \
+        .order_by('name')
+
+
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+class MovieTopTenMostPopularView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = MovieTopTenMostPopularSerializer
+    queryset = Movies \
+                   .objects \
+                   .values('title', 'popularity', 'tagline', 'homepage', 'original_language', 'status', 'release_date',
+                           'budget', 'revenue', 'runtime', 'vote_average', 'vote_count') \
+                   .order_by('-popularity')[:10]
+
+
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+class MovieTotalRevenueVsGenreVsYearView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = MovieTotalRevenueVsGenreVsYearSerializer
+    queryset = MovieGenres \
+        .objects \
+        .all() \
+        .select_related('movie__credits') \
+        .select_related('genre__moviegenres') \
+        # .exclude(release_date__isnull=True) \
+    # .filter(status='Released') \
+    # .values('moviegenres', year=ExtractYear('release_date')) \
+    # .annotate(revenue=Sum('revenue')) \
+    # .order_by('-year')
+
+    print(queryset[:10])
+
+
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieCountVsYearView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieCountVsYearSerializer
     queryset = Movies \
@@ -85,15 +121,6 @@ class MovieAvgRuntimeVsYearView(viewsets.ReadOnlyModelViewSet):
         .order_by('-year')
 
 
-@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class MovieTopTenMostPopularView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MovieTopTenMostPopularSerializer
-    queryset = Movies \
-                   .objects \
-                   .values('title', 'popularity') \
-                   .order_by('-popularity')[:10]
-
-
 # # @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 # class MovieTotalRevenuesVsGenreVsYearView(viewsets.ReadOnlyModelViewSet):
 #     serializer_class = MovieTotalRevenuesVsGenreVsYearSerializer
@@ -144,7 +171,7 @@ class PeopleTopTenMostPopularView(viewsets.ReadOnlyModelViewSet):
     serializer_class = PeopleTopTenMostPopularSerializer
     queryset = People \
                    .objects \
-                   .values('name', 'popularity') \
+                   .values('person_id', 'name', 'popularity') \
                    .order_by('-popularity')[:10]
 
 

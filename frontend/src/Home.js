@@ -12,7 +12,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { MovieGenreVsTotalRevenueVsYear } from "./components/MovieGenreVsTotalRevenueVsYear";
 import { MovieGenreVsAvgPopularityVsYear } from "./components/MovieGenreVsAvgPopularityVsYear";
-import { AvgRevenueActorGenre } from "./components/AvgRevenueActorGenre";
+import { ActorGenreVsAvgRevenue } from "./components/ActorGenreVsAvgRevenue";
 import { MovieGenreVsBudgetVsRating } from "./components/MovieGenreVsBudgetVsRating";
 import { CompHolder } from "./components/CompHolder";
 import { MovieGenreVsAvgRevenueVsRuntime } from "./components/MovieGenreVsAvgRevenueVsRuntime";
@@ -59,7 +59,7 @@ export const Home = () => {
   const graphList = [
     "Movie Genre vs. Total Revenue vs. Year",
     "Movie Genre vs. Average Popularity vs. Year",
-    "Average Revenue of Actors by Genre",
+    "Average Revenue of Popular Actors by Genre",
     "Movie Genre vs. Budget vs. Rating",
     "Actor Correlation for Average Revenue by Genre",
     "Movie Genre vs. Average Revenue vs. Runtime",
@@ -83,7 +83,7 @@ export const Home = () => {
               }}
               key={text}
               sx={{
-                minHeight: window.innerHiehgt / 10,
+                minHeight: window.innerHeight / 10,
                 justifyContent: "initial",
                 px: window.innerWidth / 400,
               }}
@@ -145,7 +145,7 @@ export const Home = () => {
         <DrawerHeader />
         {displayGraph === 0 && <MovieGenreVsTotalRevenueVsYear />}
         {displayGraph === 1 && <MovieGenreVsAvgPopularityVsYear />}
-        {displayGraph === 2 && <AvgRevenueActorGenre />}
+        {displayGraph === 2 && <ActorGenreVsAvgRevenue />}
         {displayGraph === 3 && <MovieGenreVsBudgetVsRating />}
         {displayGraph === 4 && <CompHolder />}
         {displayGraph === 5 && <MovieGenreVsAvgRevenueVsRuntime />}

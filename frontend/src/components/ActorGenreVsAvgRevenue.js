@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Plot from "react-plotly.js";
 
-export const AvgRevenueActorGenre = () => {
+export const ActorGenreVsAvgRevenue = () => {
   const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {

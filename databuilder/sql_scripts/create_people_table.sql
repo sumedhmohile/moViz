@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS people
   popularity DOUBLE NOT NULL,
   place_of_birth VARCHAR(255),
   profile_path VARCHAR(255),
-  -- adult not implemented
+  adult BIT,
   imdb_id VARCHAR(255),
   homepage VARCHAR(255),
   PRIMARY KEY (person_id)

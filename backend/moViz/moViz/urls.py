@@ -21,8 +21,6 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'genres', views.GenresView, basename='genres')
 router.register(r'movieTopTenMostPopular', views.MovieTopTenMostPopularView, basename='movieTopTenMostPopular')
-router.register(r'movieTotalRevenueVsGenreVsYear', views.MovieTotalRevenueVsGenreVsYearView,
-                basename='movieTotalRevenueVsGenreVsYear')
 router.register(r'movieTrendsVsYear', views.MovieTrendsVsYearView, basename='movieTrendsVsYear')
 router.register(r'peopleTopTenMostPopular', views.PeopleTopTenMostPopularView, basename='peopleTopTenMostPopular')
 router.register(r'peopleGenderCount', views.PeopleGenderCountView, basename='peopleGenderCount')

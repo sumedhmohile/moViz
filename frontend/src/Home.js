@@ -14,17 +14,12 @@ import { MovieGenreVsTotalRevenueVsYear } from "./components/MovieGenreVsTotalRe
 import { MovieGenreVsAvgPopularityVsYear } from "./components/MovieGenreVsAvgPopularityVsYear";
 import { ActorGenreVsAvgRevenue } from "./components/ActorGenreVsAvgRevenue";
 import { MovieGenreVsBudgetVsRating } from "./components/MovieGenreVsBudgetVsRating";
-import { CompHolder } from "./components/CompHolder";
+import { Comparison } from "./components/Comparison";
 import { MovieGenreVsAvgRevenueVsRuntime } from "./components/MovieGenreVsAvgRevenueVsRuntime";
 import { LanguageRevenueBudgetPopularity } from "./components/LanguageRevenueBudgetPopularity";
 
 import { MovieTopTenMostPopular } from "./components/MovieTopTenMostPopular";
-import { MovieCountVsYear } from "./components/MovieCountVsYear";
-import { MovieTotalRevenueVsYear } from "./components/MovieTotalRevenueVsYear";
-import { MovieAvgRevenueVsYear } from "./components/MovieAvgRevenueVsYear";
-import { MovieTotalBudgetVsYear } from "./components/MovieTotalBudgetVsYear";
-import { MovieAvgBudgetVsYear } from "./components/MovieAvgBudgetVsYear";
-import { MovieAvgRuntimeVsYear } from "./components/MovieAvgRuntimeVsYear";
+import { MovieTrendsVsYear } from "./components/MovieTrendsVsYear";
 import { PeopleTopTenMostPopular } from "./components/PeopleTopTenMostPopular";
 import { PeopleDepartmentCount } from "./components/PeopleDepartmentCount";
 import { PeopleGenderCount } from "./components/PeopleGenderCount";
@@ -45,12 +40,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export const Home = () => {
   const basicGraphList = [
     "Movie Top Ten Most Popular",
-    "Movie Count vs. Year",
-    "Movie Total Revenue vs. Year",
-    "Movie Average Revenue vs. Year",
-    "Movie Total Budget vs. Year",
-    "Movie Average Budget vs. Year",
-    "Movie Average Runtime vs. Year",
+    "Movie Trends vs. Year",
     "People Top Ten Most Popular",
     "People Department Count",
     "People Gender Distribution",
@@ -147,20 +137,15 @@ export const Home = () => {
         {displayGraph === 1 && <MovieGenreVsAvgPopularityVsYear />}
         {displayGraph === 2 && <ActorGenreVsAvgRevenue />}
         {displayGraph === 3 && <MovieGenreVsBudgetVsRating />}
-        {displayGraph === 4 && <CompHolder />}
+        {displayGraph === 4 && <Comparison />}
         {displayGraph === 5 && <MovieGenreVsAvgRevenueVsRuntime />}
         {displayGraph === 6 && <LanguageRevenueBudgetPopularity />}
 
         {displayGraph === 7 && <MovieTopTenMostPopular />}
-        {displayGraph === 8 && <MovieCountVsYear />}
-        {displayGraph === 9 && <MovieTotalRevenueVsYear />}
-        {displayGraph === 10 && <MovieAvgRevenueVsYear />}
-        {displayGraph === 11 && <MovieTotalBudgetVsYear />}
-        {displayGraph === 12 && <MovieAvgBudgetVsYear />}
-        {displayGraph === 13 && <MovieAvgRuntimeVsYear />}
-        {displayGraph === 14 && <PeopleTopTenMostPopular />}
-        {displayGraph === 15 && <PeopleDepartmentCount />}
-        {displayGraph === 16 && <PeopleGenderCount />}
+        {displayGraph === 8 && <MovieTrendsVsYear />}
+        {displayGraph === 9 && <PeopleTopTenMostPopular />}
+        {displayGraph === 10 && <PeopleDepartmentCount />}
+        {displayGraph === 11 && <PeopleGenderCount />}
       </Box>
     </Box>
   );

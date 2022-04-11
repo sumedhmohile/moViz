@@ -29,6 +29,8 @@ export const MovieTrendsVsYear = () => {
       y = genreGraphData.map((x) => x.avg_budget);
     } else if (yAxis === "avg_runtime") {
       y = genreGraphData.map((x) => x.avg_runtime);
+    } else if (yAxis === "avg_popularity") {
+      y = genreGraphData.map((x) => x.avg_popularity);
     }
 
     return y;
@@ -64,6 +66,11 @@ export const MovieTrendsVsYear = () => {
       label: "avg_runtime",
       layoutTitle: "Movie Average Runtime vs. Year",
       layoutYaxisTitle: "Average Runtime",
+    },
+    {
+      label: "avg_popularity",
+      layoutTitle: "Movie Average Popularity vs. Year",
+      layoutYaxisTitle: "Average Popularity",
     },
   ];
 
@@ -136,6 +143,11 @@ export const MovieTrendsVsYear = () => {
                 value="avg_runtime"
                 control={<Radio />}
                 label="Average Runtime"
+              />
+              <FormControlLabel
+                value="avg_popularity"
+                control={<Radio />}
+                label="Average Popularity"
               />
             </RadioGroup>
           </FormControl>

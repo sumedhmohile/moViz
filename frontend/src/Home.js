@@ -12,7 +12,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { MovieTopTenMostPopular } from "./components/MovieTopTenMostPopular";
 import { MovieTrendsVsYear } from "./components/MovieTrendsVsYear";
-import { MovieGenreVsAvgPopularityVsYear } from "./components/MovieGenreVsAvgPopularityVsYear";
 import { ActorGenreVsAvgRevenue } from "./components/ActorGenreVsAvgRevenue";
 import { MovieGenreVsBudgetVsRating } from "./components/MovieGenreVsBudgetVsRating";
 import { Comparison } from "./components/Comparison";
@@ -46,7 +45,6 @@ export const Home = () => {
   const graphList = [
     "Movie Top Ten Most Popular",
     "Movie Trends vs. Year",
-    "Movie Genre vs. Average Popularity vs. Year",
     "Average Revenue of Popular Actors by Genre",
     "Movie Genre vs. Budget vs. Rating",
     "Actor Correlation for Average Revenue by Genre",
@@ -133,16 +131,15 @@ export const Home = () => {
         <DrawerHeader />
         {displayGraph === 0 && <MovieTopTenMostPopular />}
         {displayGraph === 1 && <MovieTrendsVsYear />}
-        {displayGraph === 2 && <MovieGenreVsAvgPopularityVsYear />}
-        {displayGraph === 3 && <ActorGenreVsAvgRevenue />}
-        {displayGraph === 4 && <MovieGenreVsBudgetVsRating />}
-        {displayGraph === 5 && <Comparison />}
-        {displayGraph === 6 && <MovieGenreVsAvgRevenueVsRuntime />}
-        {displayGraph === 7 && <LanguageRevenueBudgetPopularity />}
+        {displayGraph === 2 && <ActorGenreVsAvgRevenue />}
+        {displayGraph === 3 && <MovieGenreVsBudgetVsRating />}
+        {displayGraph === 4 && <Comparison />}
+        {displayGraph === 5 && <MovieGenreVsAvgRevenueVsRuntime />}
+        {displayGraph === 6 && <LanguageRevenueBudgetPopularity />}
 
-        {displayGraph === 8 && <PeopleTopTenMostPopular />}
-        {displayGraph === 9 && <PeopleDepartmentCount />}
-        {displayGraph === 10 && <PeopleGenderCount />}
+        {displayGraph === 7 && <PeopleTopTenMostPopular />}
+        {displayGraph === 8 && <PeopleDepartmentCount />}
+        {displayGraph === 9 && <PeopleGenderCount />}
       </Box>
     </Box>
   );

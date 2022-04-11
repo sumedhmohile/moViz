@@ -89,7 +89,7 @@ export const MovieTrendsVsYear = () => {
 
   useEffect(() => {
     axios
-      .get("/api/genres")
+      .get("/api/genres/")
       .then((response) => {
         setGenreData(response.data);
 

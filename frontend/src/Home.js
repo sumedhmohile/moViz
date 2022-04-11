@@ -16,7 +16,7 @@ import { ActorGenreVsAvgRevenue } from "./components/ActorGenreVsAvgRevenue";
 import { MovieGenreVsBudgetVsRating } from "./components/MovieGenreVsBudgetVsRating";
 import { Comparison } from "./components/Comparison";
 import { MovieGenreVsAvgRevenueVsRuntime } from "./components/MovieGenreVsAvgRevenueVsRuntime";
-import { LanguageRevenueBudgetPopularity } from "./components/LanguageRevenueBudgetPopularity";
+import { MovieLanguageVsAvgBudgetVsAvgRevenue } from "./components/MovieLanguageVsAvgBudgetVsAvgRevenue";
 
 import { PeopleTopTenMostPopular } from "./components/PeopleTopTenMostPopular";
 import { PeopleDepartmentCount } from "./components/PeopleDepartmentCount";
@@ -135,7 +135,7 @@ export const Home = () => {
         {displayGraph === 3 && <MovieGenreVsBudgetVsRating />}
         {displayGraph === 4 && <Comparison />}
         {displayGraph === 5 && <MovieGenreVsAvgRevenueVsRuntime />}
-        {displayGraph === 6 && <LanguageRevenueBudgetPopularity />}
+        {displayGraph === 6 && <MovieLanguageVsAvgBudgetVsAvgRevenue />}
 
         {displayGraph === 7 && <PeopleTopTenMostPopular />}
         {displayGraph === 8 && <PeopleDepartmentCount />}

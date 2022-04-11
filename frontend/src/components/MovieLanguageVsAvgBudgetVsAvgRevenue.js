@@ -8,7 +8,7 @@ export const MovieLanguageVsAvgBudgetVsAvgRevenue = () => {
 
   let data = [];
 
-  for (let language of languageData.map((x) => x.iso_639_1)) {
+  for (let language of languageData.map((x) => x.english_name)) {
     let languageGraphData = graphData.filter((x) => x.language === language);
 
     data.push({

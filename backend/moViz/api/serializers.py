@@ -30,6 +30,7 @@ class MovieTrendsVsYearSerializer(serializers.Serializer):
     avg_revenue = serializers.FloatField()
     avg_budget = serializers.FloatField()
     avg_runtime = serializers.FloatField()
+    avg_popularity = serializers.FloatField()
 
 
 class PeopleTopTenMostPopularSerializer(serializers.Serializer):

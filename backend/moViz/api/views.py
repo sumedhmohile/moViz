@@ -46,6 +46,7 @@ class MovieTrendsVsYearView(viewsets.ReadOnlyModelViewSet):
         .annotate(total_budget=Sum('movie__budget')) \
         .annotate(avg_budget=Avg('movie__budget')) \
         .annotate(avg_runtime=Avg('movie__runtime')) \
+        .annotate(avg_popularity=Avg('movie__popularity')) \
         .order_by('-year')
 
 

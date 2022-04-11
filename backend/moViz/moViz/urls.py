@@ -23,6 +23,10 @@ router.register(r'genres', views.GenresView, basename='genres')
 router.register(r'languages', views.LanguagesView, basename='languages')
 router.register(r'movieTopTenMostPopular', views.MovieTopTenMostPopularView, basename='movieTopTenMostPopular')
 router.register(r'movieTrendsVsYear', views.MovieTrendsVsYearView, basename='movieTrendsVsYear')
+router.register(r'movieGenreVsBudgetVsRating', views.MovieGenreVsBudgetVsRatingView,
+                basename='movieGenreVsBudgetVsRating')
+router.register(r'movieLanguageVsAvgBudgetVsAvgRevenue', views.MovieLanguageVsAvgBudgetVsAvgRevenueView,
+                basename='movieLanguageVsAvgBudgetVsAvgRevenue')
 router.register(r'peopleTopTenMostPopular', views.PeopleTopTenMostPopularView, basename='peopleTopTenMostPopular')
 router.register(r'peopleGenderCount', views.PeopleGenderCountView, basename='peopleGenderCount')
 router.register(r'peopleDepartmentCount', views.PeopleDepartmentCountView, basename='peopleDepartmentCount')

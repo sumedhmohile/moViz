@@ -50,74 +50,19 @@ class MovieTotalRevenueVsGenreVsYearView(viewsets.ReadOnlyModelViewSet):
 
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class MovieCountVsYearView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MovieCountVsYearSerializer
+class MovieTrendsVsYearView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = MovieTrendsVsYearSerializer
     queryset = Movies \
         .objects \
         .exclude(release_date__isnull=True) \
         .filter(status='Released') \
         .values(year=ExtractYear('release_date')) \
         .annotate(count=Count('release_date')) \
-        .order_by('-year')
-
-
-@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class MovieTotalRevenueVsYearView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MovieRevenueVsYearSerializer
-    queryset = Movies \
-        .objects \
-        .exclude(release_date__isnull=True) \
-        .filter(status='Released') \
-        .values(year=ExtractYear('release_date')) \
-        .annotate(revenue=Sum('revenue')) \
-        .order_by('-year')
-
-
-@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class MovieAvgRevenueVsYearView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MovieRevenueVsYearSerializer
-    queryset = Movies \
-        .objects \
-        .exclude(release_date__isnull=True) \
-        .filter(status='Released') \
-        .values(year=ExtractYear('release_date')) \
-        .annotate(revenue=Avg('revenue')) \
-        .order_by('-year')
-
-
-@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class MovieTotalBudgetVsYearView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MovieBudgetVsYearSerializer
-    queryset = Movies \
-        .objects \
-        .exclude(release_date__isnull=True) \
-        .filter(status='Released') \
-        .values(year=ExtractYear('release_date')) \
-        .annotate(budget=Sum('budget')) \
-        .order_by('-year')
-
-
-@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class MovieAvgBudgetVsYearView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MovieBudgetVsYearSerializer
-    queryset = Movies \
-        .objects \
-        .exclude(release_date__isnull=True) \
-        .filter(status='Released') \
-        .values(year=ExtractYear('release_date')) \
-        .annotate(budget=Avg('budget')) \
-        .order_by('-year')
-
-
-@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class MovieAvgRuntimeVsYearView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MovieRuntimeVsYearSerializer
-    queryset = Movies \
-        .objects \
-        .exclude(release_date__isnull=True) \
-        .filter(status='Released') \
-        .values(year=ExtractYear('release_date')) \
-        .annotate(runtime=Avg('runtime')) \
+        .annotate(total_revenue=Sum('revenue')) \
+        .annotate(avg_revenue=Avg('revenue')) \
+        .annotate(total_budget=Sum('budget')) \
+        .annotate(avg_budget=Avg('budget')) \
+        .annotate(avg_runtime=Avg('runtime')) \
         .order_by('-year')
 
 

@@ -27,24 +27,14 @@ class MovieTotalRevenueVsGenreVsYearSerializer(serializers.Serializer):
     revenue = serializers.IntegerField()
 
 
-class MovieCountVsYearSerializer(serializers.Serializer):
+class MovieTrendsVsYearSerializer(serializers.Serializer):
     year = serializers.IntegerField()
     count = serializers.IntegerField()
-
-
-class MovieRevenueVsYearSerializer(serializers.Serializer):
-    year = serializers.IntegerField()
-    revenue = serializers.IntegerField()
-
-
-class MovieBudgetVsYearSerializer(serializers.Serializer):
-    year = serializers.IntegerField()
-    budget = serializers.IntegerField()
-
-
-class MovieRuntimeVsYearSerializer(serializers.Serializer):
-    year = serializers.IntegerField()
-    runtime = serializers.IntegerField()
+    total_revenue = serializers.IntegerField()
+    total_budget = serializers.IntegerField()
+    avg_revenue = serializers.IntegerField()
+    avg_budget = serializers.IntegerField()
+    avg_runtime = serializers.IntegerField()
 
 
 class MovieTotalRevenuesVsGenreVsYearSerializer(serializers.Serializer):

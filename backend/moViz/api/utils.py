@@ -11,7 +11,9 @@ graph_map = {
                                 INNER JOIN genres g
                                 ON g.genre_id=mg.genre_id
                                 WHERE m.release_date IS NOT NULL
-                                GROUP BY g.name, YEAR(m.release_date);''',
+                                GROUP BY g.name, YEAR(m.release_date)
+                                HAVING revenue IS NOT NULL
+                                ORDER BY year;''',
     'avgRevenueActorGenre': '''SELECT p.name AS name, g.name AS genre, AVG(m.revenue) AS avg_revenue
                                FROM (SELECT * FROM people WHERE known_for_department='Acting' ORDER BY popularity DESC LIMIT 10) p
                                INNER JOIN credits c
@@ -30,11 +32,17 @@ graph_map = {
                                    INNER JOIN genres g
                                    ON g.genre_id=mg.genre_id
                                    WHERE m.release_date IS NOT NULL
-                                   GROUP BY g.name, YEAR(m.release_date);''',
-    'durationVSrevenue': '''SELECT runtime, AVG(revenue) AS revenue
-                            FROM movies
-                            WHERE revenue>0 AND runtime>10
-                            GROUP BY runtime;''',
+                                   GROUP BY g.name, YEAR(m.release_date)
+                                   ORDER BY year;''',
+    'durationVSrevenue': '''SELECT g.name as genre, m.runtime AS runtime, AVG(m.revenue) AS revenue
+                            FROM movies m
+                            INNER JOIN movie_genres mg
+                            ON m.movie_id=mg.movie_id
+                            INNER JOIN genres g
+                            ON mg.genre_id=g.genre_id
+                            WHERE revenue IS NOT NULL AND runtime IS NOT NULL
+                            GROUP BY genre, runtime
+                            ORDER BY runtime;''',
     'countByGender': '''SELECT CASE WHEN gender=1 THEN \'Female\' WHEN gender=2 THEN \'Male\' ELSE \'Other\' END AS gender, COUNT(*) AS count
                         FROM people
                         WHERE gender>0
@@ -48,12 +56,12 @@ graph_map = {
                                           INNER JOIN languages l
                                           ON m.language=l.iso_639_1;''',
     'budgetRatingGenre': '''SELECT m.title, m.budget, m.vote_average, g.name
-                                FROM movies m
-                                INNER JOIN movie_genres mg
-                                ON m.movie_id=mg.movie_id
-                                INNER JOIN genres g
-                                ON g.genre_id=mg.genre_id
-                                WHERE m.budget>0 AND m.vote_average>0;''',
+                            FROM movies m
+                            INNER JOIN movie_genres mg
+                            ON m.movie_id=mg.movie_id
+                            INNER JOIN genres g
+                            ON mg.genre_id=g.genre_id
+                            WHERE m.budget IS NOT NULL AND m.vote_average IS NOT NULL;''',
     'avgRevenueByGenreForActor': '''SELECT g.name AS genre, AVG(revenue) AS revenue
                                     FROM people p
                                     INNER JOIN credits c

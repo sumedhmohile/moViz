@@ -93,7 +93,7 @@ class Movies(models.Model):
     homepage = models.CharField(max_length=255, blank=True, null=True)
     movie_id = models.IntegerField(primary_key=True)
     imdb_id = models.CharField(max_length=255, blank=True, null=True)
-    original_language = models.CharField(max_length=255)
+    original_language = models.ForeignKey(Languages, models.DO_NOTHING, db_column='original_language')
     original_title = models.CharField(max_length=255)
     overview = models.TextField(blank=True, null=True)
     popularity = models.FloatField()

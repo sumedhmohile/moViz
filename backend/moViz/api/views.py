@@ -14,75 +14,21 @@ import json
 
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class MovieCountVsYearView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MovieCountVsYearSerializer
-    queryset = Movies \
+class GenresView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = GenresSerializer
+    queryset = Genres \
         .objects \
-        .exclude(release_date__isnull=True) \
-        .filter(status='Released') \
-        .values(year=ExtractYear('release_date')) \
-        .annotate(count=Count('release_date')) \
-        .order_by('-year')
+        .all() \
+        .order_by('name')
 
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class MovieTotalRevenueVsYearView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MovieRevenueVsYearSerializer
-    queryset = Movies \
+class LanguagesView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = LanguagesSerializer
+    queryset = Languages \
         .objects \
-        .exclude(release_date__isnull=True) \
-        .filter(status='Released') \
-        .values(year=ExtractYear('release_date')) \
-        .annotate(revenue=Sum('revenue')) \
-        .order_by('-year')
-
-
-@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class MovieAvgRevenueVsYearView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MovieRevenueVsYearSerializer
-    queryset = Movies \
-        .objects \
-        .exclude(release_date__isnull=True) \
-        .filter(status='Released') \
-        .values(year=ExtractYear('release_date')) \
-        .annotate(revenue=Avg('revenue')) \
-        .order_by('-year')
-
-
-@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class MovieTotalBudgetVsYearView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MovieBudgetVsYearSerializer
-    queryset = Movies \
-        .objects \
-        .exclude(release_date__isnull=True) \
-        .filter(status='Released') \
-        .values(year=ExtractYear('release_date')) \
-        .annotate(budget=Sum('budget')) \
-        .order_by('-year')
-
-
-@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class MovieAvgBudgetVsYearView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MovieBudgetVsYearSerializer
-    queryset = Movies \
-        .objects \
-        .exclude(release_date__isnull=True) \
-        .filter(status='Released') \
-        .values(year=ExtractYear('release_date')) \
-        .annotate(budget=Avg('budget')) \
-        .order_by('-year')
-
-
-@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class MovieAvgRuntimeVsYearView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MovieRuntimeVsYearSerializer
-    queryset = Movies \
-        .objects \
-        .exclude(release_date__isnull=True) \
-        .filter(status='Released') \
-        .values(year=ExtractYear('release_date')) \
-        .annotate(runtime=Avg('runtime')) \
-        .order_by('-year')
+        .all() \
+        .order_by('english_name')
 
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
@@ -90,29 +36,61 @@ class MovieTopTenMostPopularView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieTopTenMostPopularSerializer
     queryset = Movies \
                    .objects \
-                   .values('title', 'popularity') \
+                   .values('title', 'popularity', 'tagline', 'homepage', 'original_language', 'status', 'release_date',
+                           'budget', 'revenue', 'runtime', 'vote_average', 'vote_count') \
                    .order_by('-popularity')[:10]
 
 
-# # @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-# class MovieTotalRevenuesVsGenreVsYearView(viewsets.ReadOnlyModelViewSet):
-#     serializer_class = MovieTotalRevenuesVsGenreVsYearSerializer
-#     queryset = MovieGenres \
-#         .objects \
-#         .values('genre__name', year=ExtractYear('movie__release_date')) \
-#         .annotate(revenue=Sum('movie__revenue'))
-#
-#     print(len(queryset))
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+class MovieTrendsVsYearView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = MovieTrendsVsYearSerializer
+    queryset = MovieGenres \
+        .objects \
+        .filter(movie__release_date__isnull=False, movie__status='Released') \
+        .values(year=ExtractYear('movie__release_date'), genre_name=F('genre__name')) \
+        .annotate(count=Count('movie__release_date')) \
+        .annotate(total_revenue=Sum('movie__revenue')) \
+        .annotate(avg_revenue=Avg('movie__revenue')) \
+        .annotate(total_budget=Sum('movie__budget')) \
+        .annotate(avg_budget=Avg('movie__budget')) \
+        .annotate(avg_runtime=Avg('movie__runtime')) \
+        .annotate(avg_popularity=Avg('movie__popularity')) \
+        .order_by('-year')
+
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class ActorGenderCountView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = ActorGenderCountSerializer
-    queryset = People \
+class MovieGenreVsBudgetVsRatingView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = MovieGenreVsBudgetVsRatingSerializer
+    queryset = MovieGenres \
         .objects \
-        .exclude(gender__isnull=True) \
-        .filter(known_for_department='Acting') \
-        .values('gender') \
-        .annotate(count=Count('gender'))
+        .filter(movie__status='Released', movie__budget__isnull=False, movie__vote_average__isnull=False,
+                movie__vote_count__gt=10000) \
+        .values(title=F('movie__title'), budget=F('movie__budget'), vote_average=F('movie__vote_average'),
+                vote_count=F('movie__vote_count'), genre_name=F('genre__name'))
+
+
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+class MovieLanguageVsAvgBudgetVsAvgRevenueView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = MovieLanguageVsAvgBudgetVsAvgRevenueSerializer
+    queryset = Movies \
+        .objects \
+        .filter(status='Released', budget__isnull=False, revenue__isnull=False) \
+        .values(language=F('original_language__english_name')) \
+        .annotate(avg_budget=Avg('budget')) \
+        .annotate(avg_revenue=Avg('revenue')) \
+        .annotate(avg_popularity=Avg('popularity')) \
+        .order_by('language')
+
+    print(queryset[:10])
+
+
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+class PeopleTopTenMostPopularView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = PeopleTopTenMostPopularSerializer
+    queryset = People \
+                   .objects \
+                   .values('person_id', 'name', 'popularity') \
+                   .order_by('-popularity')[:10]
 
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
@@ -120,8 +98,7 @@ class PeopleGenderCountView(viewsets.ReadOnlyModelViewSet):
     serializer_class = PeopleGenderCountSerializer
     queryset = People \
         .objects \
-        .exclude(known_for_department__isnull=True) \
-        .exclude(gender__isnull=True) \
+        .filter(known_for_department__isnull=False, gender__isnull=False) \
         .values('known_for_department', 'gender') \
         .annotate(count=Count('gender')) \
         .order_by('known_for_department', 'gender')
@@ -132,7 +109,7 @@ class PeopleDepartmentCountView(viewsets.ReadOnlyModelViewSet):
     serializer_class = PeopleDepartmentCountSerializer
     queryset = People \
         .objects \
-        .exclude(known_for_department__isnull=True) \
+        .filter(known_for_department__isnull=False) \
         .values('known_for_department') \
         .annotate(count=Count('known_for_department')) \
         .order_by('-count')
@@ -143,19 +120,10 @@ class PeoplePopularPlacesOfBirthView(viewsets.ReadOnlyModelViewSet):
     serializer_class = PeoplePopularPlacesOfBirthSerializer
     queryset = People \
         .objects \
-        .exclude(place_of_birth__isnull=True) \
+        .filter(place_of_birth__isnull=False) \
         .values('place_of_birth') \
         .annotate(count=Count('place_of_birth')) \
         .order_by('-count')
-
-
-@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
-class PeopleTopTenMostPopularView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = PeopleTopTenMostPopularSerializer
-    queryset = People \
-                   .objects \
-                   .values('name', 'popularity') \
-                   .order_by('-popularity')[:10]
 
 
 def index(request):

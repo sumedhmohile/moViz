@@ -6,6 +6,12 @@ class GenresSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
 
 
+class LanguagesSerializer(serializers.Serializer):
+    iso_639_1 = serializers.CharField(max_length=255)
+    english_name = serializers.CharField(max_length=255)
+    name = serializers.CharField(max_length=255, allow_blank=True)
+
+
 class MovieTopTenMostPopularSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=255)
     popularity = serializers.FloatField()

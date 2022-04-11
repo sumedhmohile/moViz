@@ -23,6 +23,15 @@ class GenresView(viewsets.ReadOnlyModelViewSet):
 
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+class LanguagesView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = LanguagesSerializer
+    queryset = Languages \
+        .objects \
+        .all() \
+        .order_by('english_name')
+
+
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieTopTenMostPopularView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieTopTenMostPopularSerializer
     queryset = Movies \

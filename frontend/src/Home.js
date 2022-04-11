@@ -10,7 +10,8 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { MovieGenreVsTotalRevenueVsYear } from "./components/MovieGenreVsTotalRevenueVsYear";
+import { MovieTopTenMostPopular } from "./components/MovieTopTenMostPopular";
+import { MovieTrendsVsYear } from "./components/MovieTrendsVsYear";
 import { MovieGenreVsAvgPopularityVsYear } from "./components/MovieGenreVsAvgPopularityVsYear";
 import { ActorGenreVsAvgRevenue } from "./components/ActorGenreVsAvgRevenue";
 import { MovieGenreVsBudgetVsRating } from "./components/MovieGenreVsBudgetVsRating";
@@ -18,8 +19,6 @@ import { Comparison } from "./components/Comparison";
 import { MovieGenreVsAvgRevenueVsRuntime } from "./components/MovieGenreVsAvgRevenueVsRuntime";
 import { LanguageRevenueBudgetPopularity } from "./components/LanguageRevenueBudgetPopularity";
 
-import { MovieTopTenMostPopular } from "./components/MovieTopTenMostPopular";
-import { MovieTrendsVsYear } from "./components/MovieTrendsVsYear";
 import { PeopleTopTenMostPopular } from "./components/PeopleTopTenMostPopular";
 import { PeopleDepartmentCount } from "./components/PeopleDepartmentCount";
 import { PeopleGenderCount } from "./components/PeopleGenderCount";
@@ -39,15 +38,14 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export const Home = () => {
   const basicGraphList = [
-    "Movie Top Ten Most Popular",
-    "Movie Trends vs. Year",
     "People Top Ten Most Popular",
     "People Department Count",
     "People Gender Distribution",
   ];
 
   const graphList = [
-    "Movie Genre vs. Total Revenue vs. Year",
+    "Movie Top Ten Most Popular",
+    "Movie Trends vs. Year",
     "Movie Genre vs. Average Popularity vs. Year",
     "Average Revenue of Popular Actors by Genre",
     "Movie Genre vs. Budget vs. Rating",
@@ -133,19 +131,18 @@ export const Home = () => {
         }}
       >
         <DrawerHeader />
-        {displayGraph === 0 && <MovieGenreVsTotalRevenueVsYear />}
-        {displayGraph === 1 && <MovieGenreVsAvgPopularityVsYear />}
-        {displayGraph === 2 && <ActorGenreVsAvgRevenue />}
-        {displayGraph === 3 && <MovieGenreVsBudgetVsRating />}
-        {displayGraph === 4 && <Comparison />}
-        {displayGraph === 5 && <MovieGenreVsAvgRevenueVsRuntime />}
-        {displayGraph === 6 && <LanguageRevenueBudgetPopularity />}
+        {displayGraph === 0 && <MovieTopTenMostPopular />}
+        {displayGraph === 1 && <MovieTrendsVsYear />}
+        {displayGraph === 2 && <MovieGenreVsAvgPopularityVsYear />}
+        {displayGraph === 3 && <ActorGenreVsAvgRevenue />}
+        {displayGraph === 4 && <MovieGenreVsBudgetVsRating />}
+        {displayGraph === 5 && <Comparison />}
+        {displayGraph === 6 && <MovieGenreVsAvgRevenueVsRuntime />}
+        {displayGraph === 7 && <LanguageRevenueBudgetPopularity />}
 
-        {displayGraph === 7 && <MovieTopTenMostPopular />}
-        {displayGraph === 8 && <MovieTrendsVsYear />}
-        {displayGraph === 9 && <PeopleTopTenMostPopular />}
-        {displayGraph === 10 && <PeopleDepartmentCount />}
-        {displayGraph === 11 && <PeopleGenderCount />}
+        {displayGraph === 8 && <PeopleTopTenMostPopular />}
+        {displayGraph === 9 && <PeopleDepartmentCount />}
+        {displayGraph === 10 && <PeopleGenderCount />}
       </Box>
     </Box>
   );

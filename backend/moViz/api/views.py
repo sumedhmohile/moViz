@@ -37,8 +37,7 @@ class MovieTrendsVsYearView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieTrendsVsYearSerializer
     queryset = MovieGenres \
         .objects \
-        .exclude(movie__release_date__isnull=True) \
-        .filter(movie__status='Released') \
+        .filter(movie__release_date__isnull=False, movie__status='Released') \
         .values(year=ExtractYear('movie__release_date'), genre_name=F('genre__name')) \
         .annotate(count=Count('movie__release_date')) \
         .annotate(total_revenue=Sum('movie__revenue')) \
@@ -64,8 +63,7 @@ class PeopleGenderCountView(viewsets.ReadOnlyModelViewSet):
     serializer_class = PeopleGenderCountSerializer
     queryset = People \
         .objects \
-        .exclude(known_for_department__isnull=True) \
-        .exclude(gender__isnull=True) \
+        .filter(known_for_department__isnull=False, gender__isnull=False) \
         .values('known_for_department', 'gender') \
         .annotate(count=Count('gender')) \
         .order_by('known_for_department', 'gender')
@@ -76,7 +74,7 @@ class PeopleDepartmentCountView(viewsets.ReadOnlyModelViewSet):
     serializer_class = PeopleDepartmentCountSerializer
     queryset = People \
         .objects \
-        .exclude(known_for_department__isnull=True) \
+        .filter(known_for_department__isnull=False) \
         .values('known_for_department') \
         .annotate(count=Count('known_for_department')) \
         .order_by('-count')
@@ -87,7 +85,7 @@ class PeoplePopularPlacesOfBirthView(viewsets.ReadOnlyModelViewSet):
     serializer_class = PeoplePopularPlacesOfBirthSerializer
     queryset = People \
         .objects \
-        .exclude(place_of_birth__isnull=True) \
+        .filter(place_of_birth__isnull=False) \
         .values('place_of_birth') \
         .annotate(count=Count('place_of_birth')) \
         .order_by('-count')

@@ -16,7 +16,7 @@ databuilder_helper.configure_logging('get_people.log')
 logging.info('Program started.')
 
 api_key, user, password, host, database, port = databuilder_helper.get_config()
-PERSON_INSERT_QUERY = 'INSERT INTO people VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+PERSON_INSERT_QUERY = 'INSERT INTO people VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
 PERSON_DELETE_QUERY = 'DELETE FROM people WHERE person_id=%s'
 
 
@@ -73,11 +73,7 @@ def get_person(person_id):
     place_of_birth = person_json['place_of_birth']
     profile_path = person_json['profile_path']
 
-    adult = person_json['adult']
-    if adult:
-        adult = 1
-    else:
-        adult = 0
+    adult = int(person_json['adult'])
 
     imdb_id = person_json['imdb_id']
     if imdb_id == '':

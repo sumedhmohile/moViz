@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS movies
   -- video not implemented
   vote_average DOUBLE,
   vote_count INT NOT NULL,
-  PRIMARY KEY (movie_id)
-  FOREIGN KEY (original_language) REFERENCES languages(iso_639_1);
+  PRIMARY KEY (movie_id),
+  FOREIGN KEY (original_language) REFERENCES languages(iso_639_1)
 );
 

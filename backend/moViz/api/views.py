@@ -93,7 +93,15 @@ class MovieTopTenByRevenue(viewsets.ReadOnlyModelViewSet):
         .values('title', 'revenue', 'poster_path') \
         .order_by('-revenue')[:10]
 
-    print(queryset[:10])
+
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+class MovieTopTenByBudget(viewsets.ReadOnlyModelViewSet):
+    serializer_class = MovieTopTenByBudgetSerializer
+    queryset = Movies \
+                   .objects \
+                   .filter(status='Released',  revenue__isnull=False, poster_path__isnull=False) \
+                   .values('title', 'budget', 'poster_path') \
+                   .order_by('-budget')[:10]
 
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')

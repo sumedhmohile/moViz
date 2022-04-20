@@ -58,7 +58,11 @@ class MovieTopTenByRevenueSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=255)
     revenue = serializers.IntegerField(allow_null=True)
     poster_path = serializers.CharField(allow_null=True, max_length=255)
-    
+
+class MovieTopTenByBudgetSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=255)
+    budget = serializers.IntegerField(allow_null=True)
+    poster_path = serializers.CharField(allow_null=True, max_length=255)
 
 
 class PeopleTopTenMostPopularSerializer(serializers.Serializer):

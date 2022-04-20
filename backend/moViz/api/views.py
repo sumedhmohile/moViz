@@ -84,13 +84,15 @@ class MovieLanguageVsAvgBudgetVsAvgRevenueView(viewsets.ReadOnlyModelViewSet):
     print(queryset[:10])
 
 
-@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+# @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class PeopleTopTenMostPopularView(viewsets.ReadOnlyModelViewSet):
     serializer_class = PeopleTopTenMostPopularSerializer
     queryset = People \
                    .objects \
-                   .values('person_id', 'name', 'popularity') \
+                   .values('name', 'popularity', 'known_for_department', 'profile_path', 'birthday', 'place_of_birth', 'adult') \
+                    .exclude(adult=1) \
                    .order_by('-popularity')[:10]
+    print(queryset)
 
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')

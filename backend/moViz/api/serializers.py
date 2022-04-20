@@ -57,6 +57,10 @@ class MovieLanguageVsAvgBudgetVsAvgRevenueSerializer(serializers.Serializer):
 class PeopleTopTenMostPopularSerializer(serializers.Serializer):
     person_id = serializers.IntegerField()
     name = serializers.CharField(max_length=255)
+    known_for_department = serializers.CharField(max_length=255)
+    profile_path = serializers.CharField(max_length=255)
+    birthday = serializers.DateField()
+    place_of_birth = serializers.CharField(max_length=255)
     popularity = serializers.FloatField()
 
 

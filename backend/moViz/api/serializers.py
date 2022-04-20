@@ -54,15 +54,21 @@ class MovieLanguageVsAvgBudgetVsAvgRevenueSerializer(serializers.Serializer):
     avg_revenue = serializers.FloatField()
     avg_popularity = serializers.FloatField()
     
+    
 class MovieTopTenByRevenueSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=255)
     revenue = serializers.IntegerField(allow_null=True)
     poster_path = serializers.CharField(allow_null=True, max_length=255)
+    vote_average = serializers.FloatField(allow_null=True)
+    release_date = serializers.DateField(allow_null=True)
+
 
 class MovieTopTenByBudgetSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=255)
     budget = serializers.IntegerField(allow_null=True)
     poster_path = serializers.CharField(allow_null=True, max_length=255)
+    vote_average = serializers.FloatField(allow_null=True)
+    release_date = serializers.DateField(allow_null=True)
 
 
 class PeopleTopTenMostPopularSerializer(serializers.Serializer):

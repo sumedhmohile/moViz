@@ -31,7 +31,7 @@ class LanguagesView(viewsets.ReadOnlyModelViewSet):
         .order_by('english_name')
 
 
-@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+# @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieTopTenMostPopularView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieTopTenMostPopularSerializer
     queryset = Movies \
@@ -90,7 +90,7 @@ class MovieTopTenByRevenue(viewsets.ReadOnlyModelViewSet):
     queryset = Movies \
         .objects \
         .filter(status='Released',  revenue__isnull=False) \
-        .values('title', 'revenue', 'poster_path') \
+        .values('title', 'revenue', 'poster_path', 'vote_average', 'release_date') \
         .order_by('-revenue')[:10]
 
 
@@ -100,7 +100,7 @@ class MovieTopTenByBudget(viewsets.ReadOnlyModelViewSet):
     queryset = Movies \
                    .objects \
                    .filter(status='Released',  revenue__isnull=False, poster_path__isnull=False) \
-                   .values('title', 'budget', 'poster_path') \
+                   .values('title', 'budget', 'poster_path', 'vote_average', 'release_date') \
                    .order_by('-budget')[:10]
 
 
@@ -109,8 +109,8 @@ class PeopleTopTenMostPopularView(viewsets.ReadOnlyModelViewSet):
     serializer_class = PeopleTopTenMostPopularSerializer
     queryset = People \
                    .objects \
-                   .values('name', 'popularity', 'known_for_department', 'profile_path', 'birthday', 'place_of_birth', 'adult') \
-                    .exclude(adult=1) \
+                   .values('person_id', 'name', 'popularity', 'known_for_department', 'profile_path', 'birthday', 'place_of_birth', 'adult') \
+                   .exclude(adult=1) \
                    .order_by('-popularity')[:10]
 
 

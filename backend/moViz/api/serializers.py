@@ -25,6 +25,7 @@ class MovieTopTenMostPopularSerializer(serializers.Serializer):
     runtime = serializers.IntegerField(allow_null=True)
     vote_average = serializers.FloatField(allow_null=True)
     vote_count = serializers.IntegerField()
+    poster_path = serializers.CharField(allow_null=True, max_length=255)
 
 
 class MovieTrendsVsYearSerializer(serializers.Serializer):

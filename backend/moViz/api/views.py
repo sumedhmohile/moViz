@@ -85,6 +85,18 @@ class MovieLanguageVsAvgBudgetVsAvgRevenueView(viewsets.ReadOnlyModelViewSet):
 
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+class MovieTopTenByRevenue(viewsets.ReadOnlyModelViewSet):
+    serializer_class = MovieTopTenByRevenueSerializer
+    queryset = Movies \
+        .objects \
+        .filter(status='Released',  revenue__isnull=False) \
+        .values('title', 'revenue', 'poster_path') \
+        .order_by('-revenue')[:10]
+
+    print(queryset[:10])
+
+
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class PeopleTopTenMostPopularView(viewsets.ReadOnlyModelViewSet):
     serializer_class = PeopleTopTenMostPopularSerializer
     queryset = People \

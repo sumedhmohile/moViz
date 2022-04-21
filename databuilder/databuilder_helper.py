@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import shutil
+import time
 import urllib.error
 import urllib.request
 from datetime import datetime
@@ -94,10 +95,22 @@ def get_ids_fe(ids, date):
         logging.info(f'{LOOKUP[ids]["name"]} file export for {date} exists in directory!')
 
     else:
-        logging.info(f'{LOOKUP[ids]["name"]} file export for {date} does not exist in Directory.')
+        logging.info(f'{LOOKUP[ids]["name"]} file export for {date} does not exist in directory.')
         logging.info(f'Retrieving {LOOKUP[ids]["name"]} file export for {date}...')
         fe_url = f'https://files.tmdb.org/p/exports/{ids}_{date}.json.gz'
-        urllib.request.urlretrieve(fe_url, f'{ids}_{date}.json.gz')
+
+        while True:
+            try:
+                urllib.request.urlretrieve(fe_url, f'{ids}_{date}.json.gz')
+
+                break
+
+            except urllib.error.HTTPError as e:
+                seconds = 60
+                logging.warning(
+                    f'Could not retrieve {LOOKUP[ids]["name"]} file export for {date}: {e}. Trying again after {seconds} seconds.')
+                time.sleep(seconds)
+
         logging.info(f'Successfully retrieved {LOOKUP[ids]["name"]} file export!')
 
     logging.info(f'Extracting .json file from {ids}_{date}.json.gz...')

@@ -43,18 +43,12 @@ graph_map = {
                             WHERE revenue IS NOT NULL AND runtime IS NOT NULL
                             GROUP BY genre, runtime
                             ORDER BY runtime;''',
-    'countByGender': '''SELECT CASE WHEN gender=1 THEN \'Female\' WHEN gender=2 THEN \'Male\' ELSE \'Other\' END AS gender, COUNT(*) AS count
-                        FROM people
-                        WHERE gender>0
-                        GROUP BY gender;''',
+    'countByGender': '''select * from CACHE_countByGender''',
     'countByPlace': '''SELECT place_of_birth AS place, COUNT(*) AS COUNT
                        FROM people
                        WHERE place_of_birth IS NOT NULL 
                        GROUP BY place_of_birth;''',
-    'budgetRevenueLanguagePopularity': '''SELECT english_name AS language, revenue, budget, popularity
-                                          FROM (SELECT original_language AS language, AVG(revenue) AS revenue, AVG(budget) AS budget, AVG(popularity) AS popularity FROM movies WHERE original_language regexp \'^[a-zA-Z]+\' AND revenue>0 and budget>0 GROUP BY original_language) m 
-                                          INNER JOIN languages l
-                                          ON m.language=l.iso_639_1;''',
+    'budgetRevenueLanguagePopularity': '''select * from CACHE_budgetRevenueLanguagePopularity''',
     'budgetRatingGenre': '''SELECT m.title, m.budget, m.vote_average, g.name
                             FROM movies m
                             INNER JOIN movie_genres mg

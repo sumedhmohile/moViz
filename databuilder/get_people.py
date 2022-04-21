@@ -16,7 +16,7 @@ databuilder_helper.configure_logging('get_people.log')
 logging.info('Program started.')
 
 api_key, user, password, host, database, port = databuilder_helper.get_config()
-PERSON_INSERT_QUERY = 'INSERT INTO people VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+PERSON_INSERT_QUERY = 'INSERT INTO people VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
 PERSON_DELETE_QUERY = 'DELETE FROM people WHERE person_id=%s'
 
 
@@ -73,6 +73,8 @@ def get_person(person_id):
     place_of_birth = person_json['place_of_birth']
     profile_path = person_json['profile_path']
 
+    adult = int(person_json['adult'])
+
     imdb_id = person_json['imdb_id']
     if imdb_id == '':
         imdb_id = None
@@ -83,7 +85,7 @@ def get_person(person_id):
     try:
         cursor.execute(PERSON_INSERT_QUERY, (
             birthday, known_for_department, deathday, person_id, name, gender, biography, popularity, place_of_birth,
-            profile_path, imdb_id, homepage))
+            profile_path, adult, imdb_id, homepage))
         # logging.info(f'Successfully executed INSERT operation for person_id {person_id}!')
 
     except Exception as e:

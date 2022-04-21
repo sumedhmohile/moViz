@@ -123,9 +123,9 @@ class People(models.Model):
     popularity = models.FloatField()
     place_of_birth = models.CharField(max_length=255, blank=True, null=True)
     profile_path = models.CharField(max_length=255, blank=True, null=True)
+    adult = models.IntegerField()
     imdb_id = models.CharField(max_length=255, blank=True, null=True)
     homepage = models.CharField(max_length=255, blank=True, null=True)
-    adult = models.IntegerField()
 
     class Meta:
         managed = False

@@ -53,8 +53,8 @@ class MovieLanguageVsAvgBudgetVsAvgRevenueSerializer(serializers.Serializer):
     avg_budget = serializers.FloatField()
     avg_revenue = serializers.FloatField()
     avg_popularity = serializers.FloatField()
-    
-    
+
+
 class MovieTopTenByRevenueSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=255)
     revenue = serializers.IntegerField(allow_null=True)
@@ -62,7 +62,6 @@ class MovieTopTenByRevenueSerializer(serializers.Serializer):
     vote_average = serializers.FloatField(allow_null=True)
     release_date = serializers.DateField(allow_null=True)
     homepage = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
-    
 
 
 class MovieTopTenByBudgetSerializer(serializers.Serializer):

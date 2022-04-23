@@ -98,3 +98,18 @@ class PeopleDepartmentCountSerializer(serializers.Serializer):
 class PeoplePopularPlacesOfBirthSerializer(serializers.Serializer):
     place_of_birth = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
     count = serializers.IntegerField()
+
+class ComparisonDataForPersonSerializer(serializers.Serializer):
+    genre_name = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+    avg_revenue = serializers.IntegerField()
+    avg_budget = serializers.IntegerField()
+    avg_popularity = serializers.FloatField()
+    avg_rating = serializers.FloatField()
+    
+    
+class CorrelationSerializer(serializers.Serializer):
+    genre_name = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+    avg_revenue = serializers.IntegerField()
+    avg_budget = serializers.IntegerField()
+    avg_popularity = serializers.FloatField()
+    avg_rating = serializers.FloatField()

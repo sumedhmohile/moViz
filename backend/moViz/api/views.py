@@ -84,7 +84,7 @@ class MovieLanguageVsAvgBudgetVsAvgRevenueView(viewsets.ReadOnlyModelViewSet):
     print(queryset[:10])
 
 
-# @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieTopTenByRevenue(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieTopTenByRevenueSerializer
     queryset = Movies \
@@ -94,7 +94,7 @@ class MovieTopTenByRevenue(viewsets.ReadOnlyModelViewSet):
         .order_by('-revenue')[:10]
 
 
-# @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieTopTenByBudget(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieTopTenByBudgetSerializer
     queryset = Movies \
@@ -146,6 +146,95 @@ class PeoplePopularPlacesOfBirthView(viewsets.ReadOnlyModelViewSet):
         .annotate(count=Count('place_of_birth')) \
         .order_by('-count')
 
+
+# @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+class ComparisonDataForPerson(viewsets.ReadOnlyModelViewSet):
+    serializer_class = ComparisonDataForPersonSerializer
+
+    def get_queryset(self):
+        person_name = self.request.query_params.get('person_name')
+        print("PERSON:" + str(person_name))
+
+        person_id = People \
+            .objects \
+            .filter(name=person_name)[0]
+
+        person_id = person_id.person_id
+
+        person_credits = Credits \
+            .objects \
+            .filter(person=person_id)
+
+        movie_ids = set()
+        for credit in person_credits:
+            movie_ids.add(credit.movie.movie_id)
+
+        movie_genres = MovieGenres \
+            .objects \
+            .filter(movie__release_date__isnull=False, movie__status='Released', movie__movie_id__in=movie_ids, movie__revenue__isnull=False) \
+            .values(genre_name=F('genre__name')) \
+            .annotate(avg_budget=Avg('movie__budget')) \
+            .annotate(avg_revenue=Avg('movie__revenue')) \
+            .annotate(avg_popularity=Avg('movie__popularity')) \
+            .annotate(avg_rating=Avg('movie__vote_average'))
+
+        return movie_genres
+
+
+# @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+class PeopleCorrelation(viewsets.ReadOnlyModelViewSet):
+    serializer_class = CorrelationSerializer
+
+    def get_queryset(self):
+        person_name1 = self.request.query_params.get('person_name1')
+        person_name2 = self.request.query_params.get('person_name2')
+        
+        print("name1: " + person_name1)
+        print("name2: " + person_name2)
+
+        person_id1 = People \
+                    .objects \
+                    .filter(name=person_name1)[0]
+
+        person_id2 = People \
+            .objects \
+            .filter(name=person_name2)[0]
+
+        person_id1 = person_id1.person_id
+        person_id2 = person_id2.person_id
+
+        person1_credits = Credits \
+            .objects \
+            .filter(person=person_id1)
+
+        person2_credits = Credits \
+            .objects \
+            .filter(person=person_id2)
+        
+        person1_movie_ids = set()
+        common_movie_ids = set()
+        
+        for credit in person1_credits:
+            person1_movie_ids.add(credit.movie.movie_id)
+        
+        for credit in person2_credits:
+            print(credit.movie.title)
+            if credit.movie.movie_id in person1_movie_ids:
+                common_movie_ids.add(credit.movie.movie_id)
+
+
+        movie_genres = MovieGenres \
+            .objects \
+            .filter(movie__release_date__isnull=False, movie__status='Released', movie__movie_id__in=common_movie_ids, movie__revenue__isnull=False) \
+            .values(genre_name=F('genre__name')) \
+            .annotate(avg_budget=Avg('movie__budget')) \
+            .annotate(avg_revenue=Avg('movie__revenue')) \
+            .annotate(avg_popularity=Avg('movie__popularity')) \
+            .annotate(avg_rating=Avg('movie__vote_average')) \
+
+
+        return movie_genres
+            
 
 def index(request):
     return render(request, 'index.html')

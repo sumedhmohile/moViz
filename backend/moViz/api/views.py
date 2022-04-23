@@ -31,7 +31,7 @@ class LanguagesView(viewsets.ReadOnlyModelViewSet):
         .order_by('english_name')
 
 
-# @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieTopTenMostPopularView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieTopTenMostPopularSerializer
     queryset = Movies \
@@ -102,6 +102,68 @@ class MovieTopTenByBudget(viewsets.ReadOnlyModelViewSet):
                    .filter(status='Released',  revenue__isnull=False, poster_path__isnull=False) \
                    .values('title', 'budget', 'poster_path', 'vote_average', 'release_date', 'homepage') \
                    .order_by('-budget')[:10]
+
+
+# @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+class MovieTopTenByVector(viewsets.ReadOnlyModelViewSet):
+    serializer_class = MovieTopTenByVectorSerializer
+    
+    def get_queryset(self):
+
+        n = 50
+        queryset =  Movies \
+                        .objects \
+                        .filter(status='Released',  revenue__isnull=False, poster_path__isnull=False, budget__isnull=False, popularity__isnull=False) \
+                        .values('title', 'budget', 'revenue', 'popularity', 'poster_path', 'vote_average', 'release_date', 'homepage') \
+                        .order_by('-budget')[:n]
+        
+        avg_revenue = 0
+        avg_budget = 0
+        avg_popularity = 0
+
+        max_revenue = 0
+        max_budget = 0
+        max_popularity = 0
+
+        min_revenue = float('inf')
+        min_budget = float('inf')
+        min_popularity = float('inf')
+        
+        
+        
+        for movie in queryset:
+            avg_revenue += movie['revenue']
+            avg_budget += movie['budget']
+            avg_popularity += movie['popularity']
+
+            max_revenue = max(max_revenue, movie['revenue'])
+            max_budget = max(max_revenue, movie['budget'])
+            max_popularity = max(max_revenue, movie['popularity'])
+
+            min_revenue = min(min_revenue, movie['revenue'])
+            min_budget = min(min_revenue, movie['budget'])
+            min_popularity = min(min_revenue, movie['popularity'])
+            
+        print(avg_revenue / n)
+        print(avg_budget / n)
+        print(avg_popularity / n)
+
+
+        for movie in queryset:
+            print("check")
+            print(movie)
+            
+            movie['vector'] = (movie['revenue'] / (max_revenue - min_revenue), -1 * movie['budget'] / (max_budget - min_budget), movie['popularity'] / (max_popularity - min_popularity))
+            movie['value'] = movie['vector'][0] ** 2 + movie['vector'][1] ** 2 + movie['vector'][2] ** 2 
+
+            
+        result = sorted(queryset, key=lambda x: -x['value'])
+
+        for movie in result:
+            print("check")
+            print(movie)
+            
+        return result[:10]
 
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')

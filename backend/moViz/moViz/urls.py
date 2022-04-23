@@ -40,6 +40,7 @@ router.register(r'comparisonForPerson', views.ComparisonDataForPerson,
                 basename='comparisonForPerson')
 router.register(r'peopleCorrelation', views.PeopleCorrelation,
                 basename='peopleCorrelation')
+router.register(r'movieTopTenByVector', views.MovieTopTenByVector, basename='movieTopTenByVector')
 
 
 urlpatterns = [

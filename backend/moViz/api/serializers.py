@@ -73,6 +73,14 @@ class MovieTopTenByBudgetSerializer(serializers.Serializer):
     release_date = serializers.DateField(allow_null=True)
     homepage = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
 
+class MovieTopTenByVectorSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=255)
+    value = serializers.FloatField(allow_null=True)
+    poster_path = serializers.CharField(allow_null=True, max_length=255)
+    vote_average = serializers.FloatField(allow_null=True)
+    release_date = serializers.DateField(allow_null=True)
+    homepage = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+
 
 class PeopleTopTenMostPopularSerializer(serializers.Serializer):
     person_id = serializers.IntegerField()

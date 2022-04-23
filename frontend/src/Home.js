@@ -14,7 +14,7 @@ import { MovieTopTenMostPopular } from "./components/MovieTopTenMostPopular";
 import { MovieTrendsVsYear } from "./components/MovieTrendsVsYear";
 import { ActorGenreVsAvgRevenue } from "./components/ActorGenreVsAvgRevenue";
 import { MovieGenreVsBudgetVsRating } from "./components/MovieGenreVsBudgetVsRating";
-import { Comparison } from "./components/Comparison";
+import Comparison from "./components/Comparison";
 import { MovieGenreVsAvgRevenueVsRuntime } from "./components/MovieGenreVsAvgRevenueVsRuntime";
 import { MovieLanguageVsAvgBudgetVsAvgRevenue } from "./components/MovieLanguageVsAvgBudgetVsAvgRevenue";
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Plot from "react-plotly.js";
+import { Box } from "@mui/material";
 
 export const PeopleTopTenMostPopular = () => {
   const [graphData, setGraphData] = useState([]);
@@ -17,6 +18,7 @@ export const PeopleTopTenMostPopular = () => {
   }, []);
 
   return (
+    <Box sx={{m: '3em', boxShadow:3}} height='90vh '>
     <Plot
       data={[
         {
@@ -32,7 +34,7 @@ export const PeopleTopTenMostPopular = () => {
           title: "Popularity",
           rangeslider: {},
         },
-        yaxis: { title: "Name" },
+        yaxis: { automargin: true, title: "Name" },
       }}
       style={{ width: "100%", height: "100%" }}
       config={{
@@ -40,5 +42,6 @@ export const PeopleTopTenMostPopular = () => {
         responsive: true,
       }}
     />
+    </Box>
   );
 };

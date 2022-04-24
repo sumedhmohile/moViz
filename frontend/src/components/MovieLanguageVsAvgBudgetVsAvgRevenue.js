@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Plot from "react-plotly.js";
+import { Box } from "@mui/material";
 
 export const MovieLanguageVsAvgBudgetVsAvgRevenue = () => {
   const [languageData, setLanguageData] = useState([]);
@@ -39,6 +40,7 @@ export const MovieLanguageVsAvgBudgetVsAvgRevenue = () => {
   }, []);
 
   return (
+    <Box sx={{m: '3em', boxShadow:3}} height='90vh '>
     <Plot
       data={data}
       layout={{
@@ -48,7 +50,7 @@ export const MovieLanguageVsAvgBudgetVsAvgRevenue = () => {
           tickformat: "s",
           rangeslider: {},
         },
-        yaxis: { title: "Average Revenue" },
+        yaxis: { automargin: true, title: "Average Revenue" },
       }}
       style={{ width: "100%", height: "100%" }}
       config={{
@@ -56,5 +58,6 @@ export const MovieLanguageVsAvgBudgetVsAvgRevenue = () => {
         responsive: true,
       }}
     />
+    </Box>
   );
 };

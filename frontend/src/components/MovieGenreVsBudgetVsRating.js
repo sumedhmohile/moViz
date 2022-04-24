@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Plot from "react-plotly.js";
+import { Box } from "@mui/material";
 
 export const MovieGenreVsBudgetVsRating = () => {
   const [genreData, setGenreData] = useState([]);
@@ -36,25 +37,28 @@ export const MovieGenreVsBudgetVsRating = () => {
       .catch((error) => {
         console.log(error);
       });
+
   }, []);
 
   return (
-    <Plot
-      data={data}
-      layout={{
-        title: "Movie Genre vs. Budget vs. Rating",
-        xaxis: {
-          title: "Budget",
-          tickformat: "s",
-          rangeslider: {},
-        },
-        yaxis: { title: "Rating", range: [0, 10] },
-      }}
-      style={{ width: "100%", height: "100%" }}
-      config={{
-        scrollZoom: true,
-        responsive: true,
-      }}
-    />
+    <Box sx={{m: '3em', boxShadow:3 }} height='90vh '>
+      <Plot
+        data={data}
+        layout={{
+          title: "Movie Genre vs. Budget vs. Rating",
+          xaxis: {
+            title: "Budget",
+            tickformat: "s",
+            rangeslider: {},
+          },
+          yaxis: { title: "Rating", range: [0, 10] },
+        }}
+        style={{ width: "100%", height: "100%" }}
+        config={{
+          scrollZoom: true,
+          responsive: true,
+        }}
+      />
+    </Box>
   );
 };

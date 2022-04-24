@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Plot from "react-plotly.js";
+import { Box } from "@mui/material";
 
 export const PeopleGenderCount = () => {
   const [graphData, setGraphData] = useState([]);
@@ -30,6 +31,7 @@ export const PeopleGenderCount = () => {
   }, []);
 
   return (
+    <Box sx={{m: '3em', boxShadow:3}} height='90vh '>
     <Plot
       data={graphData}
       layout={{
@@ -39,7 +41,7 @@ export const PeopleGenderCount = () => {
           tickformat: "s",
           rangeslider: {},
         },
-        yaxis: { title: "Known for Department" },
+        yaxis: { automargin: true, title: "Known for Department" },
       }}
       style={{ width: "100%", height: "100%" }}
       config={{
@@ -47,5 +49,6 @@ export const PeopleGenderCount = () => {
         responsive: true,
       }}
     />
+    </Box>
   );
 };

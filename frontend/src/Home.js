@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -10,11 +11,14 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import Button from '@mui/material/Button';
+import Fade from '@mui/material/Fade';
+
 import { MovieTopTenMostPopular } from "./components/MovieTopTenMostPopular";
 import { MovieTrendsVsYear } from "./components/MovieTrendsVsYear";
 import { ActorGenreVsAvgRevenue } from "./components/ActorGenreVsAvgRevenue";
 import { MovieGenreVsBudgetVsRating } from "./components/MovieGenreVsBudgetVsRating";
-import Comparison from "./components/Comparison";
+import  Comparison from "./components/Comparison";
 import { MovieGenreVsAvgRevenueVsRuntime } from "./components/MovieGenreVsAvgRevenueVsRuntime";
 import { MovieLanguageVsAvgBudgetVsAvgRevenue } from "./components/MovieLanguageVsAvgBudgetVsAvgRevenue";
 
@@ -22,85 +26,87 @@ import { PeopleTopTenMostPopular } from "./components/PeopleTopTenMostPopular";
 import { PeopleDepartmentCount } from "./components/PeopleDepartmentCount";
 import { PeopleGenderCount } from "./components/PeopleGenderCount";
 
-const drawerWidth = window.innerWidth / 6;
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-  marginTop: window.innerHeight / 15,
-  zIndex: "0",
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
+const drawerWidth = window.innerWidth / 5;
 
 export const Home = () => {
-  const basicGraphList = [
-    "People Top Ten Most Popular",
-    "People Department Count",
-    "People Gender Distribution",
-  ];
-
   const graphList = [
-    "Movie Top Ten Most Popular",
     "Movie Trends vs. Year",
+    "Movie Top Ten Most Popular",
     "Average Revenue of Popular Actors by Genre",
     "Movie Genre vs. Budget vs. Rating",
     "Actor Correlation for Average Revenue by Genre",
     "Movie Genre vs. Average Revenue vs. Runtime",
     "Impact of Language on Popularity, Budget and Revenue",
+    "People Top Ten Most Popular",
+    "People Department Count",
+    "People Gender Distribution",
   ];
+  const componentList = [<MovieTrendsVsYear/>, <MovieTopTenMostPopular/>, <ActorGenreVsAvgRevenue/>, 
+    <MovieGenreVsBudgetVsRating/>, <Comparison/>, <MovieGenreVsAvgRevenueVsRuntime/>, 
+    <MovieLanguageVsAvgBudgetVsAvgRevenue/>, <PeopleTopTenMostPopular/>, <PeopleDepartmentCount/>, <PeopleGenderCount/>,
+  ]
 
-  const theme = useTheme();
+  const fadeTime = 200
+
+  const theme = useTheme()
   const [displayGraph, setDisplayGraph] = useState(0);
+
+  const boxColor = '#135DA8'
+
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
 
-      <Drawer variant="permanent">
-        <DrawerHeader />
-        <List sx={{ width: drawerWidth }}>
+      <Drawer PaperProps={{
+        sx: {
+          backgroundColor: boxColor,
+          color: 'white',
+          width: drawerWidth
+        }
+      }}
+      variant="permanent" 
+      anchor='left'>
+        <Box sx={{background: boxColor, 
+                    height:window.innerHeight/10,
+                    display:'flex',
+                    justifyContent:'center',
+                    alignItems: 'center',
+                    m: '10px',
+                  }}>
+              <Typography sx={{fontWeight: 'bold', color:'white'}} variant="h4" noWrap component="div">
+                MoViz
+              </Typography>
+        </Box>
+
+        <List sx={{width: drawerWidth }}>
           {graphList.map((text, index) => (
+            <>
             <ListItemButton
+              sx={{
+                mx: '10px',
+                borderRadius: '10px',
+                background: displayGraph === index ? '#1773CF' : boxColor,
+                color: displayGraph === index ? 'white' : '#D6D6D6',
+              }}
+            
               onClick={() => {
                 setDisplayGraph(index);
               }}
               key={text}
-              sx={{
-                minHeight: window.innerHeight / 10,
-                justifyContent: "initial",
-                px: window.innerWidth / 400,
-              }}
             >
               <ListItemText primary={text} />
             </ListItemButton>
-          ))}
-        </List>
-        <Divider />
-
-        <List sx={{ width: drawerWidth }}>
-          {basicGraphList.map((text, index) => (
-            <ListItemButton
-              onClick={() => {
-                setDisplayGraph(index + graphList.length);
-              }}
-              key={text}
-              sx={{
-                minHeight: window.innerHeight / 10,
-                justifyContent: "initial",
-                px: window.innerWidth / 400,
-              }}
-            >
-              <ListItemText primary={text} />
-            </ListItemButton>
+            {index===6 && <Divider sx={{ borderBottomWidth: 2 }}/>}
+            </>
           ))}
         </List>
       </Drawer>
 
-      <AppBar
+      {/* <AppBar
         sx={{
+          background: 'white',
+          width: `calc(100% - ${drawerWidth}px)`,
           height: window.innerHeight / 10,
           zIndex: theme.zIndex.drawer + 1,
         }}
@@ -110,37 +116,53 @@ export const Home = () => {
           sx={{
             // marginLeft: drawerWidth/40,
             height: "100%",
-            justifyContent: "center",
           }}
         >
-          <Typography variant="h4" noWrap component="div">
+          <Typography style={{marginRight:30}} variant="h4" noWrap component="div">
             MoViz
           </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page, index) => (
+              <Link href="#"
+                onClick={() => {
+                  setDisplayPage(index + 1);
+                }}
+                key={page}
+                sx={{ mx:2, my: 2, color: 'white', display: 'block', 
+                    '&:hover': {
+                      color: '#000',
+                      textDecoration: 'none'
+                    },
+                }}
+              >
+                {page}
+              </Link>
+            ))}
+          </Box>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
 
-      <Box
-        component="main"
-        sx={{
-          height: "95vh",
-          marginLeft: window.innerWidth / 45,
-          flexGrow: 1,
-          p: 3,
-        }}
-      >
-        <DrawerHeader />
-        {displayGraph === 0 && <MovieTopTenMostPopular />}
-        {displayGraph === 1 && <MovieTrendsVsYear />}
-        {displayGraph === 2 && <ActorGenreVsAvgRevenue />}
-        {displayGraph === 3 && <MovieGenreVsBudgetVsRating />}
-        {displayGraph === 4 && <Comparison />}
-        {displayGraph === 5 && <MovieGenreVsAvgRevenueVsRuntime />}
-        {displayGraph === 6 && <MovieLanguageVsAvgBudgetVsAvgRevenue />}
-
-        {displayGraph === 7 && <PeopleTopTenMostPopular />}
-        {displayGraph === 8 && <PeopleDepartmentCount />}
-        {displayGraph === 9 && <PeopleGenderCount />}
-      </Box>
+           
+        <Box
+          component="main"
+          sx={{
+            background: '#eaedf2',
+            height: "fit-content",
+            marginLeft: `${drawerWidth}px`,
+            flexGrow: 1,
+            p: 3,
+          }}
+        >
+          {componentList.map((component, index) => (
+            <>
+              {displayGraph === index && <Fade timeout={fadeTime} in={displayGraph===index}>
+                <div>
+                  {component}
+                </div>
+                </Fade>}
+            </>
+          ))}
+        </Box>
     </Box>
   );
 };

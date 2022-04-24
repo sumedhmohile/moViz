@@ -234,7 +234,7 @@ function Comparison() {
   return (
     <div>
       <div>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{mb:'30px', alignItems:'center'}}>
           <Grid item>
             <TextField
               size="small"

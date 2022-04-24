@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Plot from "react-plotly.js";
+import { Box } from "@mui/material";
 
 export const MovieGenreVsAvgRevenueVsRuntime = () => {
   const [graphData, setGraphData] = useState([]);
@@ -30,6 +31,7 @@ export const MovieGenreVsAvgRevenueVsRuntime = () => {
   }, []);
 
   return (
+    <Box sx={{m: '3em', boxShadow:3}} height='90vh '>
     <Plot
       data={graphData}
       layout={{
@@ -39,7 +41,7 @@ export const MovieGenreVsAvgRevenueVsRuntime = () => {
           tickformat: "d",
           rangeslider: {},
         },
-        yaxis: { title: "Average Revenue" },
+        yaxis: { automargin: true, title: "Average Revenue" },
       }}
       style={{ width: "100%", height: "100%" }}
       config={{
@@ -47,5 +49,6 @@ export const MovieGenreVsAvgRevenueVsRuntime = () => {
         responsive: true,
       }}
     />
+    </Box>
   );
 };

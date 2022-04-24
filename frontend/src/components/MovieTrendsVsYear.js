@@ -7,6 +7,7 @@ import FormLabel from "@mui/material/FormLabel";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
+import { Box } from "@mui/material";
 
 export const MovieTrendsVsYear = () => {
   const [genreData, setGenreData] = useState([]);
@@ -104,10 +105,16 @@ export const MovieTrendsVsYear = () => {
   }, []);
 
   return (
-    <>
-      <Grid container spacing={2}>
-        <Grid item>
-          <FormControl>
+    <Box sx={{m:'3rem'}}>
+      <Grid container spacing={5}>
+        <Grid item xs={8}>
+          <FormControl justifyContent='center' sx={{
+            p: '30px',
+            justifyContent:'center',
+            alignItems:'center',
+            background: 'white',
+            boxShadow: 3,
+          }}>
             <FormLabel>Set Y-Axis</FormLabel>
             <RadioGroup
               row
@@ -152,8 +159,16 @@ export const MovieTrendsVsYear = () => {
             </RadioGroup>
           </FormControl>
         </Grid>
-        <Grid item>
-          <FormControl>
+
+        <Grid item xs={4}>
+          <FormControl sx={{
+            justifyContent:'center',
+            alignItems:'center',
+            width: '100%',
+            height: '100%',
+            background: 'white',
+            boxShadow: 3,
+          }}>
             <FormLabel>Set Plot Type</FormLabel>
             <RadioGroup
               row
@@ -174,26 +189,35 @@ export const MovieTrendsVsYear = () => {
           </FormControl>
         </Grid>
       </Grid>
-      <Plot
-        data={data}
-        layout={{
-          title: plotHelper.find((x) => x.label === yAxis).layoutTitle,
-          xaxis: {
-            title: "Year",
-            tickformat: "d",
-            rangeslider: {},
-          },
-          yaxis: {
-            title: plotHelper.find((x) => x.label === yAxis).layoutYaxisTitle,
-          },
-          barmode: "stack",
-        }}
-        style={{ width: "100%", height: "100%" }}
-        config={{
-          scrollZoom: true,
-          responsive: true,
-        }}
-      />
-    </>
+
+      <Box height='90vh' item xs={12}
+      sx={{
+        mt: '30px',
+        background: 'white',
+        boxShadow: 3,
+      }}>
+        <Plot
+          data={data}
+          layout={{
+            title: plotHelper.find((x) => x.label === yAxis).layoutTitle,
+            xaxis: {
+              title: "Year",
+              tickformat: "d",
+              rangeslider: {},
+            },
+            yaxis: {
+              automargin: true,
+              title: plotHelper.find((x) => x.label === yAxis).layoutYaxisTitle,
+            },
+            barmode: "stack",
+          }}
+          style={{ width: "100%", height: "100%" }}
+          config={{
+            scrollZoom: true,
+            responsive: true,
+          }}
+        />
+      </Box>
+    </Box>
   );
 };

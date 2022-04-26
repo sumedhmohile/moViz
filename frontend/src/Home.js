@@ -26,6 +26,8 @@ import { PeopleTopTenMostPopular } from "./components/PeopleTopTenMostPopular";
 import { PeopleDepartmentCount } from "./components/PeopleDepartmentCount";
 import { PeopleGenderCount } from "./components/PeopleGenderCount";
 
+import TopChartsHolder from "./components/TopChartsHolder";
+
 const drawerWidth = window.innerWidth / 5;
 
 export const Home = () => {
@@ -34,16 +36,17 @@ export const Home = () => {
     "Movie Top Ten Most Popular",
     "Average Revenue of Popular Actors by Genre",
     "Movie Genre vs. Budget vs. Rating",
-    "Actor Correlation for Average Revenue by Genre",
+    "Actor Correlation",
     "Movie Genre vs. Average Revenue vs. Runtime",
     "Impact of Language on Popularity, Budget and Revenue",
     "People Top Ten Most Popular",
     "People Department Count",
     "People Gender Distribution",
+    "Top Charts"
   ];
   const componentList = [<MovieTrendsVsYear/>, <MovieTopTenMostPopular/>, <ActorGenreVsAvgRevenue/>, 
     <MovieGenreVsBudgetVsRating/>, <Comparison/>, <MovieGenreVsAvgRevenueVsRuntime/>, 
-    <MovieLanguageVsAvgBudgetVsAvgRevenue/>, <PeopleTopTenMostPopular/>, <PeopleDepartmentCount/>, <PeopleGenderCount/>,
+    <MovieLanguageVsAvgBudgetVsAvgRevenue/>, <PeopleTopTenMostPopular/>, <PeopleDepartmentCount/>, <PeopleGenderCount/>, <TopChartsHolder/>
   ]
 
   const fadeTime = 200

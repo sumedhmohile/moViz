@@ -3,6 +3,7 @@ import ProfileCard from './ProfileCard';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
+import { Box } from "@mui/material";
 
 function PopularActors(props){
 
@@ -23,7 +24,7 @@ setUserData(res.data)
 },[])
 
 return (
-    <>
+    <Box sx={{m: '3em', boxShadow:3}} height='22vh '>
     <ScrollMenu>
     {userData.map((data,id)=>{
 return <ProfileCard
@@ -36,7 +37,7 @@ place={ data.place_of_birth }
 />
 })}
 </ScrollMenu>
-  </>
+  </Box>
 );
 
 

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import { TaggedContentCard } from 'react-ui-cards';
+import { Box } from "@mui/material";
 
 function PopularMovies(props){
 
@@ -24,7 +25,7 @@ setUserData(res.data)
 },[])
 
 return (
-    <>
+    <Box sx={{m: '3em', boxShadow:3}} height='28vh '>
     <ScrollMenu>
     {userData.map((data,id)=>{
 return <TaggedContentCard
@@ -36,7 +37,7 @@ return <TaggedContentCard
 />
 })}
 </ScrollMenu>
-  </>
+  </Box>
 );
 
 

@@ -27,11 +27,21 @@ router.register(r'movieGenreVsBudgetVsRating', views.MovieGenreVsBudgetVsRatingV
                 basename='movieGenreVsBudgetVsRating')
 router.register(r'movieLanguageVsAvgBudgetVsAvgRevenue', views.MovieLanguageVsAvgBudgetVsAvgRevenueView,
                 basename='movieLanguageVsAvgBudgetVsAvgRevenue')
+router.register(r'movieTopTenByRevenue', views.MovieTopTenByRevenue,
+                basename='movieTopTenByRevenue')
+router.register(r'movieTopTenByBudget', views.MovieTopTenByBudget,
+                basename='MovieTopTenByBudget')
 router.register(r'peopleTopTenMostPopular', views.PeopleTopTenMostPopularView, basename='peopleTopTenMostPopular')
 router.register(r'peopleGenderCount', views.PeopleGenderCountView, basename='peopleGenderCount')
 router.register(r'peopleDepartmentCount', views.PeopleDepartmentCountView, basename='peopleDepartmentCount')
 router.register(r'peoplePopularPlacesOfBirth', views.PeoplePopularPlacesOfBirthView,
                 basename='peoplePopularPlacesOfBirth')
+router.register(r'comparisonForPerson', views.ComparisonDataForPerson,
+                basename='comparisonForPerson')
+router.register(r'peopleCorrelation', views.PeopleCorrelation,
+                basename='peopleCorrelation')
+router.register(r'movieTopTenByVector', views.MovieTopTenByVector, basename='movieTopTenByVector')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -1,45 +1,99 @@
 from rest_framework import serializers
 
 
-class MovieCountVsYearSerializer(serializers.Serializer):
-    year = serializers.IntegerField()
-    count = serializers.IntegerField()
+class GenresSerializer(serializers.Serializer):
+    genre_id = serializers.IntegerField()
+    name = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
 
 
-class MovieRevenueVsYearSerializer(serializers.Serializer):
-    year = serializers.IntegerField()
-    revenue = serializers.IntegerField()
-
-
-class MovieBudgetVsYearSerializer(serializers.Serializer):
-    year = serializers.IntegerField()
-    budget = serializers.IntegerField()
-
-
-class MovieRuntimeVsYearSerializer(serializers.Serializer):
-    year = serializers.IntegerField()
-    runtime = serializers.IntegerField()
+class LanguagesSerializer(serializers.Serializer):
+    iso_639_1 = serializers.CharField(max_length=255)
+    english_name = serializers.CharField(max_length=255)
+    name = serializers.CharField(max_length=255, allow_blank=True)
 
 
 class MovieTopTenMostPopularSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=255)
     popularity = serializers.FloatField()
+    tagline = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+    homepage = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+    original_language = serializers.CharField(max_length=255)
+    status = serializers.CharField(max_length=255)
+    release_date = serializers.DateField(allow_null=True)
+    budget = serializers.IntegerField(allow_null=True)
+    revenue = serializers.IntegerField(allow_null=True)
+    runtime = serializers.IntegerField(allow_null=True)
+    vote_average = serializers.FloatField(allow_null=True)
+    vote_count = serializers.IntegerField()
+    poster_path = serializers.CharField(allow_null=True, max_length=255)
 
 
-class MovieTotalRevenuesVsGenreVsYearSerializer(serializers.Serializer):
-    genre__name = serializers.CharField(max_length=255)
+class MovieTrendsVsYearSerializer(serializers.Serializer):
     year = serializers.IntegerField()
-    revenue = serializers.DecimalField(max_digits=10, decimal_places=0, allow_null=True)
-
-
-class ActorGenderCountSerializer(serializers.Serializer):
-    gender = serializers.IntegerField()
+    genre_name = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
     count = serializers.IntegerField()
+    total_revenue = serializers.IntegerField()
+    total_budget = serializers.IntegerField()
+    avg_revenue = serializers.FloatField()
+    avg_budget = serializers.FloatField()
+    avg_runtime = serializers.FloatField()
+    avg_popularity = serializers.FloatField()
+
+
+class MovieGenreVsBudgetVsRatingSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=255)
+    budget = serializers.IntegerField(allow_null=True)
+    vote_average = serializers.FloatField(allow_null=True)
+    vote_count = serializers.IntegerField()
+    genre_name = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+
+
+class MovieLanguageVsAvgBudgetVsAvgRevenueSerializer(serializers.Serializer):
+    language = serializers.CharField(max_length=255)
+    avg_budget = serializers.FloatField()
+    avg_revenue = serializers.FloatField()
+    avg_popularity = serializers.FloatField()
+
+
+class MovieTopTenByRevenueSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=255)
+    revenue = serializers.IntegerField(allow_null=True)
+    poster_path = serializers.CharField(allow_null=True, max_length=255)
+    vote_average = serializers.FloatField(allow_null=True)
+    release_date = serializers.DateField(allow_null=True)
+    homepage = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+
+
+class MovieTopTenByBudgetSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=255)
+    budget = serializers.IntegerField(allow_null=True)
+    poster_path = serializers.CharField(allow_null=True, max_length=255)
+    vote_average = serializers.FloatField(allow_null=True)
+    release_date = serializers.DateField(allow_null=True)
+    homepage = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+
+class MovieTopTenByVectorSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=255)
+    value = serializers.FloatField(allow_null=True)
+    poster_path = serializers.CharField(allow_null=True, max_length=255)
+    vote_average = serializers.FloatField(allow_null=True)
+    release_date = serializers.DateField(allow_null=True)
+    homepage = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+
+
+class PeopleTopTenMostPopularSerializer(serializers.Serializer):
+    person_id = serializers.IntegerField()
+    name = serializers.CharField(max_length=255)
+    known_for_department = serializers.CharField(max_length=255)
+    profile_path = serializers.CharField(max_length=255)
+    birthday = serializers.DateField()
+    place_of_birth = serializers.CharField(max_length=255)
+    popularity = serializers.FloatField()
 
 
 class PeopleGenderCountSerializer(serializers.Serializer):
     known_for_department = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
-    gender = serializers.IntegerField()
+    gender = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
     count = serializers.IntegerField()
 
 
@@ -52,7 +106,17 @@ class PeoplePopularPlacesOfBirthSerializer(serializers.Serializer):
     place_of_birth = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
     count = serializers.IntegerField()
 
-
-class PeopleTopTenMostPopularSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=255)
-    popularity = serializers.FloatField()
+class ComparisonDataForPersonSerializer(serializers.Serializer):
+    genre_name = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+    avg_revenue = serializers.IntegerField()
+    avg_budget = serializers.IntegerField()
+    avg_popularity = serializers.FloatField()
+    avg_rating = serializers.FloatField()
+    
+    
+class CorrelationSerializer(serializers.Serializer):
+    genre_name = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+    avg_revenue = serializers.IntegerField()
+    avg_budget = serializers.IntegerField()
+    avg_popularity = serializers.FloatField()
+    avg_rating = serializers.FloatField()

@@ -16,7 +16,7 @@ databuilder_helper.configure_logging('get_people.log')
 logging.info('Program started.')
 
 api_key, user, password, host, database, port = databuilder_helper.get_config()
-PERSON_INSERT_QUERY = 'INSERT INTO people VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+PERSON_INSERT_QUERY = 'INSERT INTO people VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
 PERSON_DELETE_QUERY = 'DELETE FROM people WHERE person_id=%s'
 
 
@@ -58,6 +58,12 @@ def get_person(person_id):
     gender = person_json['gender']
     if gender == 0:
         gender = None
+    elif gender == 1:
+        gender = 'Female'
+    elif gender == 2:
+        gender = 'Male'
+    elif gender == 3:
+        gender = 'Other'
 
     biography = person_json['biography']
     if biography == '':
@@ -66,6 +72,8 @@ def get_person(person_id):
     popularity = person_json['popularity']
     place_of_birth = person_json['place_of_birth']
     profile_path = person_json['profile_path']
+
+    adult = int(person_json['adult'])
 
     imdb_id = person_json['imdb_id']
     if imdb_id == '':
@@ -77,7 +85,7 @@ def get_person(person_id):
     try:
         cursor.execute(PERSON_INSERT_QUERY, (
             birthday, known_for_department, deathday, person_id, name, gender, biography, popularity, place_of_birth,
-            profile_path, imdb_id, homepage))
+            profile_path, adult, imdb_id, homepage))
         # logging.info(f'Successfully executed INSERT operation for person_id {person_id}!')
 
     except Exception as e:
@@ -94,9 +102,9 @@ def get_person(person_id):
 
 def update_people():
     today = datetime.today()
-    today_str = today.strftime('%m_%d_%Y')
+    today_str = today.strftime('%Y-%m-%d')
     yesterday = today - timedelta(days=1)
-    yesterday_str = yesterday.strftime('%m_%d_%Y')
+    yesterday_str = yesterday.strftime('%Y-%m-%d')
     people_url = f'https://api.themoviedb.org/3/person/changes?api_key={api_key}&start_date={yesterday_str}&end_date={today_str}'
 
     logging.info('Updating records...')

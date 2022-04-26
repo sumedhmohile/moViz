@@ -19,20 +19,29 @@ from api import views
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'movieCountVsYear', views.MovieCountVsYearView, basename='movieCountVsYear')
-router.register(r'movieTotalRevenueVsYear', views.MovieTotalRevenueVsYearView, basename='movieTotalRevenueVsYear')
-router.register(r'movieAvgRevenueVsYear', views.MovieAvgRevenueVsYearView, basename='movieAvgRevenueVsYear')
-router.register(r'movieTotalBudgetVsYear', views.MovieTotalBudgetVsYearView, basename='movieTotalBudgetVsYear')
-router.register(r'movieAvgBudgetVsYear', views.MovieAvgBudgetVsYearView, basename='movieAvgBudgetVsYear')
-router.register(r'movieAvgRuntimeVsYear', views.MovieAvgRuntimeVsYearView, basename='movieAvgRuntimeVsYear')
+router.register(r'genres', views.GenresView, basename='genres')
+router.register(r'languages', views.LanguagesView, basename='languages')
 router.register(r'movieTopTenMostPopular', views.MovieTopTenMostPopularView, basename='movieTopTenMostPopular')
-router.register(r'actorGenderCount', views.ActorGenderCountView, basename='actorGenderCount')
+router.register(r'movieTrendsVsYear', views.MovieTrendsVsYearView, basename='movieTrendsVsYear')
+router.register(r'movieGenreVsBudgetVsRating', views.MovieGenreVsBudgetVsRatingView,
+                basename='movieGenreVsBudgetVsRating')
+router.register(r'movieLanguageVsAvgBudgetVsAvgRevenue', views.MovieLanguageVsAvgBudgetVsAvgRevenueView,
+                basename='movieLanguageVsAvgBudgetVsAvgRevenue')
+router.register(r'movieTopTenByRevenue', views.MovieTopTenByRevenue,
+                basename='movieTopTenByRevenue')
+router.register(r'movieTopTenByBudget', views.MovieTopTenByBudget,
+                basename='MovieTopTenByBudget')
+router.register(r'peopleTopTenMostPopular', views.PeopleTopTenMostPopularView, basename='peopleTopTenMostPopular')
 router.register(r'peopleGenderCount', views.PeopleGenderCountView, basename='peopleGenderCount')
 router.register(r'peopleDepartmentCount', views.PeopleDepartmentCountView, basename='peopleDepartmentCount')
 router.register(r'peoplePopularPlacesOfBirth', views.PeoplePopularPlacesOfBirthView,
                 basename='peoplePopularPlacesOfBirth')
-router.register(r'peopleTopTenMostPopular', views.PeopleTopTenMostPopularView, basename='peopleTopTenMostPopular')
-# router.register(r'movieTotalRevenuesVsGenreVsYear', views.MovieTotalRevenuesVsGenreVsYearView, basename='movieTotalRevenuesVsGenreVsYear')
+router.register(r'comparisonForPerson', views.ComparisonDataForPerson,
+                basename='comparisonForPerson')
+router.register(r'peopleCorrelation', views.PeopleCorrelation,
+                basename='peopleCorrelation')
+router.register(r'movieTopTenByVector', views.MovieTopTenByVector, basename='movieTopTenByVector')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

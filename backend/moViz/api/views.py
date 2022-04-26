@@ -81,17 +81,15 @@ class MovieLanguageVsAvgBudgetVsAvgRevenueView(viewsets.ReadOnlyModelViewSet):
         .annotate(avg_popularity=Avg('popularity')) \
         .order_by('language')
 
-    print(queryset[:10])
-
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieTopTenByRevenue(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieTopTenByRevenueSerializer
     queryset = Movies \
-        .objects \
-        .filter(status='Released',  revenue__isnull=False) \
-        .values('title', 'revenue', 'poster_path', 'vote_average', 'release_date', 'homepage') \
-        .order_by('-revenue')[:10]
+                   .objects \
+                   .filter(status='Released', revenue__isnull=False) \
+                   .values('title', 'revenue', 'poster_path', 'vote_average', 'release_date', 'homepage') \
+                   .order_by('-revenue')[:10]
 
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
@@ -99,7 +97,7 @@ class MovieTopTenByBudget(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieTopTenByBudgetSerializer
     queryset = Movies \
                    .objects \
-                   .filter(status='Released',  revenue__isnull=False, poster_path__isnull=False) \
+                   .filter(status='Released', budget__isnull=False) \
                    .values('title', 'budget', 'poster_path', 'vote_average', 'release_date', 'homepage') \
                    .order_by('-budget')[:10]
 
@@ -171,8 +169,9 @@ class PeopleTopTenMostPopularView(viewsets.ReadOnlyModelViewSet):
     serializer_class = PeopleTopTenMostPopularSerializer
     queryset = People \
                    .objects \
-                   .values('person_id', 'name', 'popularity', 'known_for_department', 'profile_path', 'birthday', 'place_of_birth', 'adult') \
-                   .exclude(adult=1) \
+                   .filter(adult=0) \
+                   .values('person_id', 'name', 'popularity', 'known_for_department', 'profile_path', 'birthday',
+                           'place_of_birth', 'adult') \
                    .order_by('-popularity')[:10]
 
 

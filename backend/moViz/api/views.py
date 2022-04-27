@@ -113,19 +113,20 @@ class MovieTopTenByBudget(viewsets.ReadOnlyModelViewSet):
                    .order_by('-budget')[:10]
 
 
-# @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieTopTenByVector(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieTopTenByVectorSerializer
-    
-    def get_queryset(self):
 
+    def get_queryset(self):
         n = 50
-        queryset =  Movies \
-                        .objects \
-                        .filter(status='Released',  revenue__isnull=False, poster_path__isnull=False, budget__isnull=False, popularity__isnull=False) \
-                        .values('title', 'budget', 'revenue', 'popularity', 'poster_path', 'vote_average', 'release_date', 'homepage') \
-                        .order_by('-budget')[:n]
-        
+        queryset = Movies \
+                       .objects \
+                       .filter(status='Released', revenue__isnull=False, poster_path__isnull=False,
+                               budget__isnull=False, popularity__isnull=False) \
+                       .values('title', 'budget', 'revenue', 'popularity', 'poster_path', 'vote_average',
+                               'release_date', 'homepage') \
+                       .order_by('-budget')[:n]
+
         avg_revenue = 0
         avg_budget = 0
         avg_popularity = 0
@@ -137,9 +138,7 @@ class MovieTopTenByVector(viewsets.ReadOnlyModelViewSet):
         min_revenue = float('inf')
         min_budget = float('inf')
         min_popularity = float('inf')
-        
-        
-        
+
         for movie in queryset:
             avg_revenue += movie['revenue']
             avg_budget += movie['budget']
@@ -152,27 +151,38 @@ class MovieTopTenByVector(viewsets.ReadOnlyModelViewSet):
             min_revenue = min(min_revenue, movie['revenue'])
             min_budget = min(min_revenue, movie['budget'])
             min_popularity = min(min_revenue, movie['popularity'])
-            
-        print(avg_revenue / n)
-        print(avg_budget / n)
-        print(avg_popularity / n)
-
 
         for movie in queryset:
-            print("check")
-            print(movie)
-            
-            movie['vector'] = (movie['revenue'] / (max_revenue - min_revenue), -1 * movie['budget'] / (max_budget - min_budget), movie['popularity'] / (max_popularity - min_popularity))
-            movie['value'] = movie['vector'][0] ** 2 + movie['vector'][1] ** 2 + movie['vector'][2] ** 2 
+            movie['vector'] = (
+                movie['revenue'] / (max_revenue - min_revenue), -1 * movie['budget'] / (max_budget - min_budget),
+                movie['popularity'] / (max_popularity - min_popularity))
+            movie['value'] = movie['vector'][0] ** 2 + movie['vector'][1] ** 2 + movie['vector'][2] ** 2
 
-            
         result = sorted(queryset, key=lambda x: -x['value'])
 
-        for movie in result:
-            print("check")
-            print(movie)
-            
         return result[:10]
+
+
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+class PeopleView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = PeopleSerializer
+
+    def get_queryset(self):
+        queryset = Credits \
+            .objects \
+            .filter(movie__status='Released') \
+            .values(genre_name=F('movie__moviegenres__genre__name')) \
+            .annotate(count=Count('movie__moviegenres__genre__name')) \
+            .annotate(avg_revenue=Avg('movie__revenue')) \
+            .annotate(avg_budget=Avg('movie__budget')) \
+            .annotate(avg_popularity=Avg('movie__popularity')) \
+            .annotate(avg_rating=Avg('movie__vote_average'))
+
+        person_id = self.request.query_params.get('person_id')
+        if person_id is not None:
+            queryset = queryset.filter(person_id=person_id)
+
+        return queryset
 
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
@@ -225,7 +235,6 @@ class ComparisonDataForPerson(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         person_name = self.request.query_params.get('person_name')
-        print("PERSON:" + str(person_name))
 
         person_id = People \
             .objects \
@@ -243,7 +252,8 @@ class ComparisonDataForPerson(viewsets.ReadOnlyModelViewSet):
 
         movie_genres = MovieGenres \
             .objects \
-            .filter(movie__release_date__isnull=False, movie__status='Released', movie__movie_id__in=movie_ids, movie__revenue__isnull=False) \
+            .filter(movie__release_date__isnull=False, movie__status='Released', movie__movie_id__in=movie_ids,
+                    movie__revenue__isnull=False) \
             .values(genre_name=F('genre__name')) \
             .annotate(avg_budget=Avg('movie__budget')) \
             .annotate(avg_revenue=Avg('movie__revenue')) \
@@ -260,13 +270,10 @@ class PeopleCorrelation(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         person_name1 = self.request.query_params.get('person_name1')
         person_name2 = self.request.query_params.get('person_name2')
-        
-        print("name1: " + person_name1)
-        print("name2: " + person_name2)
 
         person_id1 = People \
-                    .objects \
-                    .filter(name=person_name1)[0]
+            .objects \
+            .filter(name=person_name1)[0]
 
         person_id2 = People \
             .objects \
@@ -282,31 +289,29 @@ class PeopleCorrelation(viewsets.ReadOnlyModelViewSet):
         person2_credits = Credits \
             .objects \
             .filter(person=person_id2)
-        
+
         person1_movie_ids = set()
         common_movie_ids = set()
-        
+
         for credit in person1_credits:
             person1_movie_ids.add(credit.movie.movie_id)
-        
+
         for credit in person2_credits:
-            print(credit.movie.title)
             if credit.movie.movie_id in person1_movie_ids:
                 common_movie_ids.add(credit.movie.movie_id)
 
-
         movie_genres = MovieGenres \
             .objects \
-            .filter(movie__release_date__isnull=False, movie__status='Released', movie__movie_id__in=common_movie_ids, movie__revenue__isnull=False) \
+            .filter(movie__release_date__isnull=False, movie__status='Released', movie__movie_id__in=common_movie_ids,
+                    movie__revenue__isnull=False) \
             .values(genre_name=F('genre__name')) \
             .annotate(avg_budget=Avg('movie__budget')) \
             .annotate(avg_revenue=Avg('movie__revenue')) \
             .annotate(avg_popularity=Avg('movie__popularity')) \
-            .annotate(avg_rating=Avg('movie__vote_average')) \
-
+            .annotate(avg_rating=Avg('movie__vote_average'))
 
         return movie_genres
-            
+
 
 def index(request):
     return render(request, 'index.html')

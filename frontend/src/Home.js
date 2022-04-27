@@ -27,6 +27,7 @@ import { PeopleDepartmentCount } from "./components/PeopleDepartmentCount";
 import { PeopleGenderCount } from "./components/PeopleGenderCount";
 
 import TopChartsHolder from "./components/TopChartsHolder";
+import { About } from "./components/About";
 
 const drawerWidth = window.innerWidth / 5;
 
@@ -52,7 +53,7 @@ export const Home = () => {
   const fadeTime = 200
 
   const theme = useTheme()
-  const [displayGraph, setDisplayGraph] = useState(0);
+  const [displayGraph, setDisplayGraph] = useState(-1);
 
   const boxColor = '#135DA8'
 
@@ -77,7 +78,7 @@ export const Home = () => {
                     alignItems: 'center',
                     m: '10px',
                   }}>
-              <Typography sx={{fontWeight: 'bold', color:'white'}} variant="h4" noWrap component="div">
+              <Typography style={{cursor: 'pointer'}} onClick={()=>(setDisplayGraph(-1))} sx={{fontWeight: 'bold', color:'white'}} variant="h4" noWrap component="div">
                 MoViz
               </Typography>
         </Box>
@@ -103,6 +104,13 @@ export const Home = () => {
             {index===6 && <Divider sx={{ borderBottomWidth: 2 }}/>}
             </>
           ))}
+
+        <ListItemButton sx={{
+                mx: '10px',
+                borderRadius: '10px',
+                background: boxColor,
+                color: '#D6D6D6',
+              }}><ListItemText><a style={{textDecoration:'none'}} href='/Network.html'>Network Graph</a></ListItemText></ListItemButton>
         </List>
       </Drawer>
 
@@ -156,6 +164,9 @@ export const Home = () => {
             p: 3,
           }}
         >
+          {displayGraph === -1 && <Fade timeout={fadeTime} in={displayGraph===-1}>
+                <div> <About/> </div>
+                </Fade>}
           {componentList.map((component, index) => (
             <>
               {displayGraph === index && <Fade timeout={fadeTime} in={displayGraph===index}>

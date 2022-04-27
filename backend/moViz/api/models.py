@@ -48,8 +48,8 @@ class Languages(models.Model):
 
 
 class MovieGenres(models.Model):
-    genre = models.OneToOneField(Genres, models.DO_NOTHING, primary_key=True)
     movie = models.ForeignKey('Movies', models.DO_NOTHING)
+    genre = models.OneToOneField(Genres, models.DO_NOTHING, primary_key=True)
 
     class Meta:
         managed = False
@@ -58,8 +58,8 @@ class MovieGenres(models.Model):
 
 
 class MovieLanguages(models.Model):
-    iso_639_1 = models.OneToOneField(Languages, models.DO_NOTHING, db_column='iso_639_1', primary_key=True)
     movie = models.ForeignKey('Movies', models.DO_NOTHING)
+    iso_639_1 = models.OneToOneField(Languages, models.DO_NOTHING, db_column='iso_639_1', primary_key=True)
 
     class Meta:
         managed = False
@@ -68,8 +68,8 @@ class MovieLanguages(models.Model):
 
 
 class MovieProductionCompanies(models.Model):
-    production_company = models.OneToOneField('ProductionCompanies', models.DO_NOTHING, primary_key=True)
     movie = models.ForeignKey('Movies', models.DO_NOTHING)
+    production_company = models.OneToOneField('ProductionCompanies', models.DO_NOTHING, primary_key=True)
 
     class Meta:
         managed = False
@@ -78,8 +78,8 @@ class MovieProductionCompanies(models.Model):
 
 
 class MovieProductionCountries(models.Model):
-    iso_3166_1 = models.OneToOneField(Countries, models.DO_NOTHING, db_column='iso_3166_1', primary_key=True)
     movie = models.ForeignKey('Movies', models.DO_NOTHING)
+    iso_3166_1 = models.OneToOneField(Countries, models.DO_NOTHING, db_column='iso_3166_1', primary_key=True)
 
     class Meta:
         managed = False

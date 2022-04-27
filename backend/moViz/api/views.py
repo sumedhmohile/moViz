@@ -95,9 +95,10 @@ class MovieTopTenByRevenue(viewsets.ReadOnlyModelViewSet):
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieTopTenByBudget(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieTopTenByBudgetSerializer
+    # Workaround to filter by poster_path__isnull=False to remove false budget values
     queryset = Movies \
                    .objects \
-                   .filter(status='Released', budget__isnull=False) \
+                   .filter(status='Released', budget__isnull=False, poster_path__isnull=False) \
                    .values('title', 'budget', 'poster_path', 'vote_average', 'release_date', 'homepage') \
                    .order_by('-budget')[:10]
 

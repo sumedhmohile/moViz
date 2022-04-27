@@ -11,14 +11,14 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import Button from '@mui/material/Button';
-import Fade from '@mui/material/Fade';
+import Button from "@mui/material/Button";
+import Fade from "@mui/material/Fade";
 
 import { MovieTopTenMostPopular } from "./components/MovieTopTenMostPopular";
 import { MovieTrendsVsYear } from "./components/MovieTrendsVsYear";
 import { ActorGenreVsAvgRevenue } from "./components/ActorGenreVsAvgRevenue";
 import { MovieGenreVsBudgetVsRating } from "./components/MovieGenreVsBudgetVsRating";
-import  Comparison from "./components/Comparison";
+import { Comparison } from "./components/Comparison";
 import { MovieGenreVsAvgRevenueVsRuntime } from "./components/MovieGenreVsAvgRevenueVsRuntime";
 import { MovieLanguageVsAvgBudgetVsAvgRevenue } from "./components/MovieLanguageVsAvgBudgetVsAvgRevenue";
 
@@ -26,7 +26,7 @@ import { PeopleTopTenMostPopular } from "./components/PeopleTopTenMostPopular";
 import { PeopleDepartmentCount } from "./components/PeopleDepartmentCount";
 import { PeopleGenderCount } from "./components/PeopleGenderCount";
 
-import TopChartsHolder from "./components/TopChartsHolder";
+import { TopChartsHolder } from "./components/TopChartsHolder";
 
 const drawerWidth = window.innerWidth / 5;
 
@@ -42,65 +42,82 @@ export const Home = () => {
     "People Top Ten Most Popular",
     "People Department Count",
     "People Gender Distribution",
-    "Top Charts"
+    "Top Charts",
   ];
-  const componentList = [<MovieTrendsVsYear/>, <MovieTopTenMostPopular/>, <ActorGenreVsAvgRevenue/>, 
-    <MovieGenreVsBudgetVsRating/>, <Comparison/>, <MovieGenreVsAvgRevenueVsRuntime/>, 
-    <MovieLanguageVsAvgBudgetVsAvgRevenue/>, <PeopleTopTenMostPopular/>, <PeopleDepartmentCount/>, <PeopleGenderCount/>, <TopChartsHolder/>
-  ]
+  const componentList = [
+    <MovieTrendsVsYear />,
+    <MovieTopTenMostPopular />,
+    <ActorGenreVsAvgRevenue />,
+    <MovieGenreVsBudgetVsRating />,
+    <Comparison />,
+    <MovieGenreVsAvgRevenueVsRuntime />,
+    <MovieLanguageVsAvgBudgetVsAvgRevenue />,
+    <PeopleTopTenMostPopular />,
+    <PeopleDepartmentCount />,
+    <PeopleGenderCount />,
+    <TopChartsHolder />,
+  ];
 
-  const fadeTime = 200
+  const fadeTime = 200;
 
-  const theme = useTheme()
+  const theme = useTheme();
   const [displayGraph, setDisplayGraph] = useState(0);
 
-  const boxColor = '#135DA8'
-
+  const boxColor = "#135DA8";
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
 
-      <Drawer PaperProps={{
-        sx: {
-          backgroundColor: boxColor,
-          color: 'white',
-          width: drawerWidth
-        }
-      }}
-      variant="permanent" 
-      anchor='left'>
-        <Box sx={{background: boxColor, 
-                    height:window.innerHeight/10,
-                    display:'flex',
-                    justifyContent:'center',
-                    alignItems: 'center',
-                    m: '10px',
-                  }}>
-              <Typography sx={{fontWeight: 'bold', color:'white'}} variant="h4" noWrap component="div">
-                MoViz
-              </Typography>
+      <Drawer
+        PaperProps={{
+          sx: {
+            backgroundColor: boxColor,
+            color: "white",
+            width: drawerWidth,
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <Box
+          sx={{
+            background: boxColor,
+            height: window.innerHeight / 10,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            m: "10px",
+          }}
+        >
+          <Typography
+            sx={{ fontWeight: "bold", color: "white" }}
+            variant="h4"
+            noWrap
+            component="div"
+          >
+            MoViz
+          </Typography>
         </Box>
 
-        <List sx={{width: drawerWidth }}>
+        <List sx={{ width: drawerWidth }}>
           {graphList.map((text, index) => (
             <>
-            <ListItemButton
-              sx={{
-                mx: '10px',
-                borderRadius: '10px',
-                background: displayGraph === index ? '#1773CF' : boxColor,
-                color: displayGraph === index ? 'white' : '#D6D6D6',
-              }}
-            
-              onClick={() => {
-                setDisplayGraph(index);
-              }}
-              key={text}
-            >
-              <ListItemText primary={text} />
-            </ListItemButton>
-            {index===6 && <Divider sx={{ borderBottomWidth: 2 }}/>}
+              <ListItemButton
+                sx={{
+                  mx: "10px",
+                  borderRadius: "10px",
+                  background: displayGraph === index ? "#1773CF" : boxColor,
+                  color: displayGraph === index ? "white" : "#D6D6D6",
+                }}
+                onClick={() => {
+                  setDisplayGraph(index);
+                }}
+                key={text}
+              >
+                <ListItemText primary={text} />
+              </ListItemButton>
+              {index === 6 && <Divider sx={{ borderBottomWidth: 2 }} />}
             </>
           ))}
         </List>
@@ -145,27 +162,26 @@ export const Home = () => {
         </Toolbar>
       </AppBar> */}
 
-           
-        <Box
-          component="main"
-          sx={{
-            background: '#eaedf2',
-            height: "fit-content",
-            marginLeft: `${drawerWidth}px`,
-            flexGrow: 1,
-            p: 3,
-          }}
-        >
-          {componentList.map((component, index) => (
-            <>
-              {displayGraph === index && <Fade timeout={fadeTime} in={displayGraph===index}>
-                <div>
-                  {component}
-                </div>
-                </Fade>}
-            </>
-          ))}
-        </Box>
+      <Box
+        component="main"
+        sx={{
+          background: "#eaedf2",
+          height: "fit-content",
+          marginLeft: `${drawerWidth}px`,
+          flexGrow: 1,
+          p: 3,
+        }}
+      >
+        {componentList.map((component, index) => (
+          <>
+            {displayGraph === index && (
+              <Fade timeout={fadeTime} in={displayGraph === index}>
+                <div>{component}</div>
+              </Fade>
+            )}
+          </>
+        ))}
+      </Box>
     </Box>
   );
 };

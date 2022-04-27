@@ -5,116 +5,118 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
-const URL = "http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/api/comparisonForPerson/";
-
 function fetchGraphData(
-    actor1Input,
-    actor2Input,
-    actor1GenreSetter,
-    actor1RevenueSetter,
-    actor2GenreSetter,
-    actor2RevenueSetter,
-    combinedGenreSetter,
-    combinedRevenueSetter,
-    budgetactor1GenreSetter,
-    budgetactor1RevenueSetter,
-    budgetactor2GenreSetter,
-    budgetactor2RevenueSetter,
-    budgetcombinedGenreSetter,
-    budgetcombinedRevenueSetter,
-    actor1PopularitySetter,
-    actor2PopularitySetter,
-    combinedPopularitySetter,
-    actor1RatingSetter,
-    actor2RatingSetter,
-    combinedRatingSetter
+  actor1Input,
+  actor2Input,
+  actor1GenreSetter,
+  actor1RevenueSetter,
+  actor2GenreSetter,
+  actor2RevenueSetter,
+  combinedGenreSetter,
+  combinedRevenueSetter,
+  budgetactor1GenreSetter,
+  budgetactor1RevenueSetter,
+  budgetactor2GenreSetter,
+  budgetactor2RevenueSetter,
+  budgetcombinedGenreSetter,
+  budgetcombinedRevenueSetter,
+  actor1PopularitySetter,
+  actor2PopularitySetter,
+  combinedPopularitySetter,
+  actor1RatingSetter,
+  actor2RatingSetter,
+  combinedRatingSetter
 ) {
-    console.log(actor1Input);
-    axios.get(URL, {params: {person_name: actor1Input}}).then((response) => {
-        console.log(response);
+  console.log(actor1Input);
+  axios
+    .get("/api/comparisonForPerson/", { params: { person_name: actor1Input } })
+    .then((response) => {
+      console.log(response);
 
-        var dataArray = response.data;
+      var dataArray = response.data;
 
-        let genreArray = [];
-        let revenueArray = [];
-        let budgetArray = [];
-        let popularityArray = [];
-        let ratingArray = [];
+      let genreArray = [];
+      let revenueArray = [];
+      let budgetArray = [];
+      let popularityArray = [];
+      let ratingArray = [];
 
-        for (let i = 0; i < dataArray.length; ++i) {
-          genreArray.push(dataArray[i].genre_name);
-          revenueArray.push(dataArray[i].avg_revenue);
-          budgetArray.push(dataArray[i].avg_budget);
-          popularityArray.push(dataArray[i].avg_popularity);
-          ratingArray.push(dataArray[i].avg_rating);
-        }
+      for (let i = 0; i < dataArray.length; ++i) {
+        genreArray.push(dataArray[i].genre_name);
+        revenueArray.push(dataArray[i].avg_revenue);
+        budgetArray.push(dataArray[i].avg_budget);
+        popularityArray.push(dataArray[i].avg_popularity);
+        ratingArray.push(dataArray[i].avg_rating);
+      }
 
-        actor1GenreSetter(genreArray);
-        actor1RevenueSetter(revenueArray);
-        budgetactor1GenreSetter(genreArray);
-        budgetactor1RevenueSetter(budgetArray);
-        actor1PopularitySetter(popularityArray);
-        actor1RatingSetter(ratingArray);
+      actor1GenreSetter(genreArray);
+      actor1RevenueSetter(revenueArray);
+      budgetactor1GenreSetter(genreArray);
+      budgetactor1RevenueSetter(budgetArray);
+      actor1PopularitySetter(popularityArray);
+      actor1RatingSetter(ratingArray);
     });
 
-    axios.get(URL, {params: {person_name: actor2Input}}).then((response) => {
-        console.log(response);
+  axios.get(URL, { params: { person_name: actor2Input } }).then((response) => {
+    console.log(response);
 
-        var dataArray = response.data;
+    var dataArray = response.data;
 
-        let genreArray = [];
-        let revenueArray = [];
-        let budgetArray = [];
-        let popularityArray = [];
-        let ratingArray = [];
+    let genreArray = [];
+    let revenueArray = [];
+    let budgetArray = [];
+    let popularityArray = [];
+    let ratingArray = [];
 
-        for (let i = 0; i < dataArray.length; ++i) {
-          genreArray.push(dataArray[i].genre_name);
-          revenueArray.push(dataArray[i].avg_revenue);
-          budgetArray.push(dataArray[i].avg_budget);
-          popularityArray.push(dataArray[i].avg_popularity);
-          ratingArray.push(dataArray[i].avg_rating);
-        }
+    for (let i = 0; i < dataArray.length; ++i) {
+      genreArray.push(dataArray[i].genre_name);
+      revenueArray.push(dataArray[i].avg_revenue);
+      budgetArray.push(dataArray[i].avg_budget);
+      popularityArray.push(dataArray[i].avg_popularity);
+      ratingArray.push(dataArray[i].avg_rating);
+    }
 
-        actor2GenreSetter(genreArray);
-        actor2RevenueSetter(revenueArray);
-        budgetactor2GenreSetter(genreArray);
-        budgetactor2RevenueSetter(budgetArray);
-        actor2PopularitySetter(popularityArray);
-        actor2RatingSetter(ratingArray);
+    actor2GenreSetter(genreArray);
+    actor2RevenueSetter(revenueArray);
+    budgetactor2GenreSetter(genreArray);
+    budgetactor2RevenueSetter(budgetArray);
+    actor2PopularitySetter(popularityArray);
+    actor2RatingSetter(ratingArray);
+  });
+
+  axios
+    .get("/api/peopleCorrelation/", {
+      params: { person_name1: actor1Input, person_name2: actor2Input },
+    })
+    .then((response) => {
+      console.log(response);
+
+      var dataArray = response.data;
+
+      let genreArray = [];
+      let revenueArray = [];
+      let budgetArray = [];
+      let popularityArray = [];
+      let ratingArray = [];
+
+      for (let i = 0; i < dataArray.length; ++i) {
+        genreArray.push(dataArray[i].genre_name);
+        revenueArray.push(dataArray[i].avg_revenue);
+        budgetArray.push(dataArray[i].avg_budget);
+        popularityArray.push(dataArray[i].avg_popularity);
+        ratingArray.push(dataArray[i].avg_rating);
+      }
+
+      combinedGenreSetter(genreArray);
+      combinedRevenueSetter(revenueArray);
+      budgetcombinedGenreSetter(genreArray);
+      budgetcombinedRevenueSetter(budgetArray);
+      combinedPopularitySetter(popularityArray);
+      combinedRatingSetter(ratingArray);
     });
-
-    axios.get("http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/api/peopleCorrelation/", {params: {person_name1: actor1Input, person_name2: actor2Input}}).then((response) => {
-        console.log(response);
-
-        var dataArray = response.data;
-
-        let genreArray = [];
-        let revenueArray = [];
-        let budgetArray = [];
-        let popularityArray = [];
-        let ratingArray = [];
-
-        for (let i = 0; i < dataArray.length; ++i) {
-          genreArray.push(dataArray[i].genre_name);
-          revenueArray.push(dataArray[i].avg_revenue);
-          budgetArray.push(dataArray[i].avg_budget);
-          popularityArray.push(dataArray[i].avg_popularity);
-          ratingArray.push(dataArray[i].avg_rating);
-        }
-
-        combinedGenreSetter(genreArray);
-        combinedRevenueSetter(revenueArray);
-        budgetcombinedGenreSetter(genreArray);
-        budgetcombinedRevenueSetter(budgetArray);
-        combinedPopularitySetter(popularityArray);
-        combinedRatingSetter(ratingArray);
-    });
-
 }
 
-
-function Comparison() {
+export const Comparison = () => {
   const [actor1Input, setActor1Input] = useState("");
   const [actor2Input, setActor2Input] = useState("");
 
@@ -132,7 +134,8 @@ function Comparison() {
 
   const [budgetactor1RevenueGetter, budgetactor1RevenueSetter] = useState("");
   const [budgetactor2RevenueGetter, budgetactor2RevenueSetter] = useState("");
-  const [budgetcombinedRevenueGetter, budgetcombinedRevenueSetter] = useState("");
+  const [budgetcombinedRevenueGetter, budgetcombinedRevenueSetter] =
+    useState("");
 
   const [actor1PopularityGetter, actor1PopularitySetter] = useState("");
   const [actor2PopularityGetter, actor2PopularitySetter] = useState("");
@@ -184,57 +187,61 @@ function Comparison() {
     type: "bar",
   };
 
-    var actor1PopularityTrace = {
-        x: actor1GenreGetter,
-        y: actor1PopularityGetter,
-        name: actor1Input,
-        type: "bar",
-    };
+  var actor1PopularityTrace = {
+    x: actor1GenreGetter,
+    y: actor1PopularityGetter,
+    name: actor1Input,
+    type: "bar",
+  };
 
-    var actor2PopularityTrace = {
-        x: actor2GenreGetter,
-        y: actor2PopularityGetter,
-        name: actor2Input,
-        type: "bar",
-    };
+  var actor2PopularityTrace = {
+    x: actor2GenreGetter,
+    y: actor2PopularityGetter,
+    name: actor2Input,
+    type: "bar",
+  };
 
-    var combinedPopularityTrace = {
-        x: combinedGenreGetter,
-        y: combinedPopularityGetter,
-        name: "Combined",
-        type: "bar",
-    };
+  var combinedPopularityTrace = {
+    x: combinedGenreGetter,
+    y: combinedPopularityGetter,
+    name: "Combined",
+    type: "bar",
+  };
 
-    var actor1RatingTrace = {
-        x: actor1GenreGetter,
-        y: actor1RatingGetter,
-        name: actor1Input,
-        type: "bar",
-    };
+  var actor1RatingTrace = {
+    x: actor1GenreGetter,
+    y: actor1RatingGetter,
+    name: actor1Input,
+    type: "bar",
+  };
 
-    var actor2RatingTrace = {
-        x: actor2GenreGetter,
-        y: actor2RatingGetter,
-        name: actor2Input,
-        type: "bar",
-    };
+  var actor2RatingTrace = {
+    x: actor2GenreGetter,
+    y: actor2RatingGetter,
+    name: actor2Input,
+    type: "bar",
+  };
 
-    var combinedRatingTrace = {
-        x: combinedGenreGetter,
-        y: combinedRatingGetter,
-        name: "Combined",
-        type: "bar",
-    };
+  var combinedRatingTrace = {
+    x: combinedGenreGetter,
+    y: combinedRatingGetter,
+    name: "Combined",
+    type: "bar",
+  };
 
   var data1 = [actor1Trace, actor2Trace, combinedTrace];
   var data2 = [budgetactor1Trace, budgetactor2Trace, budgetcombinedTrace];
-  var data3 = [actor1PopularityTrace, actor2PopularityTrace, combinedPopularityTrace];
+  var data3 = [
+    actor1PopularityTrace,
+    actor2PopularityTrace,
+    combinedPopularityTrace,
+  ];
   var data4 = [actor1RatingTrace, actor2RatingTrace, combinedRatingTrace];
 
   return (
     <div>
       <div>
-        <Grid container spacing={2} sx={{mb:'30px', alignItems:'center'}}>
+        <Grid container spacing={2} sx={{ mb: "30px", alignItems: "center" }}>
           <Grid item>
             <TextField
               size="small"
@@ -306,28 +313,26 @@ function Comparison() {
           xaxis: { title: "Genres" },
         }}
       />
-        <Plot
-            data={data3}
-            layout={{
-            width: window.innerWidth / 1.4,
-            height: window.innerHeight / 1.2,
-            title: "Actor Correlation for Average Popularity by Genre",
-            yaxis: { title: "Average Popularity" },
-            xaxis: { title: "Genres" },
+      <Plot
+        data={data3}
+        layout={{
+          width: window.innerWidth / 1.4,
+          height: window.innerHeight / 1.2,
+          title: "Actor Correlation for Average Popularity by Genre",
+          yaxis: { title: "Average Popularity" },
+          xaxis: { title: "Genres" },
         }}
-        />
-        <Plot
-            data={data4}
-            layout={{
-            width: window.innerWidth / 1.4,
-            height: window.innerHeight / 1.2,
-            title: "Actor Correlation for Average Rating by Genre",
-            yaxis: { title: "Average Rating" },
-            xaxis: { title: "Genres" },
+      />
+      <Plot
+        data={data4}
+        layout={{
+          width: window.innerWidth / 1.4,
+          height: window.innerHeight / 1.2,
+          title: "Actor Correlation for Average Rating by Genre",
+          yaxis: { title: "Average Rating" },
+          xaxis: { title: "Genres" },
         }}
-        />
+      />
     </div>
   );
 };
-
-export default Comparison;

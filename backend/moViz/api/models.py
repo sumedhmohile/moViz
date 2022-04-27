@@ -48,43 +48,43 @@ class Languages(models.Model):
 
 
 class MovieGenres(models.Model):
-    movie = models.ForeignKey('Movies', models.DO_NOTHING)
-    genre = models.OneToOneField(Genres, models.DO_NOTHING, primary_key=True)
+    movie = models.OneToOneField('Movies', models.DO_NOTHING, primary_key=True)
+    genre = models.ForeignKey(Genres, models.DO_NOTHING)
 
     class Meta:
         managed = False
         db_table = 'movie_genres'
-        unique_together = (('genre', 'movie'),)
+        unique_together = (('movie', 'genre'),)
 
 
 class MovieLanguages(models.Model):
-    movie = models.ForeignKey('Movies', models.DO_NOTHING)
-    iso_639_1 = models.OneToOneField(Languages, models.DO_NOTHING, db_column='iso_639_1', primary_key=True)
+    movie = models.OneToOneField('Movies', models.DO_NOTHING, primary_key=True)
+    iso_639_1 = models.ForeignKey(Languages, models.DO_NOTHING, db_column='iso_639_1')
 
     class Meta:
         managed = False
         db_table = 'movie_languages'
-        unique_together = (('iso_639_1', 'movie'),)
+        unique_together = (('movie', 'iso_639_1'),)
 
 
 class MovieProductionCompanies(models.Model):
-    movie = models.ForeignKey('Movies', models.DO_NOTHING)
-    production_company = models.OneToOneField('ProductionCompanies', models.DO_NOTHING, primary_key=True)
+    movie = models.OneToOneField('Movies', models.DO_NOTHING, primary_key=True)
+    production_company = models.ForeignKey('ProductionCompanies', models.DO_NOTHING)
 
     class Meta:
         managed = False
         db_table = 'movie_production_companies'
-        unique_together = (('production_company', 'movie'),)
+        unique_together = (('movie', 'production_company'),)
 
 
 class MovieProductionCountries(models.Model):
-    movie = models.ForeignKey('Movies', models.DO_NOTHING)
-    iso_3166_1 = models.OneToOneField(Countries, models.DO_NOTHING, db_column='iso_3166_1', primary_key=True)
+    movie = models.OneToOneField('Movies', models.DO_NOTHING, primary_key=True)
+    iso_3166_1 = models.ForeignKey(Countries, models.DO_NOTHING, db_column='iso_3166_1')
 
     class Meta:
         managed = False
         db_table = 'movie_production_countries'
-        unique_together = (('iso_3166_1', 'movie'),)
+        unique_together = (('movie', 'iso_3166_1'),)
 
 
 class Movies(models.Model):

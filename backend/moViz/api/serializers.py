@@ -48,6 +48,12 @@ class MovieGenreVsBudgetVsRatingSerializer(serializers.Serializer):
     genre_name = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
 
 
+class MovieGenreVsAvgRevenueVsRuntimeSerializer(serializers.Serializer):
+    genre_name = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+    runtime = serializers.IntegerField(allow_null=True)
+    avg_revenue = serializers.FloatField()
+
+
 class MovieLanguageVsAvgBudgetVsAvgRevenueSerializer(serializers.Serializer):
     language = serializers.CharField(max_length=255)
     avg_budget = serializers.FloatField()

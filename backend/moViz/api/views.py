@@ -70,6 +70,16 @@ class MovieGenreVsBudgetVsRatingView(viewsets.ReadOnlyModelViewSet):
 
 
 @method_decorator(cache_page(60 * 60 * 24), name='dispatch')
+class MovieGenreVsAvgRevenueVsRuntimeView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = MovieGenreVsAvgRevenueVsRuntimeSerializer
+    queryset = MovieGenres \
+        .objects \
+        .filter(movie__revenue__isnull=False, movie__runtime__isnull=False) \
+        .values(genre_name=F('genre__name'), runtime=F('movie__runtime')) \
+        .annotate(avg_revenue=Avg('movie__revenue'))
+
+
+@method_decorator(cache_page(60 * 60 * 24), name='dispatch')
 class MovieLanguageVsAvgBudgetVsAvgRevenueView(viewsets.ReadOnlyModelViewSet):
     serializer_class = MovieLanguageVsAvgBudgetVsAvgRevenueSerializer
     queryset = Movies \

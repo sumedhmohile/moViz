@@ -4,16 +4,6 @@ import mysql.connector
 graph_map = {
     'testGraph': 'SELECT * FROM movies LIMIT 10;',
     'testParamGraph': 'SELECT * FROM movies WHERE title=\'%s\' AND language=\'%s\';',
-    'revenueByGenreAndYear': '''SELECT g.name AS genre, YEAR(m.release_date) AS year, sum(m.revenue) AS revenue
-                                FROM movies m
-                                INNER JOIN movie_genres mg
-                                ON mg.movie_id=m.movie_id
-                                INNER JOIN genres g
-                                ON g.genre_id=mg.genre_id
-                                WHERE m.release_date IS NOT NULL
-                                GROUP BY g.name, YEAR(m.release_date)
-                                HAVING revenue IS NOT NULL
-                                ORDER BY year;''',
     'avgRevenueActorGenre': '''SELECT p.name AS name, g.name AS genre, AVG(m.revenue) AS avg_revenue
                                FROM (SELECT * FROM people WHERE known_for_department='Acting' ORDER BY popularity DESC LIMIT 10) p
                                INNER JOIN credits c
@@ -25,37 +15,8 @@ graph_map = {
                                INNER JOIN genres g
                                ON g.genre_id=mg.genre_id
                                GROUP BY mg.genre_id, p.person_id;''',
-    'popularityByGenreAndYear': '''SELECT g.name AS genre, YEAR(m.release_date) AS year, AVG(m.popularity) AS popularity
-                                   FROM movies m
-                                   INNER JOIN movie_genres mg 
-                                   ON mg.movie_id=m.movie_id
-                                   INNER JOIN genres g
-                                   ON g.genre_id=mg.genre_id
-                                   WHERE m.release_date IS NOT NULL
-                                   GROUP BY g.name, YEAR(m.release_date)
-                                   ORDER BY year;''',
-    'durationVSrevenue': '''SELECT g.name as genre, m.runtime AS runtime, AVG(m.revenue) AS revenue
-                            FROM movies m
-                            INNER JOIN movie_genres mg
-                            ON m.movie_id=mg.movie_id
-                            INNER JOIN genres g
-                            ON mg.genre_id=g.genre_id
-                            WHERE revenue IS NOT NULL AND runtime IS NOT NULL
-                            GROUP BY genre, runtime
-                            ORDER BY runtime;''',
     'countByGender': '''select * from CACHE_countByGender''',
-    'countByPlace': '''SELECT place_of_birth AS place, COUNT(*) AS COUNT
-                       FROM people
-                       WHERE place_of_birth IS NOT NULL 
-                       GROUP BY place_of_birth;''',
     'budgetRevenueLanguagePopularity': '''select * from CACHE_budgetRevenueLanguagePopularity''',
-    'budgetRatingGenre': '''SELECT m.title, m.budget, m.vote_average, g.name
-                            FROM movies m
-                            INNER JOIN movie_genres mg
-                            ON m.movie_id=mg.movie_id
-                            INNER JOIN genres g
-                            ON mg.genre_id=g.genre_id
-                            WHERE m.budget IS NOT NULL AND m.vote_average IS NOT NULL;''',
     'avgRevenueByGenreForActor': '''SELECT g.name AS genre, AVG(revenue) AS revenue
                                     FROM people p
                                     INNER JOIN credits c

@@ -2,6 +2,7 @@
 
 import json
 import logging
+import time
 import urllib.error
 import urllib.request
 from argparse import ArgumentParser
@@ -16,13 +17,12 @@ databuilder_helper.configure_logging('get_movies.log')
 logging.info('Program started.')
 
 api_key, user, password, host, database, port = databuilder_helper.get_config()
-MOVIE_INSERT_QUERY = 'INSERT INTO movies VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
-MOVIE_GENRES_INSERT_QUERY = 'INSERT INTO movie_genres VALUES (%s, %s)'
-MOVIE_PRODUCTION_COMPANIES_INSERT_QUERY = 'INSERT INTO movie_production_companies VALUES (%s, %s)'
-MOVIE_PRODUCTION_COUNTRIES_INSERT_QUERY = 'INSERT INTO movie_production_countries VALUES (%s, %s)'
-MOVIE_LANGUAGES_INSERT_QUERY = 'INSERT INTO movie_languages VALUES (%s, %s)'
-CREDITS_INSERT_QUERY = 'INSERT INTO credits VALUES (%s, %s)'
-MOVIE_DELETE_QUERY = 'DELETE FROM movies WHERE movie_id=%s'
+MOVIES_INSERT_QUERY = 'INSERT INTO movies VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);'
+MOVIE_GENRES_INSERT_QUERY = 'INSERT IGNORE INTO movie_genres VALUES (%s, %s);'
+MOVIE_PRODUCTION_COMPANIES_INSERT_QUERY = 'INSERT INTO movie_production_companies VALUES (%s, %s);'
+MOVIE_PRODUCTION_COUNTRIES_INSERT_QUERY = 'INSERT INTO movie_production_countries VALUES (%s, %s);'
+MOVIE_LANGUAGES_INSERT_QUERY = 'INSERT INTO movie_languages VALUES (%s, %s);'
+CREDITS_INSERT_QUERY = 'INSERT IGNORE INTO credits VALUES (%s, %s);'
 
 
 def get_movie(movie_id):
@@ -63,13 +63,18 @@ def get_movie(movie_id):
     popularity = movie_json['popularity']
     poster_path = movie_json['poster_path']
 
-    try:
-        release_date = datetime.strptime(movie_json['release_date'], '%Y-%m-%d').date()
-
-    except ValueError:
-        logging.warning(
-            f'Could not set release_date "{movie_json["release_date"]}" for movie_id {movie_id}. Setting it to NULL instead.')
+    release_date = movie_json['release_date']
+    if release_date == '':
         release_date = None
+
+    else:
+        try:
+            release_date = datetime.strptime(release_date, '%Y-%m-%d').date()
+
+        except ValueError:
+            logging.warning(
+                f'Could not set release_date "{release_date}" for movie_id {movie_id}. Setting it to NULL instead.')
+            release_date = None
 
     revenue = movie_json['revenue']
     if revenue == 0:
@@ -95,51 +100,50 @@ def get_movie(movie_id):
 
     cnx, cursor = databuilder_helper.connect_db(user, password, host, database, port)
     try:
-        cursor.execute(MOVIE_INSERT_QUERY, (backdrop_path, budget, homepage, movie_id, imdb_id,
-                                            original_language, original_title, overview, popularity,
-                                            poster_path, release_date, revenue, runtime, status, tagline, title,
-                                            vote_average, vote_count))
+        cursor.execute(MOVIES_INSERT_QUERY, (
+            backdrop_path, budget, homepage, movie_id, imdb_id, original_language, original_title, overview, popularity,
+            poster_path, release_date, revenue, runtime, status, tagline, title, vote_average, vote_count))
         # logging.info(f'Successfully executed INSERT operation for movie_id {movie_id}!')
 
         for genre in movie_json['genres']:
             genre_id = genre['id']
 
-            cursor.execute(MOVIE_GENRES_INSERT_QUERY, (genre_id, movie_id))
-            # logging.info(f'Successfully executed INSERT operation for genre_id {genre_id}, movie_id {movie_id}!')
+            cursor.execute(MOVIE_GENRES_INSERT_QUERY, (movie_id, genre_id))
+            # logging.info(f'Successfully executed INSERT operation for movie_id {movie_id}, genre_id {genre_id}!')
 
         for production_company in movie_json['production_companies']:
             production_company_id = production_company['id']
 
-            cursor.execute(MOVIE_PRODUCTION_COMPANIES_INSERT_QUERY, (production_company_id, movie_id))
-            # logging.info(
-            #     f'Successfully executed INSERT operation for production_company_id {production_company_id}, movie_id {movie_id}!')
+            try:
+                cursor.execute(MOVIE_PRODUCTION_COMPANIES_INSERT_QUERY, (movie_id, production_company_id))
+                # logging.info(
+                #     f'Successfully executed INSERT operation for movie_id {movie_id}, production_company_id {production_company_id}!')
+            except Exception as e:
+                logging.warning(e)
+
+                continue
 
         for production_country in movie_json['production_countries']:
             iso_3166_1 = production_country['iso_3166_1']
 
-            cursor.execute(MOVIE_PRODUCTION_COUNTRIES_INSERT_QUERY, (iso_3166_1, movie_id))
+            cursor.execute(MOVIE_PRODUCTION_COUNTRIES_INSERT_QUERY, (movie_id, iso_3166_1))
             # logging.info(
-            #     f'Successfully executed INSERT operation for iso_3166_1 {iso_3166_1}, movie_id {movie_id}!')
+            #     f'Successfully executed INSERT operation for movie_id {movie_id}, iso_3166_1 {iso_3166_1}!')
 
         for spoken_language in movie_json['spoken_languages']:
             iso_639_1 = spoken_language['iso_639_1']
 
-            cursor.execute(MOVIE_LANGUAGES_INSERT_QUERY, (iso_639_1, movie_id))
-            # logging.info(f'Successfully executed INSERT operation for iso_639_1 {iso_639_1}, movie_id {movie_id}!')
+            cursor.execute(MOVIE_LANGUAGES_INSERT_QUERY, (movie_id, iso_639_1))
+            # logging.info(f'Successfully executed INSERT operation for movie_id {movie_id}, iso_639_1 {iso_639_1}!')
 
         if 'credits' in movie_json:
             for credits in [movie_json['credits']['cast'], movie_json['credits']['crew']]:
                 for credit in credits:
                     person_id = credit['id']
 
-                    try:
-                        cursor.execute(CREDITS_INSERT_QUERY, (movie_id, person_id))
-                        # logging.info(
-                        #     f'Successfully executed INSERT operation for movie_id {movie_id}, person_id {person_id}!')
-                    except Exception as e:
-                        logging.warning(e)
-
-                        continue
+                    cursor.execute(CREDITS_INSERT_QUERY, (movie_id, person_id))
+                    # logging.info(
+                    #     f'Successfully executed INSERT operation for movie_id {movie_id}, person_id {person_id}!')
 
     except Exception as e:
         logging.critical(e)
@@ -161,8 +165,17 @@ def update_movies():
     movies_url = f'https://api.themoviedb.org/3/movie/changes?api_key={api_key}&start_date={yesterday_str}&end_date={today_str}'
 
     logging.info('Updating records...')
-    with urllib.request.urlopen(movies_url) as movies:
-        movies_json = json.loads(movies.read().decode())
+    while True:
+        try:
+            with urllib.request.urlopen(movies_url) as movies:
+                movies_json = json.loads(movies.read().decode())
+
+            break
+
+        except urllib.error.HTTPError as e:
+            seconds = 60
+            logging.warning(f'Could not get movies updates: {e}. Trying again after {seconds} seconds.')
+            time.sleep(seconds)
 
     daily_change_ids = set()
     for result in movies_json['results']:
@@ -173,9 +186,8 @@ def update_movies():
     logging.info('Removing outdated records...')
     cnx, cursor = databuilder_helper.connect_db(user, password, host, database, port)
 
-    for movie_id in tqdm(daily_change_ids):
-        cursor.execute(MOVIE_DELETE_QUERY, (movie_id,))
-
+    MOVIE_DELETE_QUERY = f'DELETE FROM movies WHERE movie_id IN ({", ".join(["%s"] * len(daily_change_ids))});'
+    cursor.execute(MOVIE_DELETE_QUERY, list(daily_change_ids))
     cnx.commit()
     logging.info('Successfully removed outdated records!')
 
@@ -189,8 +201,7 @@ def update_movies():
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument('-daily_update', action='store_true',
-                        help='fetch updates (program needs to run daily from the cron job)')
+    parser.add_argument('-daily_update', action='store_true', help='fetch updates from yesterday')
     args = parser.parse_args()
 
     table_names = [

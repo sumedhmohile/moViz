@@ -15,6 +15,7 @@ apis_json = apis.json()
 for api in apis_json:
     logging.info(f'Caching {api}...')
     requests.get(apis_json[api])
+    logging.info(f'Successfully cached {api}!')
 
 logging.info('Program terminated.')
 

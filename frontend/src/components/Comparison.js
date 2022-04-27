@@ -85,10 +85,9 @@ function fetchGraphData(
   });
 
   axios
-    .get(
-      "http://ec2-3-19-241-187.us-east-2.compute.amazonaws.com:8000/api/peopleCorrelation/",
-      { params: { person_name1: actor1Input, person_name2: actor2Input } }
-    )
+    .get("/api/peopleCorrelation/", {
+      params: { person_name1: actor1Input, person_name2: actor2Input },
+    })
     .then((response) => {
       console.log(response);
 

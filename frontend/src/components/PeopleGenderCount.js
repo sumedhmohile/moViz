@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Plot from "react-plotly.js";
 import { Box } from "@mui/material";
+import Plot from "react-plotly.js";
 
 export const PeopleGenderCount = () => {
   const [graphData, setGraphData] = useState([]);
@@ -10,11 +10,11 @@ export const PeopleGenderCount = () => {
     axios
       .get("/api/peopleGenderCount/")
       .then((response) => {
-        let genders = new Set(response.data.map((x) => x.gender));
-
         let data = [];
-        for (let gender of genders) {
+
+        for (let gender of new Set(response.data.map((x) => x.gender))) {
           let gender_data = response.data.filter((x) => x.gender === gender);
+
           data.push({
             x: gender_data.map((x) => x.count).reverse(),
             y: gender_data.map((x) => x.known_for_department).reverse(),
@@ -31,24 +31,27 @@ export const PeopleGenderCount = () => {
   }, []);
 
   return (
-    <Box sx={{m: '3em', boxShadow:3}} height='90vh '>
-    <Plot
-      data={graphData}
-      layout={{
-        title: "People Gender Distribution",
-        xaxis: {
-          title: "Count",
-          tickformat: "s",
-          rangeslider: {},
-        },
-        yaxis: { automargin: true, title: "Known for Department" },
-      }}
-      style={{ width: "100%", height: "100%" }}
-      config={{
-        scrollZoom: true,
-        responsive: true,
-      }}
-    />
+    <Box sx={{ m: "3em", boxShadow: 3 }} height="90vh">
+      <Plot
+        data={graphData}
+        layout={{
+          title: "People Gender Distribution",
+          xaxis: {
+            title: "Count",
+            tickformat: "s",
+            rangeslider: {},
+          },
+          yaxis: {
+            title: "Known for Department",
+            automargin: true,
+          },
+        }}
+        style={{ width: "100%", height: "100%" }}
+        config={{
+          scrollZoom: true,
+          responsive: true,
+        }}
+      />
     </Box>
   );
 };

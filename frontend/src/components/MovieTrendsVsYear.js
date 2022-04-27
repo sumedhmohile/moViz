@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Plot from "react-plotly.js";
+import { Box } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
-import { Box } from "@mui/material";
+import Plot from "react-plotly.js";
 
 export const MovieTrendsVsYear = () => {
   const [genreData, setGenreData] = useState([]);
@@ -105,16 +105,19 @@ export const MovieTrendsVsYear = () => {
   }, []);
 
   return (
-    <Box sx={{m:'3rem'}}>
+    <Box sx={{ m: "3rem" }}>
       <Grid container spacing={5}>
         <Grid item xs={8}>
-          <FormControl justifyContent='center' sx={{
-            p: '30px',
-            justifyContent:'center',
-            alignItems:'center',
-            background: 'white',
-            boxShadow: 3,
-          }}>
+          <FormControl
+            justifyContent="center"
+            sx={{
+              p: "30px",
+              justifyContent: "center",
+              alignItems: "center",
+              background: "white",
+              boxShadow: 3,
+            }}
+          >
             <FormLabel>Set Y-Axis</FormLabel>
             <RadioGroup
               row
@@ -161,14 +164,16 @@ export const MovieTrendsVsYear = () => {
         </Grid>
 
         <Grid item xs={4}>
-          <FormControl sx={{
-            justifyContent:'center',
-            alignItems:'center',
-            width: '100%',
-            height: '100%',
-            background: 'white',
-            boxShadow: 3,
-          }}>
+          <FormControl
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              height: "100%",
+              background: "white",
+              boxShadow: 3,
+            }}
+          >
             <FormLabel>Set Plot Type</FormLabel>
             <RadioGroup
               row
@@ -190,12 +195,16 @@ export const MovieTrendsVsYear = () => {
         </Grid>
       </Grid>
 
-      <Box height='90vh' item xs={12}
-      sx={{
-        mt: '30px',
-        background: 'white',
-        boxShadow: 3,
-      }}>
+      <Box
+        height="90vh"
+        item
+        xs={12}
+        sx={{
+          mt: "30px",
+          background: "white",
+          boxShadow: 3,
+        }}
+      >
         <Plot
           data={data}
           layout={{

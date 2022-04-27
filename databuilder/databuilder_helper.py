@@ -90,13 +90,15 @@ def create_tables_if_not_exist(table_names):
 
 
 def get_ids_fe(ids, date):
-    logging.info(f'Checking if {LOOKUP[ids]["name"]} file export for {date} exists in directory...')
+    name = LOOKUP[ids]["name"]
+
+    logging.info(f'Checking if {name} file export for {date} exists in directory...')
     if os.path.exists(f'{ids}_{date}.json.gz'):
-        logging.info(f'{LOOKUP[ids]["name"]} file export for {date} exists in directory!')
+        logging.info(f'{name} file export for {date} exists in directory!')
 
     else:
-        logging.info(f'{LOOKUP[ids]["name"]} file export for {date} does not exist in directory.')
-        logging.info(f'Retrieving {LOOKUP[ids]["name"]} file export for {date}...')
+        logging.info(f'{name} file export for {date} does not exist in directory.')
+        logging.info(f'Retrieving {name} file export for {date}...')
         fe_url = f'https://files.tmdb.org/p/exports/{ids}_{date}.json.gz'
 
         while True:
@@ -108,10 +110,10 @@ def get_ids_fe(ids, date):
             except urllib.error.HTTPError as e:
                 seconds = 60
                 logging.warning(
-                    f'Could not retrieve {LOOKUP[ids]["name"]} file export for {date}: {e}. Trying again after {seconds} seconds.')
+                    f'Could not retrieve {name} file export for {date}: {e}. Trying again after {seconds} seconds.')
                 time.sleep(seconds)
 
-        logging.info(f'Successfully retrieved {LOOKUP[ids]["name"]} file export!')
+        logging.info(f'Successfully retrieved {name} file export!')
 
     logging.info(f'Extracting .json file from {ids}_{date}.json.gz...')
     with gzip.open(f'{ids}_{date}.json.gz', 'rb') as gzip_file:
@@ -149,10 +151,12 @@ def get_ids_db(ids):
 
 
 def remove_fe(ids, date):
-    logging.info(f'Removing {LOOKUP[ids]["name"]} file export and .json file for {date} from directory...')
+    name = LOOKUP[ids]["name"]
+
+    logging.info(f'Removing {name} file export and .json file for {date} from directory...')
     os.remove(f'{ids}_{date}.json')
     os.remove(f'{ids}_{date}.json.gz')
-    logging.info(f'Successfully removed {LOOKUP[ids]["name"]} file export and .json file for {date} from directory!')
+    logging.info(f'Successfully removed {name} file export and .json file for {date} from directory!')
 
 
 def get_new_records_fe(ids, get_function):

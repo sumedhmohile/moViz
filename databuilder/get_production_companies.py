@@ -11,7 +11,7 @@ databuilder_helper.configure_logging('get_production_companies.log')
 logging.info('Program started.')
 
 api_key, user, password, host, database, port = databuilder_helper.get_config()
-PRODUCTION_COMPANY_INSERT_QUERY = 'INSERT INTO production_companies VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'
+PRODUCTION_COMPANIES_INSERT_QUERY = 'INSERT INTO production_companies VALUES (%s, %s, %s, %s, %s, %s, %s, %s);'
 
 
 def get_production_company(production_company_id):
@@ -50,7 +50,7 @@ def get_production_company(production_company_id):
 
     cnx, cursor = databuilder_helper.connect_db(user, password, host, database, port)
     try:
-        cursor.execute(PRODUCTION_COMPANY_INSERT_QUERY, (
+        cursor.execute(PRODUCTION_COMPANIES_INSERT_QUERY, (
             description, headquarters, homepage, production_company_id, logo_path, name, origin_country,
             parent_company_id))
 

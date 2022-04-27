@@ -36,6 +36,12 @@ router.register(r'peopleGenderCount', views.PeopleGenderCountView, basename='peo
 router.register(r'peopleDepartmentCount', views.PeopleDepartmentCountView, basename='peopleDepartmentCount')
 router.register(r'peoplePopularPlacesOfBirth', views.PeoplePopularPlacesOfBirthView,
                 basename='peoplePopularPlacesOfBirth')
+router.register(r'comparisonForPerson', views.ComparisonDataForPerson,
+                basename='comparisonForPerson')
+router.register(r'peopleCorrelation', views.PeopleCorrelation,
+                basename='peopleCorrelation')
+router.register(r'movieTopTenByVector', views.MovieTopTenByVector, basename='movieTopTenByVector')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

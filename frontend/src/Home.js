@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -10,103 +11,105 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { RevenueGenreTime } from "./components/RevenueGenreTime";
-import { AvgRevenueActorGenre } from "./components/AvgRevenueActorGenre";
-import { PopularityByGenreAndYear } from "./components/PopularityByGenreAndYear";
+import Button from '@mui/material/Button';
+import Fade from '@mui/material/Fade';
 
-import { MovieCountVsYear } from "./components/MovieCountVsYear";
-import { MovieTotalRevenueVsYear } from "./components/MovieTotalRevenueVsYear";
-import { MovieAvgRevenueVsYear } from "./components/MovieAvgRevenueVsYear";
-import { MovieTotalBudgetVsYear } from "./components/MovieTotalBudgetVsYear";
-import { MovieAvgBudgetVsYear } from "./components/MovieAvgBudgetVsYear";
-import BudgetPopularityGenre from "./components/BudgetPopularityGenre";
-import CompHolder from "./components/CompHolder";
-import ActorGenderCount from "./components/ActorGenderCount";
-import DurationVsRevenueGraph from "./components/DurationVsRevenueGraph";
-import LanguageRevenueBudgetPopularity from "./components/LanguageRevenueBudgetPopularity";
+import { MovieTopTenMostPopular } from "./components/MovieTopTenMostPopular";
+import { MovieTrendsVsYear } from "./components/MovieTrendsVsYear";
+import { ActorGenreVsAvgRevenue } from "./components/ActorGenreVsAvgRevenue";
+import { MovieGenreVsBudgetVsRating } from "./components/MovieGenreVsBudgetVsRating";
+import  Comparison from "./components/Comparison";
+import { MovieGenreVsAvgRevenueVsRuntime } from "./components/MovieGenreVsAvgRevenueVsRuntime";
+import { MovieLanguageVsAvgBudgetVsAvgRevenue } from "./components/MovieLanguageVsAvgBudgetVsAvgRevenue";
 
-const drawerWidth = window.innerWidth / 6;
+import { PeopleTopTenMostPopular } from "./components/PeopleTopTenMostPopular";
+import { PeopleDepartmentCount } from "./components/PeopleDepartmentCount";
+import { PeopleGenderCount } from "./components/PeopleGenderCount";
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-  marginTop: window.innerHeight / 15,
-  zIndex: "0",
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
+import TopChartsHolder from "./components/TopChartsHolder";
+
+const drawerWidth = window.innerWidth / 5;
 
 export const Home = () => {
-  const basicGraphList = [
-    "Movie Count vs. Year",
-    "Movie Total Revenue vs. Year",
-    "Movie Average Revenue vs. Year",
-    "Movie Total Budget vs. Year",
-    "Movie Average Budget vs. Year",
-    "Actor Gender Distribution",
-  ];
-
   const graphList = [
-    "Movie Genre vs. Revenue vs. Year",
-    "Genre Popularity vs. Year",
-    "Average Revenue of Actors by Genre",
-    "Movie Budget vs. Rating by Genre",
-    "Actor Correlation for Average Revenue by Genre",
-    "Average Revenue vs. Movie Runtime",
+    "Movie Trends vs. Year",
+    "Movie Top Ten Most Popular",
+    "Average Revenue of Popular Actors by Genre",
+    "Movie Genre vs. Budget vs. Rating",
+    "Actor Correlation",
+    "Movie Genre vs. Average Revenue vs. Runtime",
     "Impact of Language on Popularity, Budget and Revenue",
+    "People Top Ten Most Popular",
+    "People Department Count",
+    "People Gender Distribution",
+    "Top Charts"
   ];
+  const componentList = [<MovieTrendsVsYear/>, <MovieTopTenMostPopular/>, <ActorGenreVsAvgRevenue/>, 
+    <MovieGenreVsBudgetVsRating/>, <Comparison/>, <MovieGenreVsAvgRevenueVsRuntime/>, 
+    <MovieLanguageVsAvgBudgetVsAvgRevenue/>, <PeopleTopTenMostPopular/>, <PeopleDepartmentCount/>, <PeopleGenderCount/>, <TopChartsHolder/>
+  ]
 
-  const theme = useTheme();
+  const fadeTime = 200
+
+  const theme = useTheme()
   const [displayGraph, setDisplayGraph] = useState(0);
+
+  const boxColor = '#135DA8'
+
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
 
-      <Drawer variant="permanent">
-        <DrawerHeader />
-        <List sx={{ width: drawerWidth }}>
+      <Drawer PaperProps={{
+        sx: {
+          backgroundColor: boxColor,
+          color: 'white',
+          width: drawerWidth
+        }
+      }}
+      variant="permanent" 
+      anchor='left'>
+        <Box sx={{background: boxColor, 
+                    height:window.innerHeight/10,
+                    display:'flex',
+                    justifyContent:'center',
+                    alignItems: 'center',
+                    m: '10px',
+                  }}>
+              <Typography sx={{fontWeight: 'bold', color:'white'}} variant="h4" noWrap component="div">
+                MoViz
+              </Typography>
+        </Box>
+
+        <List sx={{width: drawerWidth }}>
           {graphList.map((text, index) => (
+            <>
             <ListItemButton
+              sx={{
+                mx: '10px',
+                borderRadius: '10px',
+                background: displayGraph === index ? '#1773CF' : boxColor,
+                color: displayGraph === index ? 'white' : '#D6D6D6',
+              }}
+            
               onClick={() => {
                 setDisplayGraph(index);
               }}
               key={text}
-              sx={{
-                minHeight: window.innerHiehgt / 10,
-                justifyContent: "initial",
-                px: window.innerWidth / 400,
-              }}
             >
               <ListItemText primary={text} />
             </ListItemButton>
-          ))}
-        </List>
-        <Divider />
-
-        <List sx={{ width: drawerWidth }}>
-          {basicGraphList.map((text, index) => (
-            <ListItemButton
-              onClick={() => {
-                setDisplayGraph(index + graphList.length);
-              }}
-              key={text}
-              sx={{
-                minHeight: window.innerHeight / 10,
-                justifyContent: "initial",
-                px: window.innerWidth / 400,
-              }}
-            >
-              <ListItemText primary={text} />
-            </ListItemButton>
+            {index===6 && <Divider sx={{ borderBottomWidth: 2 }}/>}
+            </>
           ))}
         </List>
       </Drawer>
 
-      <AppBar
+      {/* <AppBar
         sx={{
+          background: 'white',
+          width: `calc(100% - ${drawerWidth}px)`,
           height: window.innerHeight / 10,
           zIndex: theme.zIndex.drawer + 1,
         }}
@@ -116,40 +119,53 @@ export const Home = () => {
           sx={{
             // marginLeft: drawerWidth/40,
             height: "100%",
-            justifyContent: "center",
           }}
         >
-          <Typography variant="h4" noWrap component="div">
+          <Typography style={{marginRight:30}} variant="h4" noWrap component="div">
             MoViz
           </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page, index) => (
+              <Link href="#"
+                onClick={() => {
+                  setDisplayPage(index + 1);
+                }}
+                key={page}
+                sx={{ mx:2, my: 2, color: 'white', display: 'block', 
+                    '&:hover': {
+                      color: '#000',
+                      textDecoration: 'none'
+                    },
+                }}
+              >
+                {page}
+              </Link>
+            ))}
+          </Box>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
 
-      <Box
-        component="main"
-        sx={{
-          height: "95vh",
-          marginLeft: window.innerWidth / 45,
-          flexGrow: 1,
-          p: 3,
-        }}
-      >
-        <DrawerHeader />
-        {displayGraph === 0 && <RevenueGenreTime />}
-        {displayGraph === 1 && <PopularityByGenreAndYear />}
-        {displayGraph === 2 && <AvgRevenueActorGenre />}
-        {displayGraph === 3 && <BudgetPopularityGenre />}
-        {displayGraph === 4 && <CompHolder />}
-        {displayGraph === 5 && <DurationVsRevenueGraph />}
-        {displayGraph === 6 && <LanguageRevenueBudgetPopularity />}
-
-        {displayGraph === 7 && <MovieCountVsYear />}
-        {displayGraph === 8 && <MovieTotalRevenueVsYear />}
-        {displayGraph === 9 && <MovieAvgRevenueVsYear />}
-        {displayGraph === 10 && <MovieTotalBudgetVsYear />}
-        {displayGraph === 11 && <MovieAvgBudgetVsYear />}
-        {displayGraph === 12 && <ActorGenderCount />}
-      </Box>
+           
+        <Box
+          component="main"
+          sx={{
+            background: '#eaedf2',
+            height: "fit-content",
+            marginLeft: `${drawerWidth}px`,
+            flexGrow: 1,
+            p: 3,
+          }}
+        >
+          {componentList.map((component, index) => (
+            <>
+              {displayGraph === index && <Fade timeout={fadeTime} in={displayGraph===index}>
+                <div>
+                  {component}
+                </div>
+                </Fade>}
+            </>
+          ))}
+        </Box>
     </Box>
   );
 };

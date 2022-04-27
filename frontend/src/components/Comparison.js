@@ -57,32 +57,34 @@ function fetchGraphData(
       actor1RatingSetter(ratingArray);
     });
 
-  axios.get(URL, { params: { person_name: actor2Input } }).then((response) => {
-    console.log(response);
+  axios
+    .get("/api/comparisonForPerson/", { params: { person_name: actor2Input } })
+    .then((response) => {
+      console.log(response);
 
-    var dataArray = response.data;
+      var dataArray = response.data;
 
-    let genreArray = [];
-    let revenueArray = [];
-    let budgetArray = [];
-    let popularityArray = [];
-    let ratingArray = [];
+      let genreArray = [];
+      let revenueArray = [];
+      let budgetArray = [];
+      let popularityArray = [];
+      let ratingArray = [];
 
-    for (let i = 0; i < dataArray.length; ++i) {
-      genreArray.push(dataArray[i].genre_name);
-      revenueArray.push(dataArray[i].avg_revenue);
-      budgetArray.push(dataArray[i].avg_budget);
-      popularityArray.push(dataArray[i].avg_popularity);
-      ratingArray.push(dataArray[i].avg_rating);
-    }
+      for (let i = 0; i < dataArray.length; ++i) {
+        genreArray.push(dataArray[i].genre_name);
+        revenueArray.push(dataArray[i].avg_revenue);
+        budgetArray.push(dataArray[i].avg_budget);
+        popularityArray.push(dataArray[i].avg_popularity);
+        ratingArray.push(dataArray[i].avg_rating);
+      }
 
-    actor2GenreSetter(genreArray);
-    actor2RevenueSetter(revenueArray);
-    budgetactor2GenreSetter(genreArray);
-    budgetactor2RevenueSetter(budgetArray);
-    actor2PopularitySetter(popularityArray);
-    actor2RatingSetter(ratingArray);
-  });
+      actor2GenreSetter(genreArray);
+      actor2RevenueSetter(revenueArray);
+      budgetactor2GenreSetter(genreArray);
+      budgetactor2RevenueSetter(budgetArray);
+      actor2PopularitySetter(popularityArray);
+      actor2RatingSetter(ratingArray);
+    });
 
   axios
     .get("/api/peopleCorrelation/", {

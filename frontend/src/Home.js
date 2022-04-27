@@ -27,6 +27,7 @@ import { PeopleDepartmentCount } from "./components/PeopleDepartmentCount";
 import { PeopleGenderCount } from "./components/PeopleGenderCount";
 
 import { TopChartsHolder } from "./components/TopChartsHolder";
+import { About } from "./components/About";
 
 const drawerWidth = window.innerWidth / 5;
 
@@ -61,7 +62,7 @@ export const Home = () => {
   const fadeTime = 200;
 
   const theme = useTheme();
-  const [displayGraph, setDisplayGraph] = useState(0);
+  const [displayGraph, setDisplayGraph] = useState(-1);
 
   const boxColor = "#135DA8";
 
@@ -179,6 +180,7 @@ export const Home = () => {
           p: 3,
         }}
       >
+        {displayGraph===-1 && <About/>}
         {componentList.map((component, index) => (
           <>
             {displayGraph === index && (

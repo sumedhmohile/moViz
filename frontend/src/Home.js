@@ -92,6 +92,8 @@ export const Home = () => {
           }}
         >
           <Typography
+            onClick={()=>(setDisplayGraph(-1))}
+            style={{cursor: 'pointer'}}
             sx={{ fontWeight: "bold", color: "white" }}
             variant="h4"
             noWrap
@@ -180,7 +182,11 @@ export const Home = () => {
           p: 3,
         }}
       >
-        {displayGraph===-1 && <About/>}
+        {displayGraph===-1 && (
+          <Fade timeout={fadeTime} in={displayGraph === -1}>
+            <div><About/></div>
+          </Fade>
+        )}
         {componentList.map((component, index) => (
           <>
             {displayGraph === index && (

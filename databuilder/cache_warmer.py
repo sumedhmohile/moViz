@@ -12,9 +12,10 @@ logging.info('Program started.')
 apis = requests.get('http://localhost:8000/api/')
 apis_json = apis.json()
 
-for key in apis_json:
-    logging.info(f'Caching {key}...')
-    requests.get(apis_json[key])
+for api in apis_json:
+    logging.info(f'Caching {api}...')
+    requests.get(apis_json[api])
+    logging.info(f'Successfully cached {api}!')
 
 logging.info('Program terminated.')
 

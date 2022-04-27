@@ -2,6 +2,7 @@
 
 import json
 import logging
+import time
 import urllib.error
 import urllib.request
 from argparse import ArgumentParser
@@ -16,8 +17,7 @@ databuilder_helper.configure_logging('get_people.log')
 logging.info('Program started.')
 
 api_key, user, password, host, database, port = databuilder_helper.get_config()
-PERSON_INSERT_QUERY = 'INSERT INTO people VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
-PERSON_DELETE_QUERY = 'DELETE FROM people WHERE person_id=%s'
+PEOPLE_INSERT_QUERY = 'INSERT INTO people VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);'
 
 
 def get_person(person_id):
@@ -32,26 +32,29 @@ def get_person(person_id):
 
         return
 
-    try:
-        birthday = datetime.strptime(person_json['birthday'], '%Y-%m-%d').date()
+    birthday = person_json['birthday']
+    if birthday:
+        try:
+            birthday = datetime.strptime(birthday, '%Y-%m-%d').date()
 
-    except (ValueError, TypeError):
-        logging.warning(
-            f'Could not set birthday "{person_json["birthday"]}" for person_id {person_id}. Setting it to NULL instead.')
-        birthday = None
+        except (ValueError, TypeError):
+            logging.warning(
+                f'Could not set birthday "{birthday}" for person_id {person_id}. Setting it to NULL instead.')
+            birthday = None
 
     known_for_department = person_json['known_for_department']
-
     if known_for_department == 'Actors':
         known_for_department = 'Acting'
 
-    try:
-        deathday = datetime.strptime(person_json['deathday'], '%Y-%m-%d').date()
+    deathday = person_json['deathday']
+    if deathday:
+        try:
+            deathday = datetime.strptime(deathday, '%Y-%m-%d').date()
 
-    except (ValueError, TypeError):
-        logging.warning(
-            f'Could not set deathday "{person_json["deathday"]}" for person_id {person_id}. Setting it to NULL instead.')
-        deathday = None
+        except (ValueError, TypeError):
+            logging.warning(
+                f'Could not set deathday "{deathday}" for person_id {person_id}. Setting it to NULL instead.')
+            deathday = None
 
     name = person_json['name']
 
@@ -72,7 +75,6 @@ def get_person(person_id):
     popularity = person_json['popularity']
     place_of_birth = person_json['place_of_birth']
     profile_path = person_json['profile_path']
-
     adult = int(person_json['adult'])
 
     imdb_id = person_json['imdb_id']
@@ -83,7 +85,7 @@ def get_person(person_id):
 
     cnx, cursor = databuilder_helper.connect_db(user, password, host, database, port)
     try:
-        cursor.execute(PERSON_INSERT_QUERY, (
+        cursor.execute(PEOPLE_INSERT_QUERY, (
             birthday, known_for_department, deathday, person_id, name, gender, biography, popularity, place_of_birth,
             profile_path, adult, imdb_id, homepage))
         # logging.info(f'Successfully executed INSERT operation for person_id {person_id}!')
@@ -108,8 +110,17 @@ def update_people():
     people_url = f'https://api.themoviedb.org/3/person/changes?api_key={api_key}&start_date={yesterday_str}&end_date={today_str}'
 
     logging.info('Updating records...')
-    with urllib.request.urlopen(people_url) as people:
-        people_json = json.loads(people.read().decode())
+    while True:
+        try:
+            with urllib.request.urlopen(people_url) as people:
+                people_json = json.loads(people.read().decode())
+
+            break
+
+        except urllib.error.HTTPError as e:
+            seconds = 60
+            logging.warning(f'Could not get people updates: {e}. Trying again after {seconds} seconds.')
+            time.sleep(seconds)
 
     daily_change_ids = set()
     for result in people_json['results']:
@@ -120,9 +131,8 @@ def update_people():
     logging.info('Removing outdated records...')
     cnx, cursor = databuilder_helper.connect_db(user, password, host, database, port)
 
-    for person_id in tqdm(daily_change_ids):
-        cursor.execute(PERSON_DELETE_QUERY, (person_id,))
-
+    PEOPLE_DELETE_QUERY = f'DELETE FROM people WHERE person_id IN ({", ".join(["%s"] * len(daily_change_ids))});'
+    cursor.execute(PEOPLE_DELETE_QUERY, list(daily_change_ids))
     cnx.commit()
     logging.info('Successfully removed outdated records!')
 
@@ -136,8 +146,7 @@ def update_people():
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument('-daily_update', action='store_true',
-                        help='fetch updates (program needs to run daily from the cron job)')
+    parser.add_argument('-daily_update', action='store_true', help='fetch updates from yesterday')
     args = parser.parse_args()
 
     table_names = ['people']

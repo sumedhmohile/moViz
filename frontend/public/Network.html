@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v6.js"></script>
+
+<!-- Create a div where the graph will take place -->
+<div id="my_dataviz"></div>
+
+<style>
+  div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 60px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+    // set the dimensions and margins of the graph
+    const margin = {top: 10, right: 30, bottom: 30, left: 40},
+      width = window.innerWidth- margin.left - margin.right,
+      height = window.innerHeight - margin.top - margin.bottom;
+    
+    // append the svg object to the body of the page
+    const svg = d3.select("#my_dataviz")
+    .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform",
+            `translate(${margin.left}, ${margin.top})`);
+
+    var div = d3.select("#my_dataviz").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+      //initial dataset
+    // cit-Patents_1092_919138.txt   2^10
+    // cit-Patents_7315_1037462.txt  2^13
+    // cit-Patents_103101_508033.txt 2^15
+
+    var nodecollector = []
+
+    d3.text("https://raw.githubusercontent.com/walrm/cs526files/main/outdata_filtered.csv").then( function( data) {
+      data = data.split('\n')
+      console.log(data)
+
+      var nodecollector = []
+      var linkcollector = []
+      var weights = []
+      for(var i=1; i<data.length; i++){
+        const firstComma = data[i].indexOf('~')
+        const source = data[i].substring(0, firstComma)
+        const secondComma = data[i].indexOf('~', firstComma+1)
+        const target = data[i].substring(firstComma+1, secondComma)
+        const weight = data[i].substring(secondComma+1)
+        // console.log('source: ' + source)
+        // console.log('target: ' + target)
+        // console.log('weight: ' + weight)
+
+        if(!nodecollector.map(a=>a.name).includes(source)){
+          nodecollector.push({name: source})  
+        }
+        if(!nodecollector.map(a=>a.name).includes(target)){
+          nodecollector.push({name: target})  
+        }
+          
+        linkcollector.push({source: source, target: target, weight:weight})
+        weights.push(parseFloat(weight))
+      }
+
+      console.log(nodecollector)
+      console.log(linkcollector)
+      // console.log(weights)
+
+      // Initialize the links
+      const link = svg
+        .selectAll("line")
+        .data(linkcollector)
+        .join("line")
+          .style("stroke-width", function(d){return d.weight*10})  
+          .style("stroke", "#aaa")
+          .on("mouseover", function(event, n) {
+            div.transition()
+              .duration(200)
+              .style("opacity", .9);
+            div.html(n.source.name + "<br/><br/>" + n.target.name)
+              .style("left", (event.pageX) + "px")
+              .style("top", (event.pageY - 28) + "px");
+            })
+          .on("mouseout", function(d) {
+            div.transition()
+              .duration(500)
+              .style("opacity", 0);
+            });
+    
+      // Initialize the nodes
+      const node = svg
+        .selectAll("circle")
+        .data(nodecollector)
+        .join("circle")
+          .attr("r", 5)
+          .style("fill", "#69b3a2")
+          .on("mouseover", function(event, n) {
+            div.transition()
+              .duration(200)
+              .style("opacity", .9);
+            div.html(n.name)
+              .style("left", (event.pageX) + "px")
+              .style("top", (event.pageY - 28) + "px");
+            })
+          .on("mouseout", function(d) {
+            div.transition()
+              .duration(500)
+              .style("opacity", 0);
+            });
+    
+      // Let's list the force we wanna apply on the network
+      const simulation = d3.forceSimulation(nodecollector)                 // Force algorithm is applied to data.nodes
+          .force("link", d3.forceLink()                               // This force provides links between nodes
+                .id(function(d) { return d.name; })                     // This provide  the id of a node
+                .links(linkcollector)                                    // and this the list of links
+          )
+          .force("charge", d3.forceManyBody().strength(-3))         // This adds repulsion between nodes. Play with the -400 for the repulsion strength
+          .force("center", d3.forceCenter(width / 2, height / 2))     // This force attracts nodes to the center of the svg area
+          .on("end", ticked);
+    
+      // This function is run at each iteration of the force algorithm, updating the nodes position.
+      function ticked() {
+        link
+            .attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+    
+        node
+             .attr("cx", function (d) { return d.x; })
+             .attr("cy", function(d) { return d.y; });
+      }
+    });
+    </script>

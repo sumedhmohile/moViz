@@ -1,5 +1,5 @@
 # MoViz
-https://github.com/sumedhmohile/moViz/assets/16150834/a8bbee8f-3873-4c04-aca6-9f3583db1e18
+https://github.com/sumedhmohile/moViz/assets/16150834/3edcb999-5620-42b3-9b74-13c258826c44
 
 ## Abstract
 We have built a web application to visualize multiple plots describing the movie trends and various relationships between movie cast and production. By utilizing and analyzing these plots, we want to answer the objective question of what properties of a movie make it successful, with success being defined as high revenue or popularity. Users can set the properties and parameters of the plots to gain insights into the data. The data we are using is provided by The Movie Database API.
